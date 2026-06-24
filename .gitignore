@@ -1,0 +1,27 @@
+﻿# Dependensi (di-install ulang via composer install / npm install)
+node_modules
+vendor
+
+# Editor / IDE
+.dist
+.vscode
+.idea
+
+# Konfigurasi lokal & rahasia
+.env
+
+# Dokumentasi internal (tidak untuk repo publik)
+dokumentasi/
+
+# Dump database (berisi data pasien asli - jangan pernah di-commit)
+*.sql
+
+# File upload pengguna (dokumen sertifikasi, lampiran rekam medis pasien - data sensitif)
+admin/uploads/
+
+# File debug & backup sementara
+admin/ajax/debug_log.txt
+*.bak
+
+# Dokumen kerja internal (bukan bagian source code aplikasi)
+TestCase_EMR_RKD_Pinilih.xlsx

@@ -1,0 +1,21 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: emr-php
+    container_name: php_native_app_prod
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: mysql
+      DB_NAME: emr
+      DB_USER: emr
+      DB_PASS: 1Gb6b]hZwyNHQhPK
+      APP_URL: http://localhost:8080
+    networks:
+      - devrun
+
+networks:
+  devrun:
+    external: true

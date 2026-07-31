@@ -44,7 +44,7 @@
                             <td><?= $datajadwal["waktuSelesai"]; ?></td>
                             <td><?= $datajadwal["instansi"]; ?></td>
                             <td>
-                                <a href="<?= $baseurl ?>/manajemen/321/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
+                                <a href="<?= $baseurl ?>/manajemen/kinesioterapi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
                                     style="border-radius: 8px;">
                                     <i class="fa-regular fa-eye" style="color: #000000;"></i>
                                 </a>

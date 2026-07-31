@@ -26,6 +26,7 @@ include_once("../_function_i/cInsert.php");
 include_once("../_function_i/cUpdate.php");
 include_once("../_function_i/cDelete.php");
 include_once("../_function_i/inc_f_object.php");
+$ROUTES = include("../_function_i/inc_f_routes.php");
 
 $conn = new cConnect();
 $conn->goConnect();
@@ -298,7 +299,7 @@ $conn->goConnect();
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="<?= $baseurl; ?>/manajemen/61"><ion-icon
+                    <li><a class="dropdown-item" href="<?= $baseurl; ?>/manajemen/atur-profil"><ion-icon
                                 name="settings-outline"></ion-icon> Atur Profil</a></li>
                     <li><a class="dropdown-item text-danger" href="<?= $baseurl; ?>/logout.php"><ion-icon
                                 name="log-out-outline"></ion-icon> Log Out</a></li>
@@ -309,7 +310,7 @@ $conn->goConnect();
                 <div class="offcanvas-body mx-3 mt-3">
                     <ul class="navbar-nav me-auto mb-2">
                         <li class="nav-item mb-2">
-                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/1">
+                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/beranda">
                                 <i class="fa-solid fa-house fa-lg" style="color:black;"></i> &nbsp; BERANDA
                             </a>
                         </li>
@@ -319,22 +320,22 @@ $conn->goConnect();
                                 <i class="fa-solid fa-database fa-lg" style="color:black;"></i> &nbsp; MASTER DATA
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/21">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/data-pasien">
                                         <i class="fa-solid fa-hospital-user" style="color:black;"></i> &nbsp; Data
                                         Pasien
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/22">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/data-terapis">
                                         <i class="fa-solid fa-user-doctor" style="color:black;"></i> &nbsp; Data Tenaga
                                         Medis / <br> &nbsp; &nbsp; &nbsp; Paramedis / Non Medis
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/23">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/data-pengguna">
                                         <i class="fa-solid fa-user-tie" style="color:black;"></i> &nbsp; Data Pengguna
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/24">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/data-disabilitas">
                                         <i class="fa-solid fa-wheelchair" style="color:black;"></i> &nbsp; Data
                                         Disabilitas
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/25">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/data-peserta">
                                         <i class="fa-solid fa-users" style="color:black;"></i> &nbsp; Data Peserta
                                     </a></li>
                             </ul>
@@ -346,32 +347,32 @@ $conn->goConnect();
                                 PROGRAM LAYANAN
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/31">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/fisioterapi">
                                         <i class="fa-solid fa-person-cane" style="color:black;"></i> &nbsp; Fisioterapi
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/32">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/kinesioterapi">
                                         <i class="fa-solid fa-people-robbery" style="color:black;"></i> &nbsp;
                                         Kinesioterapi
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/33">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/screening">
                                         <i class="fa-solid fa-user-shield" style="color:black;"></i> &nbsp; Screening
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/34">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/konsultasi">
                                         <i class="fa-solid fa-person-chalkboard" style="color:black;"></i> &nbsp;
                                         Konsultasi
                                     </a></li>
-                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/35">
+                                <li><a class="dropdown-item mb-2" href="<?= $baseurl; ?>/manajemen/edukasi">
                                         <i class="fa-solid fa-chalkboard-user" style="color:black;"></i> &nbsp; Edukasi
                                     </a></li>
                             </ul>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/41">
+                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/rekam-medis">
                                 <i class="fa-solid fa-laptop-medical fa-lg" style="color:black;"></i> &nbsp; REKAM MEDIS
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/51">
+                            <a class="nav-link active" aria-current="page" href="<?= $baseurl; ?>/manajemen/laporan">
                                 <i class="fa-solid fa-chart-line fa-lg" style="color:black;"></i> &nbsp; LAPORAN
                             </a>
                         </li>
@@ -392,74 +393,77 @@ $segments = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
 // cari posisi "manajemen" di URL
 $posManajemen = array_search("manajemen", $segments);
 
-// ambil angka setelah "manajemen" sebagai $link
-if ($posManajemen !== false && isset($segments[$posManajemen + 1]) && is_numeric($segments[$posManajemen + 1])) {
-    $link = (int)$segments[$posManajemen + 1];
-}
-else {
-    $link = 1; // default ke halaman beranda
+// ambil slug setelah "manajemen" (module + opsional "detail")
+$slug = ($posManajemen !== false && isset($segments[$posManajemen + 1]) && $segments[$posManajemen + 1] !== '')
+    ? $segments[$posManajemen + 1]
+    : 'beranda';
+if (($segments[$posManajemen + 2] ?? null) === 'detail') {
+    $slug .= '/detail';
 }
 
-switch ($link) {
-    case 1:
+switch ($slug) {
+    case 'beranda':
         include("incHome.php");
         break;
-    case 21:
+    case 'data-pasien':
         include("incDataPasien.php");
         break;
-    case 22:
+    case 'data-terapis':
         include("incDataTerapis.php");
         break;
-    case 23:
+    case 'data-pengguna':
         include("incDataPengguna.php");
         break;
-    case 24:
+    case 'data-disabilitas':
         include("incDataDisabilitas.php");
         break;
-    case 25:
+    case 'data-peserta':
         include("incDataPeserta.php");
         break;
-    case 31:
+    case 'fisioterapi':
         include("incFisioterapi.php");
         break;
-    case 311:
+    case 'fisioterapi/detail':
         include("detailFisio.php");
         break;
-    case 32:
+    case 'kinesioterapi':
         include("incKinesioterapi.php");
         break;
-    case 321:
+    case 'kinesioterapi/detail':
         include("detailKinesio.php");
         break;
-    case 33:
+    case 'screening':
         include("incScreening.php");
         break;
-    case 331:
+    case 'screening/detail':
         include("detailScreening.php");
         break;
-    case 34:
+    case 'konsultasi':
         include("incKonsultasi.php");
         break;
-    case 341:
+    case 'konsultasi/detail':
         include("detailKonsultasi.php");
         break;
-    case 35:
+    case 'edukasi':
         include("incEdukasi.php");
         break;
-    case 351:
+    case 'edukasi/detail':
         include("detailEdukasi.php");
         break;
-    case 41:
+    case 'rekam-medis':
         include("incRekamMedis.php");
         break;
-    case 411:
+    case 'rekam-medis/detail':
         include("detailRekamMedis.php");
         break;
-    case 51:
+    case 'laporan':
         include("incLaporan.php");
         break;
-    case 61:
+    case 'atur-profil':
         include("incAturProfil.php");
+        break;
+    default:
+        include("incHome.php");
         break;
 }
 ?>
@@ -625,7 +629,7 @@ switch ($link) {
                     errorMessage.classList.add('error-msg');
                     errorMessage.style.color = 'red';
                     errorMessage.style.display = 'none';
-                    errorMessage.textContent = 'Harus isi tanggal yang valid (hh/bb/tttt)!';
+                    errorMessage.textContent = 'Harus isi tanggal yang valid (mm/dd/yyyy)!';
                     input.parentNode.appendChild(errorMessage);
                 }
 

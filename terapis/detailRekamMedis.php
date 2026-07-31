@@ -67,7 +67,7 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
 
 <div class="row mx-2">
     <div class="col-12 col-md-2 col-lg-1 mb-3" style="width: min-content; align-content: center;">
-        <a href="<?= $baseurl ?>/terapis/41"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
+        <a href="<?= $baseurl ?>/terapis/rekam-medis"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
     </div>
     <div class="col-12 col-md-10 col-lg-11">
         <?php _myHeader("DETAIL REKAM MEDIS PASIEN " . strtoupper($datahasil['namaLengkap']), "Detail Hasil Rekam Medis"); ?>

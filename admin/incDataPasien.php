@@ -344,7 +344,7 @@ if (!empty($arrayStatusNikah)) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form class="" method="post" action="21" enctype="multipart/form-data">
+                            <form class="" method="post" action="data-pasien" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-12 col-md-6 mb-3">

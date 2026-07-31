@@ -21,7 +21,7 @@ $segments = explode('/', $request);
 
 // FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
 $idJadwal = 0;
-$posMenu = array_search('351', $segments);
+$posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
     $idJadwal = (int) $segments[$posMenu + 1];
 } else {
@@ -55,7 +55,7 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 
 <div class="row mx-2">
     <div class="col-12 col-md-2 col-lg-1 mb-3" style="width: min-content; align-content: center;">
-        <a href="<?= $baseurl ?>/admin/35"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
+        <a href="<?= $baseurl ?>/admin/edukasi"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
     </div>
     <div class="col-12 col-md-10 col-lg-11">
         <?php

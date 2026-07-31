@@ -158,19 +158,19 @@
 
                             switch ($idProgram) {
                                 case "1":
-                                    $urlProgram = "311";
+                                    $urlProgram = $ROUTES['fisioterapi_detail'];
                                     break;
                                 case "2":
-                                    $urlProgram = "321";
+                                    $urlProgram = $ROUTES['kinesioterapi_detail'];
                                     break;
                                 case "3":
-                                    $urlProgram = "331";
+                                    $urlProgram = $ROUTES['screening_detail'];
                                     break;
                                 case "4":
-                                    $urlProgram = "341";
+                                    $urlProgram = $ROUTES['konsultasi_detail'];
                                     break;
                                 case "5":
-                                    $urlProgram = "351";
+                                    $urlProgram = $ROUTES['edukasi_detail'];
                                     break;
                             }
                             ?>

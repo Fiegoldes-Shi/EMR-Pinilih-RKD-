@@ -124,7 +124,7 @@ if (!empty($_POST["btnSetUtama"])) {
                             </h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="post" action="24" enctype="multipart/form-data">
+                        <form method="post" action="data-disabilitas" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <!-- Pilih Jenis Disabilitas -->
                                 <div id="selectDisabilitasContainer">
@@ -303,7 +303,7 @@ if (!empty($_POST["btnSetUtama"])) {
                                             <td class="align-middle ps-3 border-0 py-2"><?= $rowKJD['jenisDisabilitas'] ?>
                                             </td>
                                             <td class="text-center align-middle border-0 py-2">
-                                                <form method="post" action="24" style="margin:0;">
+                                                <form method="post" action="data-disabilitas" style="margin:0;">
                                                     <input type="hidden" name="idSetUtama"
                                                         value="<?= $rowKJD['idJenisDisabilitas'] ?>">
                                                     <?php if ($rowKJD['is_utama'] == 1): ?>
@@ -327,7 +327,7 @@ if (!empty($_POST["btnSetUtama"])) {
                                                         title="Jenis Utama tidak bisa dihapus"><i class="fa-solid fa-lock"></i>
                                                         Utama</span>
                                                 <?php elseif ($rowKJD['jml'] > 0): ?>
-                                                    <form method="post" action="24" style="margin:0;">
+                                                    <form method="post" action="data-disabilitas" style="margin:0;">
                                                         <input type="hidden" name="idHapusJenis"
                                                             value="<?= $rowKJD['idJenisDisabilitas'] ?>">
                                                         <button type="submit" name="btnHapusJenis" value="true"
@@ -338,7 +338,7 @@ if (!empty($_POST["btnSetUtama"])) {
                                                             (<?= $rowKJD['jml'] ?>)</button>
                                                     </form>
                                                 <?php else: ?>
-                                                    <form method="post" action="24" style="margin:0;">
+                                                    <form method="post" action="data-disabilitas" style="margin:0;">
                                                         <input type="hidden" name="idHapusJenis"
                                                             value="<?= $rowKJD['idJenisDisabilitas'] ?>">
                                                         <button type="submit" name="btnHapusJenis" value="true"

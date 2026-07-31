@@ -13,13 +13,13 @@ $request = parse_url($request, PHP_URL_PATH);
 $request = trim($request, '/');
 $segments = explode('/', $request);
 
-// FIX: Use dynamic search for '311' (Menu ID) to handle different URL depths
+// Cari posisi slug 'detail' di URL untuk menangani kedalaman URL yang berbeda-beda
 $idJadwal = 0;
-$posMenu = array_search('311', $segments);
+$posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
     $idJadwal = (int) $segments[$posMenu + 1];
 } else {
-    // Fallback ekstrim jika tidak ditemukan menu ID di URL
+    // Fallback ekstrim jika tidak ditemukan slug 'detail' di URL
     $lastSegment = end($segments);
     if (is_numeric($lastSegment)) {
         $idJadwal = (int) $lastSegment;
@@ -51,7 +51,7 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 
 <div class="row mx-2">
     <div class="col-12 col-md-2 col-lg-1 mb-3" style="width: min-content; align-content: center;">
-        <a href="<?= $baseurl ?>/manajemen/31"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
+        <a href="<?= $baseurl ?>/manajemen/fisioterapi"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
     </div>
     <div class="col-12 col-md-10 col-lg-11">
         <?php

@@ -263,7 +263,7 @@ include_once("../_function_i/inc_f_object.php");
                                     <td><?= $data["namaDisabilitas"]; ?></td>
                                     <td><?= $data["alatBantu"]; ?></td>
                                     <td>
-                                        <form method="post" action="411">
+                                        <form method="post" action="rekam-medis/detail">
                                             <input type="hidden" name="idPasien" value="<?= $data["idPasien"]; ?>">
                                             <button type="submit" class="btn btn-info" style="border-radius: 8px;"> <i
                                                     class="fa-regular fa-eye" style="color: #000000;"></i>

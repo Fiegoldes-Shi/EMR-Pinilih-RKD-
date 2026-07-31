@@ -20,8 +20,8 @@ $segments = explode('/', (string)$request);
 
 // idJadwal pada index 3
 // emr_pinilih = 0, role = 1, menu = 2
-// FIX: Use dynamic search for '321' (Menu ID) to handle different URL depths (e.g. localhost:8000 vs subdirectory)
-$posMenu = array_search('321', $segments);
+// Cari posisi slug 'detail' di URL untuk menangani kedalaman URL yang berbeda-beda (e.g. localhost:8000 vs subdirectory)
+$posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
     $idJadwal = $segments[$posMenu + 1];
 } else {
@@ -50,7 +50,7 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 
 <div class="row mx-2">
     <div class="col-12 col-md-2 col-lg-1 mb-3" style="width: min-content; align-content: center;">
-        <a href="<?= $baseurl ?>/admin/32"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
+        <a href="<?= $baseurl ?>/admin/kinesioterapi"><ion-icon name="chevron-back-outline" size="large" style="color: black;"></ion-icon></a>
     </div>
     <div class="col-12 col-md-10 col-lg-11">
         <?php

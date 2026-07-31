@@ -70,7 +70,7 @@ if (!empty($_POST["btnhapus"])) {
                         </h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="" method="post" action="32" enctype="multipart/form-data">
+                    <form class="" method="post" action="kinesioterapi" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="tanggalKegiatan">Tanggal Kegiatan <span class="required">*</span></label>
@@ -161,7 +161,7 @@ if (!empty($_POST["btnhapus"])) {
                             <td><?= $datajadwal["waktuSelesai"]; ?></td>
                             <td><?= $datajadwal["instansi"]; ?></td>
                             <td>
-                                <a href="321/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
+                                <a href="kinesioterapi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
                                     style="border-radius: 8px;">
                                     <i class="fa-regular fa-eye" style="color: #000000;"></i>
                                 </a>
@@ -189,7 +189,7 @@ if (!empty($_POST["btnhapus"])) {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <FORM method="post" enctype="multipart/form-data" action="32">
+                                            <FORM method="post" enctype="multipart/form-data" action="kinesioterapi">
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <input class="form-control" type="text" name="idJadwal"

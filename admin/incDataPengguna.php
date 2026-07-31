@@ -231,7 +231,7 @@ if (!empty($_POST["btnhapus"])) {
                             </h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form class="" method="post" action="23" enctype="multipart/form-data">
+                        <form class="" method="post" action="data-pengguna" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="nama">Nama Pengguna <span class="required">*</span></label>

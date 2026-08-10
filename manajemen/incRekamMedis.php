@@ -24,22 +24,30 @@ include_once("../_function_i/inc_f_object.php");
 
     <?php
     // Proses Filtering Data
-    $sql = "SELECT p.*, sd.*, jd.*, k.namaKelurahan 
+    $sql = "SELECT p.*, sd.*, jd.*, k.namaKelurahan
         FROM pasien p
         JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
         JOIN jenis_disabilitas jd ON jd.idJenisDisabilitas = sd.idJenisDisabilitas
         LEFT JOIN kelurahan k ON k.idKelurahan = p.idKelurahanDomisili";
     $where = [];
+    $params = [];
+    $types = "";
 
     // Filter Kelompok Usia
     if (!empty($_POST["kelompokUsia"])) {
         $selectedUsia = $_POST["kelompokUsia"];
         if (is_array($selectedUsia)) {
             $selectedUsia = array_map('trim', $selectedUsia);
-            $usia_in = implode("','", $selectedUsia);
-            $where[] = "p.kelompokUsia IN ('" . $usia_in . "')";
+            $placeholders = implode(",", array_fill(0, count($selectedUsia), "?"));
+            $where[] = "p.kelompokUsia IN ($placeholders)";
+            foreach ($selectedUsia as $v) {
+                $params[] = $v;
+                $types .= "s";
+            }
         } else {
-            $where[] = "p.kelompokUsia = '" . trim($_POST["kelompokUsia"]) . "'";
+            $where[] = "p.kelompokUsia = ?";
+            $params[] = trim($_POST["kelompokUsia"]);
+            $types .= "s";
         }
     }
 
@@ -48,10 +56,16 @@ include_once("../_function_i/inc_f_object.php");
         $selectedJK = $_POST["jenisKelamin"];
         if (is_array($selectedJK)) {
             $selectedJK = array_map('trim', $selectedJK);
-            $jk_in = implode("','", $selectedJK);
-            $where[] = "p.jenisKelamin IN ('" . $jk_in . "')";
+            $placeholders = implode(",", array_fill(0, count($selectedJK), "?"));
+            $where[] = "p.jenisKelamin IN ($placeholders)";
+            foreach ($selectedJK as $v) {
+                $params[] = $v;
+                $types .= "s";
+            }
         } else {
-            $where[] = "p.jenisKelamin = '" . trim($_POST["jenisKelamin"]) . "'";
+            $where[] = "p.jenisKelamin = ?";
+            $params[] = trim($_POST["jenisKelamin"]);
+            $types .= "s";
         }
     }
 
@@ -60,10 +74,16 @@ include_once("../_function_i/inc_f_object.php");
         $selectedGoldar = $_POST["golonganDarah"];
         if (is_array($selectedGoldar)) {
             $selectedGoldar = array_map('trim', $selectedGoldar);
-            $goldar_in = implode("','", $selectedGoldar);
-            $where[] = "p.golonganDarah IN ('" . $goldar_in . "')";
+            $placeholders = implode(",", array_fill(0, count($selectedGoldar), "?"));
+            $where[] = "p.golonganDarah IN ($placeholders)";
+            foreach ($selectedGoldar as $v) {
+                $params[] = $v;
+                $types .= "s";
+            }
         } else {
-            $where[] = "p.golonganDarah = '" . trim($_POST["golonganDarah"]) . "'";
+            $where[] = "p.golonganDarah = ?";
+            $params[] = trim($_POST["golonganDarah"]);
+            $types .= "s";
         }
     }
 
@@ -72,15 +92,23 @@ include_once("../_function_i/inc_f_object.php");
         $selectedDisabilitas = $_POST["jenisDisabilitas"];
         if (is_array($selectedDisabilitas)) {
             $selectedDisabilitas = array_map('trim', $selectedDisabilitas);
-            $disabilitas_in = implode("','", $selectedDisabilitas);
-            $where[] = "jd.jenisDisabilitas IN ('" . $disabilitas_in . "')";
+            $placeholders = implode(",", array_fill(0, count($selectedDisabilitas), "?"));
+            $where[] = "jd.jenisDisabilitas IN ($placeholders)";
+            foreach ($selectedDisabilitas as $v) {
+                $params[] = $v;
+                $types .= "s";
+            }
         } else {
-            $where[] = "jd.jenisDisabilitas = '" . trim($_POST["jenisDisabilitas"]) . "'";
+            $where[] = "jd.jenisDisabilitas = ?";
+            $params[] = trim($_POST["jenisDisabilitas"]);
+            $types .= "s";
         }
     }
     // Filter Kelurahan (khusus Sedayu, ID 40579–40582)
     if (!empty($_POST["idKelurahan"])) {
-        $where[] = "p.idKelurahanDomisili = '" . intval($_POST["idKelurahan"]) . "'";
+        $where[] = "p.idKelurahanDomisili = ?";
+        $params[] = intval($_POST["idKelurahan"]);
+        $types .= "i";
     }
 
     if (count($where) > 0) {
@@ -90,7 +118,7 @@ include_once("../_function_i/inc_f_object.php");
     $sql .= " ORDER BY p.namaLengkap ASC;";
 
     $view = new cView();
-    $arrayhasil = $view->vViewData($sql);
+    $arrayhasil = $view->vViewDataPrepared($sql, $params, $types);
     ?>
 
     <?php

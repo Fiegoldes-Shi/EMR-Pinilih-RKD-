@@ -112,11 +112,12 @@ if (!empty($_POST["savebtn"])) {
     $linkurl = $idJadwal;
 
     // Upload file
+    $allowedDokumentasiExt = ["jpg", "jpeg", "png", "pdf"];
     $targetDir = "uploads/hasilEdukasi/"; // Folder penyimpanan file
     $fileName = basename((string)$_FILES["dokumentasi"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["dokumentasi"]["tmp_name"])) {
+    if (!empty($_FILES["dokumentasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDokumentasiExt)) {
         if (move_uploaded_file($_FILES["dokumentasi"]["tmp_name"], $filePath)) {
             $dokumentasi = $filePath;
         } else {
@@ -150,11 +151,12 @@ if (!empty($_POST["editbtn"])) {
     $dokumentasiLama = $arrayEdukasi[0]["dokumentasi"];
 
     // Upload file
+    $allowedDokumentasiExt = ["jpg", "jpeg", "png", "pdf"];
     $targetDir = "uploads/hasilEdukasi/"; // Folder penyimpanan file
     $fileName = basename((string)$_FILES["dokumentasi"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["dokumentasi"]["tmp_name"])) {
+    if (!empty($_FILES["dokumentasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDokumentasiExt)) {
         if (move_uploaded_file($_FILES["dokumentasi"]["tmp_name"], $filePath)) {
             $dokumentasi = $filePath;
         } else {

@@ -209,7 +209,7 @@ if ($action == 'view') {
                             <blockquote class="blockquote">
                                 <h5 class="modal-title">HAPUS</h5>
                             </blockquote>
-                            <figcaption class="blockquote-footer">Peserta <?= $datapeserta["nama"] ?> - <?= $datapeserta["asalLembaga"] ?></figcaption>
+                            <figcaption class="blockquote-footer">Peserta <?= htmlspecialchars($datapeserta["nama"]) ?> - <?= htmlspecialchars($datapeserta["asalLembaga"] ?? '') ?></figcaption>
                         </figure>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

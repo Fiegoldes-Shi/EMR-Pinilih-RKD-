@@ -342,7 +342,7 @@ if ($action == 'view') {
                             <blockquote class="blockquote">
                                 <h5 class="modal-title">HAPUS</h5>
                             </blockquote>
-                            <figcaption class="blockquote-footer">Terapis <?= $dataterapis["namaTerapis"] ?></figcaption>
+                            <figcaption class="blockquote-footer">Terapis <?= htmlspecialchars($dataterapis["namaTerapis"]) ?></figcaption>
                         </figure>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

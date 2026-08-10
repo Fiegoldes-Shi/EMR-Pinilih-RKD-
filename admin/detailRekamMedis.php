@@ -46,9 +46,9 @@ if (!$idUser) {
 $sqlPasien = "SELECT p.*, sd.*, jd.* FROM pasien p
             JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
             JOIN jenis_disabilitas jd ON jd.idJenisDisabilitas = sd.idJenisDisabilitas
-            WHERE p.idPasien = $idPasien";
+            WHERE p.idPasien = ?";
 
-$datahasil = $view->vViewData($sqlPasien);
+$datahasil = $view->vViewDataPrepared($sqlPasien, [(int) $idPasien], "i");
 
 if (empty($datahasil)) {
     die("Data tidak ditemukan.");
@@ -110,26 +110,36 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
 
         // Query daftar program layanan yang telah diikuti pasien
         $sqlhasil = "SELECT hasil.*, jp.*, pr.*, p.*, t.*
-                    FROM hasil_layanan hasil 
-                    JOIN jadwal_program jp ON jp.idJadwal = hasil.idJadwal 
+                    FROM hasil_layanan hasil
+                    JOIN jadwal_program jp ON jp.idJadwal = hasil.idJadwal
                     JOIN program pr ON pr.idProgram = jp.idProgram
                     JOIN pasien p ON p.idPasien = hasil.idPasien
                     JOIN terapis t ON t.idTerapis = hasil.idTerapis
-                    WHERE hasil.idPasien = '$idPasien'";
+                    WHERE hasil.idPasien = ?";
+
+        $paramsHasil = [(int) $idPasien];
+        $typesHasil = "i";
 
         // Tambahkan filter tanggal jika diisi
         if (!empty($tanggalMulai) && !empty($tanggalSelesai)) {
-            $sqlhasil .= " AND jp.tanggalKegiatan BETWEEN '$tanggalMulai' AND '$tanggalSelesai'";
+            $sqlhasil .= " AND jp.tanggalKegiatan BETWEEN ? AND ?";
+            $paramsHasil[] = $tanggalMulai;
+            $paramsHasil[] = $tanggalSelesai;
+            $typesHasil .= "ss";
         } elseif (!empty($tanggalMulai)) {
-            $sqlhasil .= " AND jp.tanggalKegiatan >= '$tanggalMulai'";
+            $sqlhasil .= " AND jp.tanggalKegiatan >= ?";
+            $paramsHasil[] = $tanggalMulai;
+            $typesHasil .= "s";
         } elseif (!empty($tanggalSelesai)) {
-            $sqlhasil .= " AND jp.tanggalKegiatan <= '$tanggalSelesai'";
+            $sqlhasil .= " AND jp.tanggalKegiatan <= ?";
+            $paramsHasil[] = $tanggalSelesai;
+            $typesHasil .= "s";
         }
 
-        $sqlhasil .= "ORDER BY jp.tanggalKegiatan DESC";
+        $sqlhasil .= " ORDER BY jp.tanggalKegiatan DESC";
 
         // Eksekusi query
-        $arrayhasil = $view->vViewData($sqlhasil);
+        $arrayhasil = $view->vViewDataPrepared($sqlhasil, $paramsHasil, $typesHasil);
         ?>
         <div id="" class='table-responsive'>
             <table id='example' class='table table-condensed'>
@@ -167,12 +177,12 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                                 $linkurl = "detailRekamMedis.php?idHasilLayanan=" . $idHasilLayanan;
 
                                 // Query untuk mengambil idProgram berdasarkan idHasilLayanan
-                                $sqlProgram = "SELECT jp.idProgram 
+                                $sqlProgram = "SELECT jp.idProgram
                                             FROM hasil_layanan hl
                                             JOIN jadwal_program jp ON hl.idJadwal = jp.idJadwal
-                                            WHERE hl.idHasilLayanan = '$idHasilLayanan'";
+                                            WHERE hl.idHasilLayanan = ?";
                                 $view = new cView();
-                                $dataProgram = $view->vViewData($sqlProgram);
+                                $dataProgram = $view->vViewDataPrepared($sqlProgram, [(int) $idHasilLayanan], "i");
 
                                 if (!empty($dataProgram)) {
                                     $idProgram = $dataProgram[0]["idProgram"];

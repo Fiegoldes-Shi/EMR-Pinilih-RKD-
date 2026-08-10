@@ -85,11 +85,11 @@ foreach ($data as $row) {
 
     $response[] = [
         $no++,
-        $row['namaLengkap'],
-        $row['kelompokUsia'],
-        $row['jenisKelamin'],
-        $row['namaKelurahan'],
-        $row['namaDisabilitas'],
+        htmlspecialchars($row['namaLengkap']),
+        htmlspecialchars($row['kelompokUsia']),
+        htmlspecialchars($row['jenisKelamin']),
+        htmlspecialchars($row['namaKelurahan'] ?? ''),
+        htmlspecialchars($row['namaDisabilitas'] ?? ''),
         $btnView,
         $btnEdit,
         $btnDelete

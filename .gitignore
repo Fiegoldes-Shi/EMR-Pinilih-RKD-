@@ -17,7 +17,9 @@ dokumentasi/
 *.sql
 
 # File upload pengguna (dokumen sertifikasi, lampiran rekam medis pasien - data sensitif)
-admin/uploads/
+admin/uploads/*
+# Kecuali .htaccess proteksi anti-eksekusi PHP - bagian dari source code keamanan, bukan data pengguna
+!admin/uploads/.htaccess
 
 # File debug & backup sementara
 admin/ajax/debug_log.txt

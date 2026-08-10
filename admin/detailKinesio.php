@@ -120,11 +120,12 @@ if (!empty($_POST["savebtn"])) {
     }
 
     //Upload File
+    $allowedLampiranExt = ["jpg", "jpeg", "png", "pdf"];
     $targetDir = "uploads/lampiranKinesio/"; // Folder penyimpanan file
     $fileName = basename((string)$_FILES["lampiran"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["lampiran"]["tmp_name"])) {
+    if (!empty($_FILES["lampiran"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedLampiranExt)) {
         if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $filePath)) {
             $lampiran = $filePath;
         } else {
@@ -180,11 +181,12 @@ if (!empty($_POST["editbtn"])) {
     $lampiranLama = $arrayHasil[0]["lampiran"];
 
     //Upload File
+    $allowedLampiranExt = ["jpg", "jpeg", "png", "pdf"];
     $targetDir = "uploads/lampiranKinesio/"; // Folder penyimpanan file
     $fileName = basename((string)$_FILES["lampiran"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["lampiran"]["tmp_name"])) {
+    if (!empty($_FILES["lampiran"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedLampiranExt)) {
         if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $filePath)) {
             $lampiran = $filePath;
         } else {

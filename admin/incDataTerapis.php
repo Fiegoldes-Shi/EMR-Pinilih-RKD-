@@ -16,12 +16,14 @@ if (!empty($_POST["savebtn"])) {
         $jenisTerapis = $_POST["jenisTerapis"]; // Gunakan langsung jika tidak ditemukan
     }
 
+    $allowedDocExt = ["pdf", "doc", "docx", "jpg", "jpeg", "png"];
+
     //Upload File
     $targetDir = "uploads/sertifikasi/"; // Folder penyimpanan file
     $fileName = basename((string) $_FILES["dokumenSertifikasi"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["dokumenSertifikasi"]["tmp_name"])) {
+    if (!empty($_FILES["dokumenSertifikasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDocExt)) {
         if (move_uploaded_file($_FILES["dokumenSertifikasi"]["tmp_name"], $filePath)) {
             $dokumenSertifikasi = $filePath; // No quotes
         } else {
@@ -36,7 +38,7 @@ if (!empty($_POST["savebtn"])) {
     $fileNameLainnya = basename((string) $_FILES["dokumenLainnya"]["name"]);
     $filePathLainnya = $targetDir . time() . "_" . $fileNameLainnya;
 
-    if (!empty($_FILES["dokumenLainnya"]["tmp_name"])) {
+    if (!empty($_FILES["dokumenLainnya"]["tmp_name"]) && _isAllowedUploadExtension($fileNameLainnya, $allowedDocExt)) {
         if (move_uploaded_file($_FILES["dokumenLainnya"]["tmp_name"], $filePathLainnya)) {
             $dokumenLainnya = $filePathLainnya; // No quotes
         } else {
@@ -104,12 +106,14 @@ if (!empty($_POST["editbtn"])) {
         $jenisTerapis = $_POST["jenisTerapis"]; // Gunakan langsung jika tidak ditemukan
     }
 
+    $allowedDocExt = ["pdf", "doc", "docx", "jpg", "jpeg", "png"];
+
     //Upload File
     $targetDir = "uploads/sertifikasi/"; // Folder penyimpanan file
     $fileName = basename((string) $_FILES["dokumenSertifikasi"]["name"]);
     $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
 
-    if (!empty($_FILES["dokumenSertifikasi"]["tmp_name"])) {
+    if (!empty($_FILES["dokumenSertifikasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDocExt)) {
         if (move_uploaded_file($_FILES["dokumenSertifikasi"]["tmp_name"], $filePath)) {
             $dokumenSertifikasi = $filePath; // No quotes
         } else {
@@ -130,7 +134,7 @@ if (!empty($_POST["editbtn"])) {
     $filePathLainnya = $targetDir . time() . "_" . $fileNameLainnya; // Path absolut
     $filePathLainnyaRelatif = $targetDirRelatif . time() . "_" . $fileNameLainnya; // Simpan relatif di DB
 
-    if (!empty($_FILES["dokumenLainnya"]["tmp_name"])) {
+    if (!empty($_FILES["dokumenLainnya"]["tmp_name"]) && _isAllowedUploadExtension($fileNameLainnya, $allowedDocExt)) {
         if (move_uploaded_file($_FILES["dokumenLainnya"]["tmp_name"], $filePathLainnya)) {
             $dokumenLainnya = $filePathLainnyaRelatif; // No quotes
         } else {

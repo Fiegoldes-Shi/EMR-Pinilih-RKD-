@@ -1077,6 +1077,9 @@ $conn->goConnect();
                                     }
                                 }
                             });
+                        })
+                        .catch(error => {
+                            console.error('Gagal memuat grafik distribusi pasien:', error);
                         });
                 }
 
@@ -1092,6 +1095,9 @@ $conn->goConnect();
                                 option.textContent = tahun;
                                 select.appendChild(option);
                             });
+                        })
+                        .catch(error => {
+                            console.error('Gagal memuat daftar tahun:', error);
                         });
                 }
 

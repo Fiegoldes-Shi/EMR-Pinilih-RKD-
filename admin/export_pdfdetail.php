@@ -21,9 +21,9 @@ $view = new cView();
 $sqlPasien = "SELECT p.*, sd.*, jd.* FROM pasien p
               JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
               JOIN jenis_disabilitas jd ON jd.idJenisDisabilitas = sd.idJenisDisabilitas
-              WHERE p.idPasien = '$idPasien'";
+              WHERE p.idPasien = ?";
 
-$dataPasien = $view->vViewData($sqlPasien);
+$dataPasien = $view->vViewDataPrepared($sqlPasien, [(int) $idPasien], "i");
 if (empty($dataPasien)) {
     echo "<script>alert('Data pasien tidak ditemukan.'); window.close();</script>";
     exit;
@@ -82,28 +82,36 @@ $kolomPerProgram = [
 
 // Query daftar program layanan yang telah diikuti pasien
 $sqlhasil = "SELECT hasil.*, jp.*, pr.*, t.*, p.*
-             FROM hasil_layanan hasil 
-             JOIN jadwal_program jp ON jp.idJadwal = hasil.idJadwal 
+             FROM hasil_layanan hasil
+             JOIN jadwal_program jp ON jp.idJadwal = hasil.idJadwal
              JOIN pasien p ON hasil.idPasien = p.idPasien
              JOIN program pr ON pr.idProgram = jp.idProgram
              JOIN terapis t ON t.idTerapis = hasil.idTerapis
-             WHERE hasil.idPasien = '$idPasien'";
+             WHERE hasil.idPasien = ?";
+
+$params = [(int) $idPasien];
+$types = "i";
 
 // Filter berdasarkan tanggal jika diisi
-$where = [];
-if (!empty($_POST['tanggalMulai']) && !empty($_POST['tanggalSelesai'])) {
-    $where[] = "jp.tanggalKegiatan BETWEEN '" . $_POST['tanggalMulai'] . "' AND '" . $_POST['tanggalSelesai'] . "'";
-} elseif (!empty($_POST['tanggalMulai'])) {
-    $where[] = "jp.tanggalKegiatan >= '" . $_POST['tanggalMulai'] . "'";
-} elseif (!empty($_POST['tanggalSelesai'])) {
-    $where[] = "jp.tanggalKegiatan <= '" . $_POST['tanggalSelesai'] . "'";
-}
-if (!empty($where)) {
-    $sqlhasil .= " AND " . implode(" AND ", $where);
+$tanggalMulai = $_POST['tanggalMulai'] ?? null;
+$tanggalSelesai = $_POST['tanggalSelesai'] ?? null;
+if (!empty($tanggalMulai) && !empty($tanggalSelesai)) {
+    $sqlhasil .= " AND jp.tanggalKegiatan BETWEEN ? AND ?";
+    $params[] = $tanggalMulai;
+    $params[] = $tanggalSelesai;
+    $types .= "ss";
+} elseif (!empty($tanggalMulai)) {
+    $sqlhasil .= " AND jp.tanggalKegiatan >= ?";
+    $params[] = $tanggalMulai;
+    $types .= "s";
+} elseif (!empty($tanggalSelesai)) {
+    $sqlhasil .= " AND jp.tanggalKegiatan <= ?";
+    $params[] = $tanggalSelesai;
+    $types .= "s";
 }
 $sqlhasil .= " ORDER BY jp.tanggalKegiatan DESC";
 
-$arrayhasil = $view->vViewData($sqlhasil);
+$arrayhasil = $view->vViewDataPrepared($sqlhasil, $params, $types);
 if (empty($arrayhasil)) {
     echo "<script>alert('Tidak ada data hasil layanan yang ditemukan untuk rentang waktu ini.'); window.close();</script>";
     exit;

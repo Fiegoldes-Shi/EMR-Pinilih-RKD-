@@ -14,25 +14,37 @@ header("Expires: 0");
 
 $view = new cView();
 $where = [];
+$params = [];
+$types = "";
 
 // Filter berdasarkan input
 if (!empty($_POST['kelompokUsia'])) {
-    $where[] = "p.kelompokUsia = '" . $_POST['kelompokUsia'] . "'";
+    $where[] = "p.kelompokUsia = ?";
+    $params[] = $_POST['kelompokUsia'];
+    $types .= "s";
 }
 if (!empty($_POST['jenisKelamin'])) {
-    $where[] = "p.jenisKelamin = '" . $_POST['jenisKelamin'] . "'";
+    $where[] = "p.jenisKelamin = ?";
+    $params[] = $_POST['jenisKelamin'];
+    $types .= "s";
 }
 if (!empty($_POST['golonganDarah'])) {
-    $where[] = "p.golonganDarah = '" . $_POST['golonganDarah'] . "'";
+    $where[] = "p.golonganDarah = ?";
+    $params[] = $_POST['golonganDarah'];
+    $types .= "s";
 }
 if (!empty($_POST['jenisDisabilitas'])) {
-    $where[] = "jd.jenisDisabilitas = '" . $_POST['jenisDisabilitas'] . "'";
+    $where[] = "jd.jenisDisabilitas = ?";
+    $params[] = $_POST['jenisDisabilitas'];
+    $types .= "s";
 }
 if (!empty($_POST['idKelurahan'])) {
-    $where[] = "p.idKelurahanDomisili = '" . $_POST['idKelurahan'] . "'";
+    $where[] = "p.idKelurahanDomisili = ?";
+    $params[] = (int) $_POST['idKelurahan'];
+    $types .= "i";
 }
 
-$sql = "SELECT p.*, sd.*, jd.*, k.namaKelurahan 
+$sql = "SELECT p.*, sd.*, jd.*, k.namaKelurahan
         FROM pasien p
         JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
         JOIN jenis_disabilitas jd ON jd.idJenisDisabilitas = sd.idJenisDisabilitas
@@ -42,7 +54,7 @@ if (count($where) > 0) {
 }
 $sql .= " GROUP BY p.idPasien";
 
-$dataPasien = $view->vViewData($sql);
+$dataPasien = $view->vViewDataPrepared($sql, $params, $types);
 
 // Mendapatkan tanggal cetak
 $tanggalCetak = date("d-m-Y H:i");

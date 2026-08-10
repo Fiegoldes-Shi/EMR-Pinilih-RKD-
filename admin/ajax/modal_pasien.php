@@ -777,7 +777,7 @@ if ($action == 'view') {
                                 <h5 class="modal-title">HAPUS</h5>
                             </blockquote>
                             <figcaption class="blockquote-footer">Pasien
-                                <?= $datapasien["namaLengkap"] ?>
+                                <?= htmlspecialchars($datapasien["namaLengkap"]) ?>
                             </figcaption>
                         </figure>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

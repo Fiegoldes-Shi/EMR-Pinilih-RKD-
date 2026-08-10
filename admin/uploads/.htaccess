@@ -1,0 +1,18 @@
+# Mencegah eksekusi PHP (dan script server-side lain) di folder upload pengguna.
+# File yang diunggah di sini hanya boleh diakses sebagai berkas statis (gambar/dokumen),
+# tidak pernah dijalankan sebagai kode, meski penamaan/ekstensi berhasil disamarkan.
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|phar|pl|py|cgi|asp|aspx|sh|exe)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

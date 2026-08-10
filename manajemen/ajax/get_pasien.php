@@ -67,8 +67,8 @@ foreach ($data as $row) {
         htmlspecialchars($row['namaLengkap']),
         htmlspecialchars($row['kelompokUsia']),
         htmlspecialchars($row['jenisKelamin']),
-        htmlspecialchars($row['namaKelurahan']),
-        htmlspecialchars($row['namaDisabilitas']),
+        htmlspecialchars($row['namaKelurahan'] ?? ''),
+        htmlspecialchars($row['namaDisabilitas'] ?? ''),
         $btnView
     ];
 }

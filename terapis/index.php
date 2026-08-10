@@ -22,6 +22,7 @@ include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
 include_once("../_function_i/cUpdate.php");
 include_once("../_function_i/cDelete.php");
+include_once("../_function_i/cUpload.php");
 include_once("../_function_i/inc_f_object.php");
 $ROUTES = include("../_function_i/inc_f_routes.php");
 

@@ -8,7 +8,7 @@ Sistem rekam medis elektronik berbasis web (PHP Native) untuk **Rumah Kebugaran 
 - **Rekam Medis per Program** — pencatatan riwayat Fisioterapi, Kinesioterapi, Konsultasi, Screening, dan Edukasi per pasien, termasuk unggah foto perkembangan/dokumen pendukung.
 - **Dasbor & Statistik** — grafik distribusi pasien dan disabilitas (Chart.js) di panel Admin dan Manajemen.
 - **Cetak & Ekspor Laporan** — PDF (TCPDF) dan Excel (PhpSpreadsheet) untuk laporan rangkuman maupun detail per pasien/program.
-- **Cadangan Database** — unduh salinan `.sql` langsung dari browser dengan deteksi otomatis lokasi `mysqldump` (Windows/Linux).
+- **Cadangan Database** — unduh salinan `.sql` langsung dari browser dengan deteksi otomatis lokasi `mysqldump` (Windows/Linux). Endpoint `backupData.php` tersedia di ketiga panel (Admin, Manajemen, Terapis), namun tombolnya di UI Atur Profil hanya tampil untuk Admin dan Manajemen — di panel Terapis tombolnya sengaja disembunyikan (kode dinonaktifkan), meski endpoint tetap bisa diakses langsung lewat URL oleh role Terapis.
 - **Lupa Password via OTP** — kode OTP 6 digit dikirim ke email (PHPMailer + SMTP Brevo), berlaku 10 menit.
 - **Kontrol Akses Berbasis Peran** — setiap peran (Admin, Manajemen, Terapis) memiliki menu dan hak akses yang berbeda sesuai tanggung jawabnya.
 
@@ -82,7 +82,7 @@ docker compose up -d
 | Jadwal Program (Fisio/Kinesio/Konsultasi/Screening/Edukasi) | CRUD penuh | Lihat saja | CRUD sesuai jadwal sendiri |
 | Grafik Statistik | ✓ | ✓ | – |
 | Ekspor Laporan (PDF/Excel) | ✓ | ✓ | – |
-| Cadangan Database | ✓ | – | – |
+| Cadangan Database (tombol tampil di UI) | ✓ | ✓ | – |
 
 ---
 *Dibuat & dikembangkan untuk keperluan operasional Rumah Kebugaran Difabel (RKD) Pinilih.*

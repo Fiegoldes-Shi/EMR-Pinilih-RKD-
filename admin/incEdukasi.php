@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // insert
 if (!empty($_POST["savebtn"])) {
     $linkurl1 = 35;
@@ -55,12 +55,9 @@ if (!empty($_POST["editbtn"])) {
 if (!empty($_POST["btnhapus"])) {
     $delete = new cDelete();
     foreach ($_POST["hiddendeletevalue"] as $data) {
-        // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
         $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
     }
 
-    // $delete->_dDeleteDataTrial($_POST["hiddendeletevalue0"], $_POST["hiddendeletevalue1"], $_POST["hiddendeletevalue2"]);
-    // $delete->_dDeleteData($_POST["hiddendeletevalue0"], $_POST["hiddendeletevalue1"], $_POST["hiddendeletevalue2"]);
 }
 ?>
 

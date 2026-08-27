@@ -31,8 +31,8 @@ header('Content-Type: application/json'); // Pastikan respons dalam format JSON
 $idJenis = $_POST['idJenis'];
 
 // Query dengan prepared statement
-$sqlDisabilitas = $pdo->prepare("SELECT * FROM sub_disabilitas WHERE idJenisDisabilitas='" .$idJenis. "'ORDER BY idSubDisabilitas");
-$sqlDisabilitas->execute();
+$sqlDisabilitas = $pdo->prepare("SELECT * FROM sub_disabilitas WHERE idJenisDisabilitas = :idJenis ORDER BY idSubDisabilitas");
+$sqlDisabilitas->execute([':idJenis' => $idJenis]);
     
 $html = "<option value=''>- pilihan -</option>";
 while ($data = $sqlDisabilitas->fetch()) {

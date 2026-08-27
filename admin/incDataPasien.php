@@ -25,6 +25,11 @@ try {
 if (!empty($_POST["savebtn"])) {
     $linkurl = 21;
 
+    if (empty($_POST["subDisabilitas"])) {
+        echo "<script>alert('Jenis Disabilitas / Sub Disabilitas wajib dipilih');</script>";
+        return;
+    }
+
     $idSubDisabilitas = $_POST["subDisabilitas"];
     $idKelurahanDomisili = !empty($_POST['kelurahan']) ? $_POST['kelurahan'] : NULL;
     $kodePosDomisili = !empty($_POST["kodePosDomisili"]) ? $_POST["kodePosDomisili"] : NULL;
@@ -33,12 +38,12 @@ if (!empty($_POST["savebtn"])) {
     $alasanTidakAktif = isset($_POST["alasanTidakAktif"]) ? $_POST["alasanTidakAktif"] : "";
 
     if (!empty($_POST["riwayatPenyakitPribadi"])) {
-        $riwayatPenyakitPribadi = implode(", ", $_POST["riwayatPenyakitPribadi"]);
+        $riwayatPenyakitPribadi = implode(",", $_POST["riwayatPenyakitPribadi"]);
     } else {
         $riwayatPenyakitPribadi = "";
     }
     if (!empty($_POST["riwayatPenyakitKeluarga"])) {
-        $riwayatPenyakitKeluarga = implode(", ", $_POST["riwayatPenyakitKeluarga"]);
+        $riwayatPenyakitKeluarga = implode(",", $_POST["riwayatPenyakitKeluarga"]);
     } else {
         $riwayatPenyakitKeluarga = "";
     }
@@ -114,8 +119,13 @@ if (!empty($_POST["savebtn"])) {
 if (!empty($_POST["editbtn"])) {
     $linkurl = 21;
 
+    if (empty($_POST["subDisabilitas"])) {
+        echo "<script>alert('Jenis Disabilitas / Sub Disabilitas wajib dipilih');</script>";
+        return;
+    }
+
     $idPasien = $_POST["idPasien"];
-    $idSubDisabilitas = !empty($_POST["subDisabilitas"]) ? (is_array($_POST["subDisabilitas"]) ? implode(",", $_POST["subDisabilitas"]) : $_POST["subDisabilitas"]) : "NULL";
+    $idSubDisabilitas = is_array($_POST["subDisabilitas"]) ? implode(",", $_POST["subDisabilitas"]) : $_POST["subDisabilitas"];
 
     $idKelurahanDomisili = !empty($_POST["kelurahan"][$idPasien]) ? $_POST["kelurahan"][$idPasien] : NULL;
     $kodePosDomisili = !empty($_POST["kodePosDomisili"]) ? $_POST["kodePosDomisili"] : NULL;
@@ -123,12 +133,12 @@ if (!empty($_POST["editbtn"])) {
     $RWDomisili = !empty($_POST["RWDomisili"]) ? $_POST["RWDomisili"] : NULL;
 
     if (!empty($_POST["riwayatPenyakitPribadi"])) {
-        $riwayatPenyakitPribadi = implode(", ", $_POST["riwayatPenyakitPribadi"]);
+        $riwayatPenyakitPribadi = implode(",", $_POST["riwayatPenyakitPribadi"]);
     } else {
         $riwayatPenyakitPribadi = "";
     }
     if (!empty($_POST["riwayatPenyakitKeluarga"])) {
-        $riwayatPenyakitKeluarga = implode(", ", $_POST["riwayatPenyakitKeluarga"]);
+        $riwayatPenyakitKeluarga = implode(",", $_POST["riwayatPenyakitKeluarga"]);
     } else {
         $riwayatPenyakitKeluarga = "";
     }
@@ -191,7 +201,7 @@ if (!empty($_POST["editbtn"])) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
     $passwordInput = trim($_POST["password_verif"] ?? '');
 
-    $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' LIMIT 1";
+    $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' ORDER BY idUser ASC LIMIT 1";
     $view = new cView();
     $result = $view->vViewData($sql)[0] ?? null;
 

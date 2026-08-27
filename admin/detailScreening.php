@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -27,7 +27,6 @@ if ($posMenu !== false && isset($segments[$posMenu + 1])) {
     $idJadwal = isset($segments[3]) ? $segments[3] : 0;
 }
 
-// echo $idJadwal;
 
 $conn = new cConnect();
 $conn->goConnect();
@@ -232,7 +231,6 @@ if (!empty($_POST["editbtn"])) {
 
     // Inisialisasi objek cUpdate untuk melakukan update
     $update = new cUpdate();
-    // $update->vUpdateDataTrial($datafield_hasil, "hasil_layanan", $datavalue_hasil, $datakey, $linkurl);
     $update->vUpdateDataPrepared("hasil_layanan", $datafield_hasil, $datavalue_hasil, "idHasilLayanan", $_POST["idHasilLayanan"]);
 }
 ?>
@@ -247,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
     if ($passwordInput === '') {
         echo "<script>alert('Password harus diisi.');</script>";
     } else {
-        $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' LIMIT 1";
+        $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' ORDER BY idUser ASC LIMIT 1";
         $result = $view->vViewData($sql)[0] ?? null;
 
         // Bandingkan menggunakan md5 jika memang disimpan dengan md5
@@ -257,7 +255,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
             if (!empty($_POST["hiddendeletevalue"])) {
                 $delete = new cDelete();
                 foreach ($_POST["hiddendeletevalue"] as $data) {
-                    // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
                     $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
                 }
             }
@@ -651,9 +648,6 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                             <td>
                                 <?php
                                 $datadetail = array(
-                                    // array("ID HASIL LAYANAN", "idHasilLayanan", $datahasil["idHasilLayanan"], 2, ""),
-                                    // array("ID JADWAL", "idJadwal", $idJadwal, 2, $idJadwal),
-                                    // array("ID USER", "idUser", $idUser, 2, $idUser),
                                     array("PASIEN", "namaLengkap", $datahasil["namaLengkap"], 1),
                                     array("TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
                                     array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),

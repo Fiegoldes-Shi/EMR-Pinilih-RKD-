@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // insert
 if (!empty($_POST["savebtn"])) {
     $linkurl = 31;
@@ -12,7 +12,6 @@ if (!empty($_POST["savebtn"])) {
     $datavalue_jadwal = array($_POST["idProgram"], $idUser, $_POST["tanggalKegiatan"], $_POST["waktuMulai"], $_POST["waktuSelesai"], $_POST["lokasi"], $_POST["instansi"], $_POST["catatan"] === '' ? "" : $_POST["catatan"]);
 
     $insert = new cInsert();
-    // $insert->vInsertDataTrial($datafield_jadwal, "jadwal_program", $datavalue_jadwal, $linkurl);
     $insert->vInsertDataPrepared("jadwal_program", $datafield_jadwal, $datavalue_jadwal);
 }
 ?>
@@ -29,7 +28,6 @@ if (!empty($_POST["editbtn"])) {
     $datavalue_jadwal = array($_POST["idProgram"], $idUser, $_POST["tanggalKegiatan"], $_POST["waktuMulai"], $_POST["waktuSelesai"], $_POST["lokasi"], $_POST["instansi"], $_POST["catatan"] === '' ? "" : $_POST["catatan"]);
 
     $update = new cUpdate();
-    // $update->vUpdateDataTrial($datafield_jadwal, "jadwal_program", $datavalue_jadwal, $datakey, $linkurl);
     $update->vUpdateDataPrepared("jadwal_program", $datafield_jadwal, $datavalue_jadwal, "idJadwal", $_POST["idJadwal"]);
 }
 ?>
@@ -39,7 +37,6 @@ if (!empty($_POST["editbtn"])) {
 if (!empty($_POST["btnhapus"])) {
     $delete = new cDelete();
     foreach ($_POST["hiddendeletevalue"] as $data) {
-        // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
         $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
     }
 }

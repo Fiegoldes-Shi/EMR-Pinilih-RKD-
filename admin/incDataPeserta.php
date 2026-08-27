@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // === BASEURL DINAMIS (tanpa hardcode localhost) ===
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host     = $_SERVER['HTTP_HOST'];
@@ -47,7 +47,6 @@ if (!empty($_POST["editbtn"])) {
 if (!empty($_POST["btnhapus"])) {
     $delete = new cDelete();
     foreach ($_POST["hiddendeletevalue"] as $data) {
-        // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
         $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);        
     }
 }

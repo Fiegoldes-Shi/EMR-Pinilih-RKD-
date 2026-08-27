@@ -1,45 +1,27 @@
 <?php
 class cDelete
 {
-	function _dDeleteData($field, $value, $table)
-	{
-		$sqldel = "DELETE FROM " . $table . " WHERE " . $field . " = " . $value;
-		//echo "<br>".$sqldel."<br>";
-		$query = mysqli_query($GLOBALS["conn"], $sqldel);
-
-		if ($query) {
-			echo "<script>
-					Swal.fire({
-					  position:'center',
-					  width:'20em',
-					  icon:'success',
-					  text: 'Data berhasil dihapus',
-					  type: 'error',
-					}).then(function (result) {
-					  if (true) {
-					    window.location = '';
-					  }
-			}) </script>";
-		} else {
-			echo "<script>
-					Swal.fire({
-					  position:'center',
-					  width:'20em',
-					  icon: 'error',	
-					  text: 'Data tidak berhasil dihapus',
-					  type: 'error',
-					}).then(function (result) {
-					  if (true) {
-					    window.location = '';
-					  }
-			}) </script>";
-		}
-	}
+	private static $allowedDeleteTargets = [
+		"hasil_layanan" => ["idHasilLayanan"],
+		"jadwal_program" => ["idJadwal"],
+		"program_edukasi" => ["idEdukasi"],
+		"peserta_edukasi" => ["idPesertaEdukasi"],
+		"terapis" => ["idTerapis"],
+		"peserta" => ["idPeserta"],
+		"user" => ["idUser"],
+		"sub_disabilitas" => ["idSubDisabilitas", "idJenisDisabilitas"],
+		"pasien" => ["idPasien"],
+		"jenis_disabilitas" => ["idJenisDisabilitas"],
+	];
 
 	function vDeleteDataPrepared($table, $field, $value, $type = "")
 	{
 		if (!isset($GLOBALS["conn"]) || !$GLOBALS["conn"]) {
 			die("Koneksi ke database tidak ditemukan.");
+		}
+
+		if (!isset(self::$allowedDeleteTargets[$table]) || !in_array($field, self::$allowedDeleteTargets[$table], true)) {
+			die("Permintaan hapus data ditolak: target tidak valid.");
 		}
 
 		$sql = "DELETE FROM " . $table . " WHERE " . $field . " = ?";
@@ -119,11 +101,5 @@ class cDelete
                       }
                     }) </script>";
 		}
-	}
-
-	function _dDeleteDataTrial($field, $value, $table)
-	{
-		$sqldel = "DELETE FROM " . $table . " WHERE " . $field . " = " . $value;
-		echo "<p>" . $sqldel . "</p>";
 	}
 }

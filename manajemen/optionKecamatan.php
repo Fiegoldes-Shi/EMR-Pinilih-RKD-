@@ -30,8 +30,8 @@ try {
 }
 $id_kotaKab = $_POST['kotaKab'];
 
-$sql = $pdo->prepare("SELECT * FROM kecamatan WHERE idKotaKabupaten = '" .$id_kotaKab. "' ORDER BY idKecamatan");
-$sql->execute();
+$sql = $pdo->prepare("SELECT * FROM kecamatan WHERE idKotaKabupaten = :idKotaKab ORDER BY idKecamatan");
+$sql->execute([':idKotaKab' => $id_kotaKab]);
 
 // Buat data untuk dropdown kecamatan
 $html = "<option value=''>- pilihan -</option>";

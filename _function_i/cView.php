@@ -92,11 +92,4 @@ class cView
 
 		return $data;
 	}
-
-	function vViewDataTrial($sSql)
-	{
-		echo "<p>";
-		echo $sSql;
-		echo "</p>";
-	}
 }

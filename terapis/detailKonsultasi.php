@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -26,7 +26,6 @@ if ($posMenu !== false && isset($segments[$posMenu + 1])) {
     // Fallback for unexpected URL structures
     $idJadwal = isset($segments[3]) ? $segments[3] : 0;
 }
-// echo $idJadwal;
 
 $conn = new cConnect();
 $conn->goConnect();
@@ -103,7 +102,6 @@ if (!empty($_POST["savebtn"])) {
     $datavalue_hasil = array($idJadwal, $idUser, $_POST["idPasien"], $_POST["idTerapis"], $_POST["keluhan"], $_POST["hasilPemeriksaan"], $_POST["diagnosis"], $_POST["catatanTindakan"], $_POST["saranRujukan"]);
 
     $insert = new cInsert();
-    // $insert->vInsertDataTrial($datafield_hasil, "hasil_layanan", $datavalue_hasil, $linkurl);
     $insert->vInsertDataPrepared("hasil_layanan", $datafield_hasil, $datavalue_hasil);
 }
 ?>
@@ -120,7 +118,6 @@ if (!empty($_POST["editbtn"])) {
     $datavalue_hasil = array($_POST["idJadwal"], $_POST["idUser"], $_POST["idPasien"], $_POST["idTerapis"], $_POST["keluhan"], $_POST["hasilPemeriksaan"], $_POST["diagnosis"], $_POST["catatanTindakan"], $_POST["saranRujukan"]);
 
     $update = new cUpdate();
-    // $update->vUpdateDataTrial($datafield_hasil, "hasil_layanan", $datavalue_hasil, $datakey, $linkurl);
     $update->vUpdateDataPrepared("hasil_layanan", $datafield_hasil, $datavalue_hasil, "idHasilLayanan", $_POST["idHasilLayanan"]);
 }
 ?>
@@ -134,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
     if ($passwordInput === '') {
         echo "<script>alert('Password harus diisi.');</script>";
     } else {
-        $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' LIMIT 1";
+        $sql = "SELECT password FROM user WHERE role = 2 AND jbtn = 'Ketua' ORDER BY idUser ASC LIMIT 1";
         $result = $view->vViewData($sql)[0] ?? null;
 
         // Bandingkan menggunakan md5 jika memang disimpan dengan md5
@@ -144,7 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
             if (!empty($_POST["hiddendeletevalue"])) {
                 $delete = new cDelete();
                 foreach ($_POST["hiddendeletevalue"] as $data) {
-                    // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
                     $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
                 }
             }
@@ -312,9 +308,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                 <?php
                                 $linkurl = $idJadwal;
                                 $datadetail = array(
-                                    // array("ID HASIL LAYANAN", "idHasilLayanan", $datahasil["idHasilLayanan"], 2, ""),
-                                    // array("ID JADWAL", "idJadwal", $idJadwal, 2, $idJadwal),
-                                    // array("ID USER", "idUser", $idUser, 2, $idUser),
                                     array("ID PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
                                     array("ID TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
                                     array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),

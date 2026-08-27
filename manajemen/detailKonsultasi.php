@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -27,7 +27,6 @@ if ($posMenu !== false && isset($segments[$posMenu + 1])) {
         $idJadwal = isset($segments[3]) ? (int)$segments[3] : 0;
     }
 }
-// echo $idJadwal;
 
 $conn = new cConnect();
 $conn->goConnect();
@@ -147,9 +146,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                                 <?php
                                 $linkurl = $idJadwal;
                                 $datadetail = array(
-                                    // array("ID HASIL LAYANAN", "idHasilLayanan", $datahasil["idHasilLayanan"], 2, ""),
-                                    // array("ID JADWAL", "idJadwal", $idJadwal, 2, $idJadwal),
-                                    // array("ID USER", "idUser", $idUser, 2, $idUser),
                                     array("ID PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
                                     array("ID TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
                                     array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),

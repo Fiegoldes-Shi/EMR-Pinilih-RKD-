@@ -1,4 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
 date_default_timezone_set('Asia/Jakarta');
 
 // Sertakan file TCPDF
@@ -31,14 +38,6 @@ if (empty($dataPasien)) {
 
 $namaPasien = $dataPasien[0]['namaLengkap'];
 $tanggalCetak = date("d-m-Y H:i");
-
-// // Definisi kolom hasil layanan per program
-// $kolomPerProgram = [
-//     1 => ["areaTubuh"],
-//     2 => ["tingkatNyeri", "waktuMunculKeluhan", "sifatSakit", "obat", "posturTubuh", "ROM", "positive", "management"],
-//     3 => ["tanggalRujukan", "alasanRujukan", "tinggiBadan", "beratBadan", "tekananDarah", "gulaDarah", "kolesterol", "trigliserida", "benjolanPayudara", "inspeksiVisualAsamAsetat", "kadarAlkoholPernafasan", "tesAmfetaminUrin", "arusPernafasanEkspirasi", "faktorResikoPerilaku"],
-//     4 => ["saranRujukan"]
-// ];
 
 // Mapping nama kolom ke teks deskriptif
 $kolomPerProgram = [

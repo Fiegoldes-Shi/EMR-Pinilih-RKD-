@@ -27,12 +27,12 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
-}$pdo = new PDO('mysql:host='.$host.';dbname='.$database, $username, $password);
+}
 
 $idKec = $_POST['idKec'];
 
-$sql = $pdo->prepare("SELECT * FROM kelurahan WHERE idKecamatan = '" .$idKec. "' ORDER BY idKelurahan");
-$sql->execute();
+$sql = $pdo->prepare("SELECT * FROM kelurahan WHERE idKecamatan = :idKec ORDER BY idKelurahan");
+$sql->execute([':idKec' => $idKec]);
 
 // Buat data untuk dropdown kecamatan
 $html = "<option value=''>- pilihan -</option>";

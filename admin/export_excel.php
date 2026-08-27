@@ -1,4 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
 date_default_timezone_set('Asia/Jakarta');
 
 include_once("../_function_i/cView.php");
@@ -86,15 +93,15 @@ if (empty($dataPasien)) {
     foreach ($dataPasien as $row) {
         echo "<tr>
                 <td>" . $no++ . "</td>
-                <td>" . $row['namaLengkap'] . "</td>
-                <td>" . $row['jenisKelamin'] . "</td>
-                <td>" . $row['kelompokUsia'] . "</td>
-                <td>" . $row['golonganDarah'] . "</td>
-                <td>" . $row['alamatDomisili'] . "</td>
-                <td>" . $row['namaKelurahan'] . "</td>
-                <td>" . $row['jenisDisabilitas'] . "</td>
-                <td>" . $row['namaDisabilitas'] . "</td>
-                <td>" . $row['alatBantu'] . "</td>
+                <td>" . htmlspecialchars($row['namaLengkap'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['jenisKelamin'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['kelompokUsia'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['golonganDarah'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['alamatDomisili'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['namaKelurahan'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['jenisDisabilitas'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['namaDisabilitas'] ?? '') . "</td>
+                <td>" . htmlspecialchars($row['alatBantu'] ?? '') . "</td>
               </tr>";
     }
 }

@@ -1,4 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
 date_default_timezone_set('Asia/Jakarta');
 
 include_once("../_function_i/cConnect.php");
@@ -102,7 +109,7 @@ $allKolom = array_merge(...array_values($kolomPerProgram));
 $totalColumns = 8 + count($allKolom);
 
 echo "<table border='1'>";
-echo "<tr><th colspan='$totalColumns' style='text-align:center; font-size:16px; font-weight:bold;'>Detail Rekam Medis Pasien: $namaPasien</th></tr>";
+echo "<tr><th colspan='$totalColumns' style='text-align:center; font-size:16px; font-weight:bold;'>Detail Rekam Medis Pasien: " . htmlspecialchars($namaPasien) . "</th></tr>";
 echo "<tr><th colspan='$totalColumns' style='text-align:center;'>Dicetak pada: $tanggalCetak</th></tr>";
 echo "<tr><td colspan='$totalColumns'></td></tr>";
 
@@ -129,17 +136,17 @@ if (empty($datahasil)) {
     foreach ($datahasil as $data) {
         echo "<tr>
                 <td style='text-align:center;'>" . $no++ . "</td>
-                <td>" . $data["tanggalKegiatan"] . "</td>
-                <td>" . $data["namaProgram"] . "</td>
-                <td>" . $data["namaTerapis"] . "</td>
-                <td>" . $data["keluhan"] . "</td>
-                <td>" . $data["hasilPemeriksaan"] . "</td>
-                <td>" . $data["diagnosis"] . "</td>
-                <td>" . $data["catatanTindakan"] . "</td>";
+                <td>" . htmlspecialchars($data["tanggalKegiatan"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["namaProgram"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["namaTerapis"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["keluhan"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["hasilPemeriksaan"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["diagnosis"] ?? '') . "</td>
+                <td>" . htmlspecialchars($data["catatanTindakan"] ?? '') . "</td>";
 
         foreach ($allKolom as $kolom) {
             $nilai = isset($data[$kolom]) && !empty($data[$kolom]) ? $data[$kolom] : "-";
-            echo "<td>" . $nilai . "</td>";
+            echo "<td>" . htmlspecialchars($nilai) . "</td>";
         }
         echo "</tr>";
     }

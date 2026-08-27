@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -127,7 +127,6 @@ if (!empty($_POST["savebtn"])) {
     $datavalue_hasil = array($_POST["idJadwal"], $_POST["idUser"], $_POST["hasilKegiatan"], $dokumentasi);
 
     $insert = new cInsert();
-    // $insert->vInsertDataTrial($datafield_hasil, "program_edukasi", $datavalue_hasil, $linkurl);
     $insert->vInsertDataPrepared("program_edukasi", $datafield_hasil, $datavalue_hasil);
 }
 ?>
@@ -163,7 +162,6 @@ if (!empty($_POST["editbtn"])) {
     $datavalue_hasil = array($_POST["idJadwal"], $_POST["idUser"], $_POST["hasilKegiatan"], $dokumentasi);
 
     $update = new cUpdate();
-    // $update->vUpdateDataTrial($datafield_hasil, "program_edukasi", $datavalue_hasil, $datakey, $linkurl);
     $update->vUpdateDataPrepared("program_edukasi", $datafield_hasil, $datavalue_hasil, "idEdukasi", $_POST["idEdukasi"]);
 }
 ?>
@@ -173,7 +171,6 @@ if (!empty($_POST["editbtn"])) {
 if (!empty($_POST["btnhapus"])) {
     $delete = new cDelete();
     foreach ($_POST["hiddendeletevalue"] as $data) {
-        // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
         $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
     }
 }
@@ -325,7 +322,6 @@ if (!empty($_POST["ubahbtn"])) {
     $datavalue_peserta = array($_POST["nama"], $_POST["asalLembaga"] === '' ? "" : $_POST["asalLembaga"], $_POST["jenisKelamin"], $_POST["usia"], $_POST["alamat"] === '' ? "" : $_POST["alamat"]);
 
     $update = new cUpdate();
-    // $update->vUpdateDataTrial($datafield_peserta, "peserta", $datavalue_peserta, $datakeyPeserta, $linkurl);
     $update->vUpdateDataPrepared("peserta", $datafield_peserta, $datavalue_peserta, "idPeserta", $_POST["idPeserta"]);
 }
 ?>
@@ -335,7 +331,6 @@ if (!empty($_POST["ubahbtn"])) {
 if (!empty($_POST["btndelete"])) {
     $delete = new cDelete();
     foreach ($_POST["hiddendeletevalue"] as $data) {
-        // $delete->_dDeleteDataTrial($data["field"], $data["value"], $data["table"]);
         $delete->vDeleteDataPrepared($data["table"], $data["field"], $data["value"]);
     }
 }

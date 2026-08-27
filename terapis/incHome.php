@@ -10,19 +10,8 @@
                     foreach ($arrayjmlPasien as $dataPasien) {
                         $totalPasien = $dataPasien["totalPasien"];
                     }
-                    // $jmlPasienAktif = "SELECT COUNT(*) as totalPasien FROM pasien WHERE statusPasien = 'Aktif'";
-                    // $view = new cView();
-                    // $view->vViewData($jmlPasienAktif);
-                    // $arrayjmlPasienAktif = $view->vViewData($jmlPasienAktif);
-                    // foreach ($arrayjmlPasienAktif as $dataPasienAktif) {
-                    //     $totalPasienAktif = $dataPasienAktif["totalPasien"];
-                    // }
                 ?>
                 <h2><?= $totalPasien ?></h2>
-                <!-- <div style="text-align: center;" class="mb-1">
-                    <h2 style="display: inline;"><?= $totalPasienAktif ?></h2>
-                    <small> dari <?= $totalPasien ?></small>
-                </div> -->
                 <h3>Pasien</h3>
             </div>
         </div>
@@ -38,19 +27,8 @@
                     foreach ($arrayjmlTerapis as $dataTerapis) {
                         $totalTerapis = $dataTerapis["totalTerapis"];
                     }
-                    // $jmlTerapisAktif = "SELECT COUNT(*) as totalTerapis FROM terapis WHERE statusTerapis = 'Aktif'";
-                    // $view = new cView();
-                    // $view->vViewData($jmlTerapisAktif);
-                    // $arrayjmlTerapisAktif = $view->vViewData($jmlTerapisAktif);
-                    // foreach ($arrayjmlTerapisAktif as $dataTerapisAktif) {
-                    //     $totalTerapisAktif = $dataTerapisAktif["totalTerapis"];
-                    // }
                 ?>
                 <h2><?= $totalTerapis ?></h2>
-                <!-- <div style="text-align: center;" class="mb-1">
-                    <h2 style="display: inline;"><?= $totalTerapisAktif ?></h2>
-                    <small> dari <?= $totalTerapis ?></small>
-                </div> -->
                 <h3>Terapis</h3>
             </div>
         </div>
@@ -68,10 +46,6 @@
                     }
                 ?>
                 <h2><?= $totalPengguna ?></h2>
-                <!-- <div style="text-align: center;" class="mb-1">
-                    <h2 style="display: inline;"><?= $totalPenggunaAktif ?></h2>
-                    <small> dari <?= $totalPengguna ?></small>
-                </div> -->
                 <h3>Pengguna</h3>
             </div>
         </div>

@@ -33,8 +33,8 @@ header('Content-Type: application/json'); // Pastikan respons dalam format JSON
 $idProv = $_POST['idProv'];
 
 // Buat query untuk menampilkan data sesuai yang dipilih user pada form
-$sql = $pdo->prepare("SELECT * FROM kotakabupaten WHERE idProvinsi='" .$idProv. "'ORDER BY idKotaKabupaten");
-$sql->execute(); // Eksekusi querynya
+$sql = $pdo->prepare("SELECT * FROM kotakabupaten WHERE idProvinsi = :idProv ORDER BY idKotaKabupaten");
+$sql->execute([':idProv' => $idProv]); // Eksekusi querynya
 
 $html = "<option value=''>- pilihan -</option>";
 while($data = $sql->fetch()){ // Ambil semua data dari hasil eksekusi $sql

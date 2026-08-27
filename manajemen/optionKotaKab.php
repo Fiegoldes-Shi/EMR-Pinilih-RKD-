@@ -25,20 +25,15 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
-}$username = 'root';
-$password = '';
-$database = 'emr_pinilih';
-
-// Koneksi ke MySQL dengan PDO
-$pdo = new PDO('mysql:host='.$host.';dbname='.$database, $username, $password);
+}
 
 // KOTA KABUPATEN
 // Ambil data ID provinsi yang dikirim via ajax post
 $id_provinsi = $_POST['provinsi'];
 
 // Buat query untuk menampilkan data sesuai yang dipilih user pada form
-$sql = $pdo->prepare("SELECT * FROM kotakabupaten WHERE idProvinsi='" .$id_provinsi. "'ORDER BY idKotaKabupaten");
-$sql->execute(); // Eksekusi querynya
+$sql = $pdo->prepare("SELECT * FROM kotakabupaten WHERE idProvinsi = :idProvinsi ORDER BY idKotaKabupaten");
+$sql->execute([':idProvinsi' => $id_provinsi]); // Eksekusi querynya
 
 $html = "<option value=''>- pilihan -</option>";
 while($data = $sql->fetch()){ // Ambil semua data dari hasil eksekusi $sql

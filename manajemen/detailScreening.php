@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -214,9 +214,6 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                             <td>
                                 <?php
                                 $datadetail = array(
-                                    // array("ID HASIL LAYANAN", "idHasilLayanan", $datahasil["idHasilLayanan"], 2, ""),
-                                    // array("ID JADWAL", "idJadwal", $idJadwal, 2, $idJadwal),
-                                    // array("ID USER", "idUser", $idUser, 2, $idUser),
                                     array("PASIEN", "namaLengkap", $datahasil["namaLengkap"], 1),
                                     array("TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
                                     array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),

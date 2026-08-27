@@ -31,8 +31,8 @@ try {
 header('Content-Type: application/json'); // Pastikan respons dalam format JSON
 $idKotaKab = $_POST['idKotaKab'];
 
-$sql = $pdo->prepare("SELECT * FROM kecamatan WHERE idKotaKabupaten = '" .$idKotaKab. "' ORDER BY idKecamatan");
-$sql->execute();
+$sql = $pdo->prepare("SELECT * FROM kecamatan WHERE idKotaKabupaten = :idKotaKab ORDER BY idKecamatan");
+$sql->execute([':idKotaKab' => $idKotaKab]);
 
 // Buat data untuk dropdown kecamatan
 $html = "<option value=''>- pilihan -</option>";

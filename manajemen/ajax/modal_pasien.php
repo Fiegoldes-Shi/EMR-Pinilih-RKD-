@@ -33,7 +33,7 @@ if (!$datapasien) {
             <div class="modal-header">
                 <figure class="text-left">
                     <blockquote class="blockquote">DETAIL PASIEN
-                        <?= $datapasien["idPasien"]; ?>
+                        <?= htmlspecialchars($datapasien["idPasien"]); ?>
                     </blockquote>
                 </figure>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -43,202 +43,202 @@ if (!$datapasien) {
                     <tr>
                         <td width="39%">Nama Lengkap</td>
                         <td width="1%">:</td>
-                        <td width="60%"><?= $datapasien["namaLengkap"]; ?></td>
+                        <td width="60%"><?= htmlspecialchars($datapasien["namaLengkap"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nama Panggilan</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaPanggilan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaPanggilan"]); ?></td>
                     </tr>
                     <tr>
                         <td>NIK</td>
                         <td>:</td>
-                        <td><?= $datapasien["nik"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["nik"]); ?></td>
                     </tr>
                     <tr>
                         <td>Tempat Lahir</td>
                         <td>:</td>
-                        <td><?= $datapasien["tempatLahir"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["tempatLahir"]); ?></td>
                     </tr>
                     <tr>
                         <td>Tanggal Lahir</td>
                         <td>:</td>
-                        <td><?= $datapasien["tanggalLahir"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["tanggalLahir"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kelompok Usia</td>
                         <td>:</td>
-                        <td><?= $datapasien["kelompokUsia"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["kelompokUsia"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td>:</td>
-                        <td><?= $datapasien["jenisKelamin"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["jenisKelamin"]); ?></td>
                     </tr>
                     <tr>
                         <td>Golongan Darah</td>
                         <td>:</td>
-                        <td><?= $datapasien["golonganDarah"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["golonganDarah"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nomor Telepon Pasien</td>
                         <td>:</td>
-                        <td><?= $datapasien["noTeleponPasien"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["noTeleponPasien"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alamat Lengkap (KTP)</td>
                         <td>:</td>
-                        <td><?= $datapasien["alamatLengkap"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["alamatLengkap"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alamat Domisili</td>
                         <td>:</td>
-                        <td><?= $datapasien["alamatDomisili"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["alamatDomisili"]); ?></td>
                     </tr>
                     <tr>
                         <td>Tanggal Mulai Aktif</td>
                         <td>:</td>
-                        <td><?= $datapasien["tanggalAktif"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["tanggalAktif"]); ?></td>
                     </tr>
                     <tr>
                         <td>Status Pasien</td>
                         <td>:</td>
-                        <td><?= $datapasien["statusPasien"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["statusPasien"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alasan Tidak Aktif</td>
                         <td>:</td>
-                        <td><?= $datapasien["alasanTidakAktif"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["alasanTidakAktif"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Disabilitas</td>
                         <td>:</td>
-                        <td><?= $datapasien["jenisDisabilitas"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["jenisDisabilitas"]); ?></td>
                     </tr>
                     <tr>
                         <td>Subjenis Disabilitas</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaDisabilitas"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaDisabilitas"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alat Bantu</td>
                         <td>:</td>
-                        <td><?= $datapasien["alatBantu"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["alatBantu"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kebutuhan Khusus</td>
                         <td>:</td>
-                        <td><?= $datapasien["kebutuhanKhusus"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["kebutuhanKhusus"]); ?></td>
                     </tr>
                     <tr>
                         <td>Riwayat Penyakit Pribadi</td>
                         <td>:</td>
-                        <td><?= $datapasien["riwayatPenyakitPribadi"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["riwayatPenyakitPribadi"]); ?></td>
                     </tr>
                     <tr>
                         <td>Riwayat Penyakit Keluarga</td>
                         <td>:</td>
-                        <td><?= $datapasien["riwayatPenyakitKeluarga"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["riwayatPenyakitKeluarga"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alergi</td>
                         <td>:</td>
-                        <td><?= $datapasien["alergi"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["alergi"]); ?></td>
                     </tr>
                     <tr>
                         <td>Trauma/Cedera</td>
                         <td>:</td>
-                        <td><?= $datapasien["trauma"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["trauma"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nama Orang Tua</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaOrangTua"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaOrangTua"]); ?></td>
                     </tr>
                     <tr>
                         <td>No Telepon Orang Tua</td>
                         <td>:</td>
-                        <td><?= $datapasien["noTelpOrangTua"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["noTelpOrangTua"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nama Pendamping</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaPendamping"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaPendamping"]); ?></td>
                     </tr>
                     <tr>
                         <td>No Telepon Pendamping</td>
                         <td>:</td>
-                        <td><?= $datapasien["noTelpPendamping"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["noTelpPendamping"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nama Jalan</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaJalan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaJalan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Provinsi</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaProvinsi"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaProvinsi"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kota/Kabupaten</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaKotaKabupaten"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaKotaKabupaten"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kecamatan</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaKecamatan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaKecamatan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kelurahan</td>
                         <td>:</td>
-                        <td><?= $datapasien["namaKelurahan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["namaKelurahan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Kode Pos Domisili</td>
                         <td>:</td>
-                        <td><?= $datapasien["kodePosDomisili"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["kodePosDomisili"]); ?></td>
                     </tr>
                     <tr>
                         <td>RT/RW Domisili</td>
                         <td>:</td>
-                        <td><?= $datapasien["RTDomisili"]; ?>/<?= $datapasien["RWDomisili"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["RTDomisili"]); ?>/<?= htmlspecialchars($datapasien["RWDomisili"]); ?></td>
                     </tr>
                     <tr>
                         <td>Agama</td>
                         <td>:</td>
-                        <td><?= $datapasien["agama"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["agama"]); ?></td>
                     </tr>
                     <tr>
                         <td>Suku</td>
                         <td>:</td>
-                        <td><?= $datapasien["suku"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["suku"]); ?></td>
                     </tr>
                     <tr>
                         <td>Bahasa Dikuasai</td>
                         <td>:</td>
-                        <td><?= $datapasien["bahasaDikuasai"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["bahasaDikuasai"]); ?></td>
                     </tr>
                     <tr>
                         <td>Pendidikan Terakhir</td>
                         <td>:</td>
-                        <td><?= $datapasien["pendidikan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["pendidikan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Pekerjaan</td>
                         <td>:</td>
-                        <td><?= $datapasien["pekerjaan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["pekerjaan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Status Pernikahan</td>
                         <td>:</td>
-                        <td><?= $datapasien["statusPernikahan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["statusPernikahan"]); ?></td>
                     </tr>
                     <tr>
                         <td>Keterangan</td>
                         <td>:</td>
-                        <td><?= $datapasien["keterangan"]; ?></td>
+                        <td><?= htmlspecialchars($datapasien["keterangan"]); ?></td>
                     </tr>
                 </table>
             </div>

@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // Ambil data pengguna berdasarkan sesi login
 $idUser = $_SESSION['idUser'];
 $sql = "SELECT * FROM user WHERE idUser = ?";

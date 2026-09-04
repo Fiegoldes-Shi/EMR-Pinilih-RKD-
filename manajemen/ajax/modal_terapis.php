@@ -29,14 +29,14 @@ $labelJenisTerapis = $enumJTMapping[$dataterapis["jenisTerapis"]] ?? $dataterapi
 $dokumenPath = "../admin/uploads/sertifikasi/" . basename((string) $dataterapis["dokumenSertifikasi"]);
 $pathForCheck = __DIR__ . "/../../admin/uploads/sertifikasi/" . basename((string) $dataterapis["dokumenSertifikasi"]);
 if (!empty($dataterapis["dokumenSertifikasi"]) && file_exists($pathForCheck)) {
-    $dokumenSertifikasi = '<a href="' . $baseurl . '/admin/uploads/sertifikasi/' . basename((string) $dataterapis["dokumenSertifikasi"]) . '" target="_blank">Lihat Dokumen</a>';
+    $dokumenSertifikasi = '<a href="' . htmlspecialchars($baseurl . '/admin/uploads/sertifikasi/' . basename((string) $dataterapis["dokumenSertifikasi"])) . '" target="_blank">Lihat Dokumen</a>';
 } else {
     $dokumenSertifikasi = '<span>Tidak ada dokumen</span>';
 }
 
 $pathForCheck2 = __DIR__ . "/../../admin/uploads/dokumenLain/" . basename((string) $dataterapis["dokumenLainnya"]);
 if (!empty($dataterapis["dokumenLainnya"]) && file_exists($pathForCheck2)) {
-    $dokumenLainnya = '<a href="' . $baseurl . '/admin/uploads/dokumenLain/' . basename((string) $dataterapis["dokumenLainnya"]) . '" target="_blank">Lihat Dokumen</a>';
+    $dokumenLainnya = '<a href="' . htmlspecialchars($baseurl . '/admin/uploads/dokumenLain/' . basename((string) $dataterapis["dokumenLainnya"])) . '" target="_blank">Lihat Dokumen</a>';
 } else {
     $dokumenLainnya = '<span>Tidak ada dokumen</span>';
 }
@@ -48,7 +48,7 @@ if (!empty($dataterapis["dokumenLainnya"]) && file_exists($pathForCheck2)) {
             <div class="modal-header">
                 <figure class="text-left">
                     <blockquote class="blockquote">DETAIL TERAPIS
-                        <?= $dataterapis["idTerapis"]; ?>
+                        <?= htmlspecialchars($dataterapis["idTerapis"]); ?>
                     </blockquote>
                 </figure>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -58,72 +58,72 @@ if (!empty($dataterapis["dokumenLainnya"]) && file_exists($pathForCheck2)) {
                     <tr>
                         <td width="39%">Nama Lengkap</td>
                         <td width="1%">:</td>
-                        <td width="60%"><?= $dataterapis["namaTerapis"]; ?></td>
+                        <td width="60%"><?= htmlspecialchars($dataterapis["namaTerapis"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td>:</td>
-                        <td><?= $dataterapis["jenisKelamin"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["jenisKelamin"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
                         <td>:</td>
-                        <td><?= $dataterapis["alamat"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["alamat"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nomor Telepon</td>
                         <td>:</td>
-                        <td><?= $dataterapis["noTelepon"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["noTelepon"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Terapis</td>
                         <td>:</td>
-                        <td><?= $labelJenisTerapis; ?></td>
+                        <td><?= htmlspecialchars($labelJenisTerapis); ?></td>
                     </tr>
                     <tr>
                         <td>Spesialisasi</td>
                         <td>:</td>
-                        <td><?= $dataterapis["spesialisasi"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["spesialisasi"]); ?></td>
                     </tr>
                     <tr>
                         <td>Asal Instansi</td>
                         <td>:</td>
-                        <td><?= $dataterapis["instansi"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["instansi"]); ?></td>
                     </tr>
                     <tr>
                         <td>Pendidikan Terakhir</td>
                         <td>:</td>
-                        <td><?= $dataterapis["pendidikanTerakhir"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["pendidikanTerakhir"]); ?></td>
                     </tr>
                     <tr>
                         <td>Pendidikan Non Formal</td>
                         <td>:</td>
-                        <td><?= $dataterapis["pendidikanNonFormal"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["pendidikanNonFormal"]); ?></td>
                     </tr>
                     <tr>
                         <td>Tanggal Mulai Aktif</td>
                         <td>:</td>
-                        <td><?= $dataterapis["tanggalAktif"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["tanggalAktif"]); ?></td>
                     </tr>
                     <tr>
                         <td>Status Pekerja</td>
                         <td>:</td>
-                        <td><?= $dataterapis["statusPekerja"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["statusPekerja"]); ?></td>
                     </tr>
                     <tr>
                         <td>Status Terapis</td>
                         <td>:</td>
-                        <td><?= $dataterapis["statusTerapis"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["statusTerapis"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alasan Tidak Aktif</td>
                         <td>:</td>
-                        <td><?= $dataterapis["alasanTidakAktif"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["alasanTidakAktif"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nomor Izin Praktek</td>
                         <td>:</td>
-                        <td><?= $dataterapis["noIzinPraktek"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["noIzinPraktek"]); ?></td>
                     </tr>
                     <tr>
                         <td>Dokumen Sertifikasi</td>
@@ -138,7 +138,7 @@ if (!empty($dataterapis["dokumenLainnya"]) && file_exists($pathForCheck2)) {
                     <tr>
                         <td>Keterangan</td>
                         <td>:</td>
-                        <td><?= $dataterapis["keterangan"]; ?></td>
+                        <td><?= htmlspecialchars($dataterapis["keterangan"]); ?></td>
                     </tr>
                 </table>
             </div>

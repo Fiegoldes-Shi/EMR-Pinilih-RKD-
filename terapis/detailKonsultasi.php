@@ -1,4 +1,13 @@
 ﻿<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -21,10 +30,10 @@ $segments = explode('/', (string)$request);
 // FIX: Use dynamic search for '341' (Menu ID) to handle different URL depths
 $posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = $segments[$posMenu + 1];
+    $idJadwal = (int) $segments[$posMenu + 1];
 } else {
     // Fallback for unexpected URL structures
-    $idJadwal = isset($segments[3]) ? $segments[3] : 0;
+    $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
 }
 
 $conn = new cConnect();
@@ -196,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                     $arraypasien = $view->vViewData($sqlpasien);
 
                                     foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -211,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                     $arrayterapis = $view->vViewData($sqlterapis);
 
                                     foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -300,21 +309,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["namaLengkap"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["hasilPemeriksaan"]; ?></td>
-                            <td><?= $datahasil["diagnosis"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 $linkurl = $idJadwal;
                                 $datadetail = array(
-                                    array("ID PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
-                                    array("ID TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
-                                    array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                    array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
-                                    array("SARAN DAN RUJUKAN", "saranRujukan", $datahasil["saranRujukan"], 1),
+                                    array("ID PASIEN", "idPasien", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
+                                    array("ID TERAPIS", "idTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                    array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                    array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
+                                    array("SARAN DAN RUJUKAN", "saranRujukan", htmlspecialchars($datahasil["saranRujukan"] ?? ''), 1),
                                 );
                                 _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL KONSULTASI", "", $datadetail, "", $linkurl, "");
                                 ?>
@@ -335,10 +344,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                 <figure class="text-left">
                                                     <blockquote class="blockquote">EDIT HASIL KONSULTASI</blockquote>
                                                     <figcaption class="blockquote-footer">
-                                                        <?= $datahasil["idHasilLayanan"]; ?>
+                                                        <?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>
                                                     </figcaption>
-                                                    <figcaption class="blockquote-footer"><?= $datahasil["namaLengkap"]; ?>
-                                                        (<?= $datahasil["tanggalKegiatan"]; ?>)</figcaption>
+                                                    <figcaption class="blockquote-footer"><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?>
+                                                        (<?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? ''); ?>)</figcaption>
                                                 </figure>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -347,21 +356,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <input class="form-control" type="text" name="idHasilLayanan"
-                                                            id="idHasilLayanan" value="<?= $datahasil["idHasilLayanan"]; ?>"
+                                                            id="idHasilLayanan" value="<?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idJadwal"
-                                                            id="idJadwal" value="<?= $datahasil["idJadwal"]; ?>"
+                                                            id="idJadwal" value="<?= htmlspecialchars($datahasil["idJadwal"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idUser" id="idUser"
-                                                            value="<?= $datahasil["idUser"]; ?>" maxlength="255" size=""
+                                                            value="<?= htmlspecialchars($datahasil["idUser"] ?? ''); ?>" maxlength="255" size=""
                                                             hidden>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="idPasien">ID Pasien <span
                                                                 class="required">*</span></label>
                                                         <select name="idPasien" id="idPasien" class="form-control" required>
-                                                            <option value="<?= $datahasil["idPasien"]; ?>">
-                                                                <?= $datahasil["namaLengkap"] . " - " . $datahasil["idPasien"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idPasien"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaLengkap"] ?? '') . " - " . ($datahasil["idPasien"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlpasien = "SELECT * FROM pasien WHERE statusPasien = 'Aktif' ORDER BY namaLengkap ASC";
@@ -369,7 +378,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                             $arraypasien = $view->vViewData($sqlpasien);
 
                                                             foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -379,8 +388,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                                 class="required">*</span></label>
                                                         <select name="idTerapis" id="idTerapis" class="form-control"
                                                             required>
-                                                            <option value="<?= $datahasil["idTerapis"]; ?>">
-                                                                <?= $datahasil["namaTerapis"] . " - " . $datahasil["idTerapis"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idTerapis"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaTerapis"] ?? '') . " - " . ($datahasil["idTerapis"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlterapis = "SELECT * FROM terapis WHERE statusTerapis = 'Aktif' ORDER BY namaTerapis ASC";
@@ -388,7 +397,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                             $arrayterapis = $view->vViewData($sqlterapis);
 
                                                             foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -396,7 +405,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                     <div class="mb-3">
                                                         <label for="keluhan">Keluhan <span class="required">*</span></label>
                                                         <input class="form-control" type="text" name="keluhan" id="keluhan"
-                                                            value="<?= $datahasil["keluhan"]; ?>"
+                                                            value="<?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?>"
                                                             placeholder="Keluhan yang dirasakan pasien" maxlength="255"
                                                             size="" required>
                                                     </div>
@@ -407,7 +416,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                             name="hasilPemeriksaan"
                                                             placeholder="Hasil pemeriksaan oleh terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["hasilPemeriksaan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="diagnosis">Diagnosis <span
@@ -415,7 +424,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                         <textarea class="form-control" id="diagnosis" name="diagnosis"
                                                             placeholder="Diagnosis dari terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["diagnosis"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="catatanTindakan">Catatan dan Rencana Tindakan <span
@@ -424,7 +433,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                             name="catatanTindakan"
                                                             placeholder="Catatan dan rekomendasi rencana tindakan dari terapis"
                                                             rows="3" cols="" id="floatingTextarea"
-                                                            required><?= $datahasil["catatanTindakan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="saranRujukan">Saran Rujukan <span
@@ -432,7 +441,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                         <textarea class="form-control" id="saranRujukan" name="saranRujukan"
                                                             placeholder="Saran Rujukan" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["catatanTindakan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["saranRujukan"] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -473,7 +482,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                             </h5>
                                                         </blockquote>
                                                         <figcaption class="blockquote-footer">Hasil Fisioterapi
-                                                            <?= $datahasil["tanggalKegiatan"] ?>
+                                                            <?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? '') ?>
                                                         </figcaption>
                                                     </figure>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -481,7 +490,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Yakin ingin menghapus hasil fisioterapi
-                                                        <strong><?= $datahasil["namaLengkap"] ?></strong>?
+                                                        <strong><?= htmlspecialchars($datahasil["namaLengkap"] ?? '') ?></strong>?
                                                     </p>
                                                     <div class="form-group">
                                                         <label for="password_verif<?= $idHapus; ?>">Masukkan Password

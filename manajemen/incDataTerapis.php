@@ -1,3 +1,12 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-10 col-lg-11">

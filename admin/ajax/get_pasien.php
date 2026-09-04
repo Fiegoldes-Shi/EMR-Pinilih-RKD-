@@ -109,7 +109,5 @@ $output = [
     "aaData" => $response
 ];
 
-// Debug Log
-// file_put_contents('debug_log.txt', print_r($output, true));
 
 echo json_encode($output);

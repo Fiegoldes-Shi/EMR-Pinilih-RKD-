@@ -46,7 +46,7 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">DETAIL PENGGUNA
-                            <?= $datapengguna["idUser"]; ?>
+                            <?= htmlspecialchars($datapengguna["idUser"]); ?>
                         </blockquote>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -56,57 +56,57 @@ if ($action == 'view') {
                         <tr>
                             <td width="39%">Nama Lengkap</td>
                             <td width="1%">:</td>
-                            <td width="60%"><?= $datapengguna["nama"]; ?></td>
+                            <td width="60%"><?= htmlspecialchars($datapengguna["nama"]); ?></td>
                         </tr>
                         <tr>
                             <td>Jenis Kelamin</td>
                             <td>:</td>
-                            <td><?= $datapengguna["jenisKelamin"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["jenisKelamin"]); ?></td>
                         </tr>
                         <tr>
                             <td>Jabatan</td>
                             <td>:</td>
-                            <td><?= $datapengguna["jbtn"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["jbtn"]); ?></td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
                             <td>:</td>
-                            <td><?= $datapengguna["alamat"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["alamat"]); ?></td>
                         </tr>
                         <tr>
                             <td>Tanggal Mulai Aktif</td>
                             <td>:</td>
-                            <td><?= $datapengguna["tglMulaiAktif"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["tglMulaiAktif"]); ?></td>
                         </tr>
                         <tr>
                             <td>No Telepon</td>
                             <td>:</td>
-                            <td><?= $datapengguna["noTelp"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["noTelp"]); ?></td>
                         </tr>
                         <tr>
                             <td>Status Pengguna</td>
                             <td>:</td>
-                            <td><?= $roleLabel; ?></td>
+                            <td><?= htmlspecialchars($roleLabel); ?></td>
                         </tr>
                         <tr>
                             <td>Status Pekerja</td>
                             <td>:</td>
-                            <td><?= $datapengguna["statusPekerja"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["statusPekerja"]); ?></td>
                         </tr>
                         <tr>
                             <td>Username</td>
                             <td>:</td>
-                            <td><?= $datapengguna["username"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["username"]); ?></td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td><?= $datapengguna["email"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["email"]); ?></td>
                         </tr>
                         <tr>
                             <td>Keterangan</td>
                             <td>:</td>
-                            <td><?= $datapengguna["keterangan"]; ?></td>
+                            <td><?= htmlspecialchars($datapengguna["keterangan"]); ?></td>
                         </tr>
                     </table>
                 </div>
@@ -129,76 +129,76 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">EDIT DATA PENGGUNA</blockquote>
-                        <figcaption class="blockquote-footer"><?= $datapengguna["idUser"]; ?></figcaption>
-                        <figcaption class="blockquote-footer"><?= $datapengguna["nama"] ?> - <?= $datapengguna["jbtn"] ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datapengguna["idUser"]); ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datapengguna["nama"]) ?> - <?= htmlspecialchars($datapengguna["jbtn"]) ?></figcaption>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" enctype="multipart/form-data" action="">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="idUser" value="<?= $datapengguna["idUser"]; ?>" hidden>
+                            <input class="form-control" type="text" name="idUser" value="<?= htmlspecialchars($datapengguna["idUser"]); ?>" hidden>
                         </div>
                         <div class="mb-3">
                             <label>Nama Pengguna <span class="required">*</span></label>
-                            <input class="form-control" type="text" name="nama" value="<?= $datapengguna["nama"]; ?>" required>
+                            <input class="form-control" type="text" name="nama" value="<?= htmlspecialchars($datapengguna["nama"]); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label>Jenis Kelamin <span class="required">*</span></label>
                             <select name="jenisKelamin" class="form-control" required>
-                                <option value="<?= $datapengguna["jenisKelamin"]; ?>"><?= $datapengguna["jenisKelamin"]; ?></option>
+                                <option value="<?= htmlspecialchars($datapengguna["jenisKelamin"]); ?>"><?= htmlspecialchars($datapengguna["jenisKelamin"]); ?></option>
                                 <?php foreach ($enumJK as $opt) echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label>Alamat <span class="required">*</span></label>
-                            <textarea class="form-control" name="alamat" required><?= $datapengguna["alamat"]; ?></textarea>
+                            <textarea class="form-control" name="alamat" required><?= htmlspecialchars($datapengguna["alamat"]); ?></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Nomor Telepon <span class="required">*</span></label>
-                            <input class="form-control" type="number" name="noTelp" value="<?= $datapengguna["noTelp"]; ?>" required>
+                            <input class="form-control" type="number" name="noTelp" value="<?= htmlspecialchars($datapengguna["noTelp"]); ?>" required>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Status Pengguna <span class="required">*</span></label>
                                 <select name="role" class="form-control" required>
-                                    <option value="<?= $datapengguna["role"]; ?>"><?= $datapengguna["role"]; ?></option>
+                                    <option value="<?= htmlspecialchars($datapengguna["role"]); ?>"><?= htmlspecialchars($datapengguna["role"]); ?></option>
                                     <?php foreach ($enumSPMapping as $key => $label) echo '<option value="' . $key . '">' . $label . '</option>'; ?>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Jabatan <span class="required">*</span></label>
-                                <input class="form-control" type="text" name="jbtn" value="<?= $datapengguna["jbtn"]; ?>" required>
+                                <input class="form-control" type="text" name="jbtn" value="<?= htmlspecialchars($datapengguna["jbtn"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Tanggal Mulai Aktif <span class="required">*</span></label>
-                                <input class="form-control" type="date" name="tglMulaiAktif" value="<?= $datapengguna["tglMulaiAktif"]; ?>" required>
+                                <input class="form-control" type="date" name="tglMulaiAktif" value="<?= htmlspecialchars($datapengguna["tglMulaiAktif"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Status Pekerja <span class="required">*</span></label>
                                 <select name="statusPekerja" class="form-control" required>
-                                    <option value="<?= $datapengguna["statusPekerja"]; ?>"><?= $datapengguna["statusPekerja"]; ?></option>
+                                    <option value="<?= htmlspecialchars($datapengguna["statusPekerja"]); ?>"><?= htmlspecialchars($datapengguna["statusPekerja"]); ?></option>
                                     <?php foreach ($enumStatusPekerja as $opt) echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label>Email <span class="required">*</span></label>
-                            <input class="form-control" type="text" name="email" value="<?= $datapengguna["email"]; ?>" required>
+                            <input class="form-control" type="text" name="email" value="<?= htmlspecialchars($datapengguna["email"]); ?>" required>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Username <span class="required">*</span></label>
-                                <input class="form-control" type="text" name="username" value="<?= $datapengguna["username"]; ?>" required>
+                                <input class="form-control" type="text" name="username" value="<?= htmlspecialchars($datapengguna["username"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Password <span class="required">*</span></label>
-                                <input class="form-control" type="password" name="password" value="<?= $datapengguna["password"]; ?>" required>
+                                <input class="form-control" type="password" name="password" value="<?= htmlspecialchars($datapengguna["password"]); ?>" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label>Keterangan</label>
-                            <textarea class="form-control" name="keterangan"><?= $datapengguna["keterangan"]; ?></textarea>
+                            <textarea class="form-control" name="keterangan"><?= htmlspecialchars($datapengguna["keterangan"]); ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -218,7 +218,7 @@ if ($action == 'view') {
             <div class="modal-content">
                 <form action="" method="post">
                     <input type="hidden" name="hiddendeletevalue[0][field]" value="idUser">
-                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= $datapengguna["idUser"]; ?>">
+                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= htmlspecialchars($datapengguna["idUser"]); ?>">
                     <input type="hidden" name="hiddendeletevalue[0][table]" value="user">
 
                     <div class="modal-header">
@@ -231,7 +231,7 @@ if ($action == 'view') {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Yakin ingin menghapus pengguna <strong><?= $datapengguna["username"] ?></strong>?</p>
+                        <p>Yakin ingin menghapus pengguna <strong><?= htmlspecialchars($datapengguna["username"]) ?></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="btnhapus" class="btn btn-danger btn-sm" style="border-radius: 25px;">HAPUS</button>

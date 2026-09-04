@@ -54,7 +54,7 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">DETAIL PASIEN
-                            <?= $datapasien["idPasien"]; ?>
+                            <?= htmlspecialchars($datapasien["idPasien"]); ?>
                         </blockquote>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -65,281 +65,281 @@ if ($action == 'view') {
                             <td width="39%">Nama Lengkap</td>
                             <td width="1%">:</td>
                             <td width="60%">
-                                <?= $datapasien["namaLengkap"]; ?>
+                                <?= htmlspecialchars($datapasien["namaLengkap"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Nama Panggilan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaPanggilan"]; ?>
+                                <?= htmlspecialchars($datapasien["namaPanggilan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>NIK</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["nik"]; ?>
+                                <?= htmlspecialchars($datapasien["nik"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Tempat Lahir</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["tempatLahir"]; ?>
+                                <?= htmlspecialchars($datapasien["tempatLahir"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Tanggal Lahir</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["tanggalLahir"]; ?>
+                                <?= htmlspecialchars($datapasien["tanggalLahir"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kelompok Usia</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["kelompokUsia"]; ?>
+                                <?= htmlspecialchars($datapasien["kelompokUsia"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Jenis Kelamin</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["jenisKelamin"]; ?>
+                                <?= htmlspecialchars($datapasien["jenisKelamin"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Golongan Darah</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["golonganDarah"]; ?>
+                                <?= htmlspecialchars($datapasien["golonganDarah"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Nomor Telepon Pasien</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["noTeleponPasien"]; ?>
+                                <?= htmlspecialchars($datapasien["noTeleponPasien"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Alamat Lengkap (KTP)</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["alamatLengkap"]; ?>
+                                <?= htmlspecialchars($datapasien["alamatLengkap"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Alamat Domisili</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["alamatDomisili"]; ?>
+                                <?= htmlspecialchars($datapasien["alamatDomisili"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Tanggal Mulai Aktif</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["tanggalAktif"]; ?>
+                                <?= htmlspecialchars($datapasien["tanggalAktif"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Status Pasien</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["statusPasien"]; ?>
+                                <?= htmlspecialchars($datapasien["statusPasien"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Alasan Tidak Aktif</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["alasanTidakAktif"]; ?>
+                                <?= htmlspecialchars($datapasien["alasanTidakAktif"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Jenis Disabilitas</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["jenisDisabilitas"]; ?>
+                                <?= htmlspecialchars($datapasien["jenisDisabilitas"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Subjenis Disabilitas</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaDisabilitas"]; ?>
+                                <?= htmlspecialchars($datapasien["namaDisabilitas"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Alat Bantu</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["alatBantu"]; ?>
+                                <?= htmlspecialchars($datapasien["alatBantu"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kebutuhan Khusus</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["kebutuhanKhusus"]; ?>
+                                <?= htmlspecialchars($datapasien["kebutuhanKhusus"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Riwayat Penyakit Pribadi</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["riwayatPenyakitPribadi"]; ?>
+                                <?= htmlspecialchars($datapasien["riwayatPenyakitPribadi"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Riwayat Penyakit Keluarga</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["riwayatPenyakitKeluarga"]; ?>
+                                <?= htmlspecialchars($datapasien["riwayatPenyakitKeluarga"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Alergi</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["alergi"]; ?>
+                                <?= htmlspecialchars($datapasien["alergi"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Trauma/Cedera</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["trauma"]; ?>
+                                <?= htmlspecialchars($datapasien["trauma"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Nama Orang Tua</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaOrangTua"]; ?>
+                                <?= htmlspecialchars($datapasien["namaOrangTua"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>No Telepon Orang Tua</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["noTelpOrangTua"]; ?>
+                                <?= htmlspecialchars($datapasien["noTelpOrangTua"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Nama Pendamping</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaPendamping"]; ?>
+                                <?= htmlspecialchars($datapasien["namaPendamping"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>No Telepon Pendamping</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["noTelpPendamping"]; ?>
+                                <?= htmlspecialchars($datapasien["noTelpPendamping"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Nama Jalan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaJalan"]; ?>
+                                <?= htmlspecialchars($datapasien["namaJalan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Provinsi</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaProvinsi"]; ?>
+                                <?= htmlspecialchars($datapasien["namaProvinsi"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kota/Kabupaten</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaKotaKabupaten"]; ?>
+                                <?= htmlspecialchars($datapasien["namaKotaKabupaten"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kecamatan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaKecamatan"]; ?>
+                                <?= htmlspecialchars($datapasien["namaKecamatan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kelurahan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["namaKelurahan"]; ?>
+                                <?= htmlspecialchars($datapasien["namaKelurahan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Kode Pos Domisili</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["kodePosDomisili"]; ?>
+                                <?= htmlspecialchars($datapasien["kodePosDomisili"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>RT/RW Domisili</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["RTDomisili"]; ?>/
-                                <?= $datapasien["RWDomisili"]; ?>
+                                <?= htmlspecialchars($datapasien["RTDomisili"]); ?>/
+                                <?= htmlspecialchars($datapasien["RWDomisili"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Agama</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["agama"]; ?>
+                                <?= htmlspecialchars($datapasien["agama"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Suku</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["suku"]; ?>
+                                <?= htmlspecialchars($datapasien["suku"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Bahasa Dikuasai</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["bahasaDikuasai"]; ?>
+                                <?= htmlspecialchars($datapasien["bahasaDikuasai"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Pendidikan Terakhir</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["pendidikan"]; ?>
+                                <?= htmlspecialchars($datapasien["pendidikan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Pekerjaan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["pekerjaan"]; ?>
+                                <?= htmlspecialchars($datapasien["pekerjaan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Status Pernikahan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["statusPernikahan"]; ?>
+                                <?= htmlspecialchars($datapasien["statusPernikahan"]); ?>
                             </td>
                         </tr>
                         <tr>
                             <td>Keterangan</td>
                             <td>:</td>
                             <td>
-                                <?= $datapasien["keterangan"]; ?>
+                                <?= htmlspecialchars($datapasien["keterangan"]); ?>
                             </td>
                         </tr>
                     </table>
@@ -374,10 +374,10 @@ if ($action == 'view') {
                     <figure class="text-left">
                         <blockquote class="blockquote">EDIT PASIEN</blockquote>
                         <figcaption class="blockquote-footer">
-                            <?= $datapasien["idPasien"]; ?>
+                            <?= htmlspecialchars($datapasien["idPasien"]); ?>
                         </figcaption>
                         <figcaption class="blockquote-footer">
-                            <?= $datapasien["namaLengkap"]; ?>
+                            <?= htmlspecialchars($datapasien["namaLengkap"]); ?>
                         </figcaption>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -389,37 +389,37 @@ if ($action == 'view') {
 
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="idPasien" value="<?= $datapasien["idPasien"]; ?>"
+                            <input class="form-control" type="text" name="idPasien" value="<?= htmlspecialchars($datapasien["idPasien"]); ?>"
                                 hidden>
                         </div>
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label>Nama Lengkap Pasien <span class="required">*</span></label>
                                 <input class="form-control" type="text" name="namaLengkap"
-                                    value="<?= $datapasien["namaLengkap"]; ?>" required>
+                                    value="<?= htmlspecialchars($datapasien["namaLengkap"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Nama Panggilan <span class="required">*</span></label>
                                 <input class="form-control" type="text" name="namaPanggilan"
-                                    value="<?= $datapasien["namaPanggilan"]; ?>" required>
+                                    value="<?= htmlspecialchars($datapasien["namaPanggilan"]); ?>" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label>NIK <span class="required">*</span></label>
-                            <input class="form-control" type="number" name="nik" value="<?= $datapasien["nik"]; ?>"
+                            <input class="form-control" type="number" name="nik" value="<?= htmlspecialchars($datapasien["nik"]); ?>"
                                 required>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Tempat Lahir <span class="required">*</span></label>
                                 <input class="form-control" type="text" name="tempatLahir"
-                                    value="<?= $datapasien["tempatLahir"]; ?>" required>
+                                    value="<?= htmlspecialchars($datapasien["tempatLahir"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Tanggal Lahir <span class="required">*</span></label>
                                 <input class="form-control" type="date" name="tanggalLahir"
-                                    value="<?= $datapasien["tanggalLahir"]; ?>" required>
+                                    value="<?= htmlspecialchars($datapasien["tanggalLahir"]); ?>" required>
                             </div>
                         </div>
 
@@ -427,8 +427,8 @@ if ($action == 'view') {
                         <div class="mb-3">
                             <label>Kelompok Usia <span class="required">*</span></label>
                             <select name="kelompokUsia" class="form-control" required>
-                                <option value="<?= $datapasien["kelompokUsia"]; ?>">
-                                    <?= $datapasien["kelompokUsia"]; ?>
+                                <option value="<?= htmlspecialchars($datapasien["kelompokUsia"]); ?>">
+                                    <?= htmlspecialchars($datapasien["kelompokUsia"]); ?>
                                 </option>
                                 <?php foreach ($enumKelompokUsia as $opt)
                                     echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
@@ -440,8 +440,8 @@ if ($action == 'view') {
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Jenis Kelamin <span class="required">*</span></label>
                                 <select name="jenisKelamin" class="form-control" required>
-                                    <option value="<?= $datapasien["jenisKelamin"]; ?>">
-                                        <?= $datapasien["jenisKelamin"]; ?>
+                                    <option value="<?= htmlspecialchars($datapasien["jenisKelamin"]); ?>">
+                                        <?= htmlspecialchars($datapasien["jenisKelamin"]); ?>
                                     </option>
                                     <?php foreach ($enumJK as $opt)
                                         echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
@@ -450,8 +450,8 @@ if ($action == 'view') {
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Golongan Darah <span class="required">*</span></label>
                                 <select name="golonganDarah" class="form-control" required>
-                                    <option value="<?= $datapasien["golonganDarah"]; ?>">
-                                        <?= $datapasien["golonganDarah"]; ?>
+                                    <option value="<?= htmlspecialchars($datapasien["golonganDarah"]); ?>">
+                                        <?= htmlspecialchars($datapasien["golonganDarah"]); ?>
                                     </option>
                                     <?php foreach ($enumGoldar as $opt)
                                         echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
@@ -462,22 +462,22 @@ if ($action == 'view') {
                         <div class="mb-3">
                             <label>Nomor Telepon Pasien <span class="required">*</span></label>
                             <input class="form-control" type="number" name="noTeleponPasien"
-                                placeholder="Nomor telepon pasien" value="<?= $datapasien["noTeleponPasien"]; ?>" required>
+                                placeholder="Nomor telepon pasien" value="<?= htmlspecialchars($datapasien["noTeleponPasien"]); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label>Alamat Lengkap (sesuai KTP) <span class="required">*</span></label>
                             <textarea class="form-control" name="alamatLengkap"
-                                required><?= $datapasien["alamatLengkap"]; ?></textarea>
+                                required><?= htmlspecialchars($datapasien["alamatLengkap"]); ?></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Alamat Lengkap Domisili <span class="required">*</span></label>
                             <textarea class="form-control" name="alamatDomisili"
-                                required><?= $datapasien["alamatDomisili"]; ?></textarea>
+                                required><?= htmlspecialchars($datapasien["alamatDomisili"]); ?></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Tanggal Mulai Aktif <span class="required">*</span></label>
                             <input class="form-control" type="date" name="tanggalAktif"
-                                value="<?= $datapasien["tanggalAktif"]; ?>" required>
+                                value="<?= htmlspecialchars($datapasien["tanggalAktif"]); ?>" required>
                         </div>
 
                         <!-- Status Pasien & Alasan -->
@@ -485,9 +485,9 @@ if ($action == 'view') {
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Status Pasien <span class="required">*</span></label>
                                 <select name="statusPasien" class="form-control statusPasien"
-                                    id="statusPasien<?= $datapasien['idPasien']; ?>" required>
-                                    <option value="<?= $datapasien["statusPasien"]; ?>">
-                                        <?= $datapasien["statusPasien"]; ?>
+                                    id="statusPasien<?= htmlspecialchars($datapasien['idPasien']); ?>" required>
+                                    <option value="<?= htmlspecialchars($datapasien["statusPasien"]); ?>">
+                                        <?= htmlspecialchars($datapasien["statusPasien"]); ?>
                                     </option>
                                     <option value="Aktif" <?= ($datapasien["statusPasien"] == 1) ? "selected" : ""; ?>>Aktif
                                     </option>
@@ -498,8 +498,8 @@ if ($action == 'view') {
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Alasan Tidak Aktif</label>
                                 <input class="form-control alasanTidakAktif" type="text" name="alasanTidakAktif"
-                                    id="alasanTidakAktif<?= $datapasien['idPasien']; ?>"
-                                    value="<?= $datapasien["alasanTidakAktif"]; ?>" <?= ($datapasien["statusPasien"] == 1) ? "disabled" : ""; ?>>
+                                    id="alasanTidakAktif<?= htmlspecialchars($datapasien['idPasien']); ?>"
+                                    value="<?= htmlspecialchars($datapasien["alasanTidakAktif"]); ?>" <?= ($datapasien["statusPasien"] == 1) ? "disabled" : ""; ?>>
                             </div>
                         </div>
 
@@ -507,15 +507,15 @@ if ($action == 'view') {
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Jenis Disabilitas</label>
-                                <select id="jenisDisabilitas_edit" name="jenisDisabilitas[<?= $datapasien['idPasien']; ?>]"
-                                    class="form-control jd" data-id="<?= $datapasien['idPasien']; ?>">
-                                    <option value="<?= $datapasien["idJenisDisabilitas"]; ?>">
-                                        <?= $datapasien["jenisDisabilitas"] ?>
+                                <select id="jenisDisabilitas_edit" name="jenisDisabilitas[<?= htmlspecialchars($datapasien['idPasien']); ?>]"
+                                    class="form-control jd" data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>">
+                                    <option value="<?= htmlspecialchars($datapasien["idJenisDisabilitas"]); ?>">
+                                        <?= htmlspecialchars($datapasien["jenisDisabilitas"]) ?>
                                     </option>
                                     <?php
                                     $sqld = $pdo->query("SELECT * FROM jenis_disabilitas ORDER BY idJenisDisabilitas");
                                     while ($d = $sqld->fetch()) {
-                                        echo "<option value='" . $d['idJenisDisabilitas'] . "'>" . $d['jenisDisabilitas'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($d['idJenisDisabilitas']) . "'>" . htmlspecialchars($d['jenisDisabilitas']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -523,11 +523,11 @@ if ($action == 'view') {
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Sub Jenis Disabilitas <span id="reqSubDis_edit" class="required"
                                         <?= empty($datapasien['idJenisDisabilitas']) ? 'style="display:none;"' : '' ?>>*</span></label>
-                                <select id="subDisabilitas_edit" name="subDisabilitas[<?= $datapasien['idPasien']; ?>]"
-                                    class="form-control sd" data-id="<?= $datapasien['idPasien']; ?>"
+                                <select id="subDisabilitas_edit" name="subDisabilitas[<?= htmlspecialchars($datapasien['idPasien']); ?>]"
+                                    class="form-control sd" data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>"
                                     <?= empty($datapasien['idJenisDisabilitas']) ? '' : 'required' ?>>
-                                    <option value="<?= $datapasien["idSubDisabilitas"]; ?>">
-                                        <?= $datapasien["namaDisabilitas"] ?>
+                                    <option value="<?= htmlspecialchars($datapasien["idSubDisabilitas"]); ?>">
+                                        <?= htmlspecialchars($datapasien["namaDisabilitas"]) ?>
                                     </option>
                                 </select>
                             </div>
@@ -550,12 +550,12 @@ if ($action == 'view') {
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Alat Bantu</label>
-                                <textarea class="form-control" name="alatBantu"><?= $datapasien["alatBantu"]; ?></textarea>
+                                <textarea class="form-control" name="alatBantu"><?= htmlspecialchars($datapasien["alatBantu"]); ?></textarea>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Kebutuhan Khusus</label>
                                 <textarea class="form-control"
-                                    name="kebutuhanKhusus"><?= $datapasien["kebutuhanKhusus"]; ?></textarea>
+                                    name="kebutuhanKhusus"><?= htmlspecialchars($datapasien["kebutuhanKhusus"]); ?></textarea>
                             </div>
                         </div>
 
@@ -603,22 +603,22 @@ if ($action == 'view') {
                         <!-- Other fields -->
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3"><label>Alergi</label><input class="form-control" type="text"
-                                    name="alergi" placeholder="Alergi pasien" value="<?= $datapasien["alergi"]; ?>"></div>
+                                    name="alergi" placeholder="Alergi pasien" value="<?= htmlspecialchars($datapasien["alergi"]); ?>"></div>
                             <div class="col-12 col-md-6 mb-3"><label>Trauma/Cedera</label><input class="form-control"
                                     type="text" name="trauma" placeholder="Trauma/Cedera pasien"
-                                    value="<?= $datapasien["trauma"]; ?>"></div>
+                                    value="<?= htmlspecialchars($datapasien["trauma"]); ?>"></div>
                             <div class="col-12 col-md-6 mb-3"><label>Nama Orang Tua</label><input class="form-control"
                                     type="text" name="namaOrtu" placeholder="Nama Orang Tua"
-                                    value="<?= $datapasien["namaOrangTua"]; ?>"></div>
+                                    value="<?= htmlspecialchars($datapasien["namaOrangTua"]); ?>"></div>
                             <div class="col-12 col-md-6 mb-3"><label>No Telepon Orang Tua</label><input class="form-control"
                                     type="number" name="noTelpOrtu" placeholder="Nomor Telepon Orang Tua"
-                                    value="<?= $datapasien["noTelpOrangTua"]; ?>"></div>
+                                    value="<?= htmlspecialchars($datapasien["noTelpOrangTua"]); ?>"></div>
                             <div class="col-12 col-md-6 mb-3"><label>Nama Pendamping</label><input class="form-control"
                                     type="text" name="namaPendamping" placeholder="Nama Pendamping"
-                                    value="<?= $datapasien["namaPendamping"]; ?>"></div>
+                                    value="<?= htmlspecialchars($datapasien["namaPendamping"]); ?>"></div>
                             <div class="col-12 col-md-6 mb-3"><label>No Telepon Pendamping</label><input
                                     class="form-control" type="number" name="noTelpPendamping"
-                                    placeholder="Nomor Telepon Pendamping" value="<?= $datapasien["noTelpPendamping"]; ?>">
+                                    placeholder="Nomor Telepon Pendamping" value="<?= htmlspecialchars($datapasien["noTelpPendamping"]); ?>">
                             </div>
                         </div>
 
@@ -628,55 +628,55 @@ if ($action == 'view') {
                                 <div class="row">
                                     <div class="col-12 col-md-6 mb-3"><label>Nama Jalan</label><input class="form-control"
                                             type="text" name="namaJalan" placeholder="Nama jalan"
-                                            value="<?= $datapasien["namaJalan"]; ?>"></div>
+                                            value="<?= htmlspecialchars($datapasien["namaJalan"]); ?>"></div>
 
                                     <!-- Wilayah dropdowns -->
                                     <div class="col-12 col-md-6 mb-3"><label>Provinsi</label>
-                                        <select name="provinsi[<?= $datapasien['idPasien']; ?>]" class="form-control prov"
-                                            data-id="<?= $datapasien['idPasien']; ?>">
-                                            <option value="<?= $datapasien['idProvinsi']; ?>">
-                                                <?= !empty($datapasien['namaProvinsi']) ? $datapasien['namaProvinsi'] : '- pilihan -'; ?>
+                                        <select name="provinsi[<?= htmlspecialchars($datapasien['idPasien']); ?>]" class="form-control prov"
+                                            data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>">
+                                            <option value="<?= htmlspecialchars($datapasien['idProvinsi']); ?>">
+                                                <?= !empty($datapasien['namaProvinsi']) ? htmlspecialchars($datapasien['namaProvinsi']) : '- pilihan -'; ?>
                                             </option>
                                             <?php
                                             $sqlp = $pdo->query("SELECT * FROM provinsi ORDER BY namaProvinsi");
                                             while ($rowp = $sqlp->fetch())
-                                                echo "<option value='" . $rowp['idProvinsi'] . "'>" . $rowp['namaProvinsi'] . "</option>";
+                                                echo "<option value='" . htmlspecialchars($rowp['idProvinsi']) . "'>" . htmlspecialchars($rowp['namaProvinsi']) . "</option>";
                                             ?>
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3"><label>Kota/Kabupaten</label>
-                                        <select name="kota[<?= $datapasien['idPasien']; ?>]" class="form-control kotaKab"
-                                            data-id="<?= $datapasien['idPasien']; ?>">
-                                            <option value="<?= $datapasien['idKotaKabupaten']; ?>">
-                                                <?= !empty($datapasien['namaKotaKabupaten']) ? $datapasien['namaKotaKabupaten'] : '- pilihan -'; ?>
+                                        <select name="kota[<?= htmlspecialchars($datapasien['idPasien']); ?>]" class="form-control kotaKab"
+                                            data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>">
+                                            <option value="<?= htmlspecialchars($datapasien['idKotaKabupaten']); ?>">
+                                                <?= !empty($datapasien['namaKotaKabupaten']) ? htmlspecialchars($datapasien['namaKotaKabupaten']) : '- pilihan -'; ?>
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3"><label>Kecamatan</label>
-                                        <select name="kecamatan[<?= $datapasien['idPasien']; ?>]" class="form-control kec"
-                                            data-id="<?= $datapasien['idPasien']; ?>">
-                                            <option value="<?= $datapasien['idKecamatan']; ?>">
-                                                <?= !empty($datapasien['namaKecamatan']) ? $datapasien['namaKecamatan'] : '- pilihan -'; ?>
+                                        <select name="kecamatan[<?= htmlspecialchars($datapasien['idPasien']); ?>]" class="form-control kec"
+                                            data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>">
+                                            <option value="<?= htmlspecialchars($datapasien['idKecamatan']); ?>">
+                                                <?= !empty($datapasien['namaKecamatan']) ? htmlspecialchars($datapasien['namaKecamatan']) : '- pilihan -'; ?>
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3"><label>Kelurahan</label>
-                                        <select name="kelurahan[<?= $datapasien['idPasien']; ?>]" class="form-control kel"
-                                            data-id="<?= $datapasien['idPasien']; ?>">
-                                            <option value="<?= $datapasien['idKelurahan']; ?>">
-                                                <?= !empty($datapasien['namaKelurahan']) ? $datapasien['namaKelurahan'] : '- pilihan -'; ?>
+                                        <select name="kelurahan[<?= htmlspecialchars($datapasien['idPasien']); ?>]" class="form-control kel"
+                                            data-id="<?= htmlspecialchars($datapasien['idPasien']); ?>">
+                                            <option value="<?= htmlspecialchars($datapasien['idKelurahan']); ?>">
+                                                <?= !empty($datapasien['namaKelurahan']) ? htmlspecialchars($datapasien['namaKelurahan']) : '- pilihan -'; ?>
                                             </option>
                                         </select>
                                     </div>
 
                                     <div class="col-12 col-md-6 mb-3"><label>Kode Pos Domisili</label><input
                                             class="form-control" type="number" name="kodePosDomisili"
-                                            value="<?= $datapasien["kodePosDomisili"]; ?>">
+                                            value="<?= htmlspecialchars($datapasien["kodePosDomisili"]); ?>">
                                     </div>
                                     <div class="col-12 col-md-6 mb-3"><label>RT Domisili</label><input class="form-control"
-                                            type="number" name="RTDomisili" value="<?= $datapasien["RTDomisili"]; ?>"></div>
+                                            type="number" name="RTDomisili" value="<?= htmlspecialchars($datapasien["RTDomisili"]); ?>"></div>
                                     <div class="col-12 col-md-6 mb-3"><label>RW Domisili</label><input class="form-control"
-                                            type="number" name="RWDomisili" value="<?= $datapasien["RWDomisili"]; ?>"></div>
+                                            type="number" name="RWDomisili" value="<?= htmlspecialchars($datapasien["RWDomisili"]); ?>"></div>
                                 </div>
                             </div>
                         </div>
@@ -685,24 +685,24 @@ if ($action == 'view') {
                         <div class="row">
                             <div class="col-12 col-md-6 my-3"><label>Agama</label>
                                 <select name="agama" class="form-control">
-                                    <option value="<?= $datapasien["agama"]; ?>">
-                                        <?= !empty($datapasien["agama"]) ? $datapasien["agama"] : '- pilihan -'; ?>
+                                    <option value="<?= htmlspecialchars($datapasien["agama"]); ?>">
+                                        <?= !empty($datapasien["agama"]) ? htmlspecialchars($datapasien["agama"]) : '- pilihan -'; ?>
                                     </option>
                                     <?php foreach ($enumAgama as $opt)
                                         echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 my-3"><label>Suku</label><input class="form-control" type="text"
-                                    name="suku" value="<?= $datapasien["suku"]; ?>"></div>
+                                    name="suku" value="<?= htmlspecialchars($datapasien["suku"]); ?>"></div>
                         </div>
                         <div class="mb-3"><label>Bahasa Dikuasai</label><input class="form-control" type="text"
-                                name="bahasaDikuasai" value="<?= $datapasien["bahasaDikuasai"]; ?>"></div>
+                                name="bahasaDikuasai" value="<?= htmlspecialchars($datapasien["bahasaDikuasai"]); ?>"></div>
 
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3"><label>Pendidikan Terakhir</label>
                                 <select name="pendidikan" class="form-control">
-                                    <option value="<?= $datapasien["pendidikan"]; ?>">
-                                        <?= !empty($datapasien["pendidikan"]) ? $datapasien["pendidikan"] : '- pilihan -'; ?>
+                                    <option value="<?= htmlspecialchars($datapasien["pendidikan"]); ?>">
+                                        <?= !empty($datapasien["pendidikan"]) ? htmlspecialchars($datapasien["pendidikan"]) : '- pilihan -'; ?>
                                     </option>
                                     <?php foreach ($enumPendidikan as $opt)
                                         echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
@@ -710,8 +710,8 @@ if ($action == 'view') {
                             </div>
                             <div class="col-12 col-md-6 mb-3"><label>Pekerjaan</label>
                                 <select name="pekerjaan" class="form-control">
-                                    <option value="<?= $datapasien["pekerjaan"]; ?>">
-                                        <?= !empty($datapasien["pekerjaan"]) ? $datapasien["pekerjaan"] : '- pilihan -'; ?>
+                                    <option value="<?= htmlspecialchars($datapasien["pekerjaan"]); ?>">
+                                        <?= !empty($datapasien["pekerjaan"]) ? htmlspecialchars($datapasien["pekerjaan"]) : '- pilihan -'; ?>
                                     </option>
                                     <?php foreach ($enumPekerjaan as $opt)
                                         echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
@@ -721,15 +721,15 @@ if ($action == 'view') {
 
                         <div class="mb-3"><label>Status Pernikahan</label>
                             <select name="statusPernikahan" class="form-control">
-                                <option value="<?= $datapasien["statusPernikahan"]; ?>">
-                                    <?= !empty($datapasien["statusPernikahan"]) ? $datapasien["statusPernikahan"] : '- pilihan -'; ?>
+                                <option value="<?= htmlspecialchars($datapasien["statusPernikahan"]); ?>">
+                                    <?= !empty($datapasien["statusPernikahan"]) ? htmlspecialchars($datapasien["statusPernikahan"]) : '- pilihan -'; ?>
                                 </option>
                                 <?php foreach ($enumNikah as $opt)
                                     echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                             </select>
                         </div>
                         <div class="mb-3"><label>Keterangan</label><textarea class="form-control"
-                                name="keterangan"><?= $datapasien["keterangan"]; ?></textarea></div>
+                                name="keterangan"><?= htmlspecialchars($datapasien["keterangan"]); ?></textarea></div>
 
                     </div>
                     <div class="modal-footer">
@@ -768,7 +768,7 @@ if ($action == 'view') {
             <div class="modal-content">
                 <form action="" method="post">
                     <input type="hidden" name="hiddendeletevalue[0][field]" value="idPasien">
-                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= $datapasien["idPasien"]; ?>">
+                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= htmlspecialchars($datapasien["idPasien"]); ?>">
                     <input type="hidden" name="hiddendeletevalue[0][table]" value="pasien">
 
                     <div class="modal-header">
@@ -784,7 +784,7 @@ if ($action == 'view') {
                     </div>
                     <div class="modal-body">
                         <p>Yakin ingin menghapus pasien <strong>
-                                <?= $datapasien["namaLengkap"] ?>
+                                <?= htmlspecialchars($datapasien["namaLengkap"]) ?>
                             </strong>?</p>
                         <div class="form-group">
                             <label>Masukkan Password Ketua:</label>

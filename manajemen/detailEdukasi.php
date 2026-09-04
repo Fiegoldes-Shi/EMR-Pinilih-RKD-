@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -61,35 +70,35 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th style="width: 200px;">Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Nama Kegiatan</th>
-                        <td><?= $datajadwal['namaKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['namaKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Topik</th>
-                        <td><?= $datajadwal['topik'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['topik'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -143,7 +152,7 @@ if (!empty($datahasil)) {
                 <table class="table">
                     <tr>
                         <th>Hasil Kegiatan</th>
-                        <td><?= $hasilKegiatan ?></td>
+                        <td><?= htmlspecialchars($hasilKegiatan ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Dokumentasi</th>

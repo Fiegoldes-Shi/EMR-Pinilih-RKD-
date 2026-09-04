@@ -1,11 +1,12 @@
 <?php
-session_start();
-date_default_timezone_set('Asia/Jakarta');
-
-// Batasi hanya role tertentu
-if (!isset($_SESSION['role']) || ($_SESSION['role'] !== '1' && $_SESSION['role'] !== '2' && $_SESSION['role'] !== '3')) {
-    die("Akses ditolak.");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+if (!isset($_SESSION["idUser"]) || !isset($_SESSION['role']) || ($_SESSION['role'] !== '1' && $_SESSION['role'] !== '2' && $_SESSION['role'] !== '3')) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+date_default_timezone_set('Asia/Jakarta');
 
 set_time_limit(0);
 

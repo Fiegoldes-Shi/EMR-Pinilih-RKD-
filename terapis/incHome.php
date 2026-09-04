@@ -1,3 +1,12 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
 <div class="row justify-content-center">
     <div class="col-md-2">
         <div class="card text-center border border-4 border-success text-success">

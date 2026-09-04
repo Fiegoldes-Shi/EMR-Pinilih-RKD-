@@ -1,4 +1,13 @@
 ﻿<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -21,10 +30,10 @@ $segments = explode('/', (string)$request);
 // FIX: Use dynamic search for '331' (Menu ID) to handle different URL depths
 $posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = $segments[$posMenu + 1];
+    $idJadwal = (int) $segments[$posMenu + 1];
 } else {
     // Fallback
-    $idJadwal = isset($segments[3]) ? $segments[3] : 0;
+    $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
 }
 
 
@@ -62,27 +71,27 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th style="width: 200px;">Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -94,7 +103,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 // insert
 if (!empty($_POST["savebtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     // Menangani input angka (jika kosong, set NULL / null for prepared statement)
     $tinggiBadan = !empty($_POST["tinggiBadan"]) ? $_POST["tinggiBadan"] : null;
@@ -169,7 +177,6 @@ if (!empty($_POST["savebtn"])) {
 // update
 if (!empty($_POST["editbtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $_POST["idJadwal"]; // Ambil idJadwal dari form POST
 
     if (!empty($_POST["faktorResikoPerilaku"])) {
         $faktorResikoPerilaku = implode(",", $_POST["faktorResikoPerilaku"]); // Gabungkan nilai dengan koma
@@ -381,7 +388,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                     $arraypasien = $view->vViewData($sqlpasien);
 
                                     foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -396,7 +403,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                     $arrayterapis = $view->vViewData($sqlterapis);
 
                                     foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -460,7 +467,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                         <?php
                                         foreach ($enumbenjolanpayudara as $option) {
                                             $trimmedValue = trim($option);
-                                            echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                            echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -473,7 +480,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                         <?php
                                         foreach ($enuminspeksiVisualAsamAsetat as $option) {
                                             $trimmedValue = trim($option);
-                                            echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                            echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -488,7 +495,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                         <?php
                                         foreach ($enumkadarAlkoholPernafasan as $option) {
                                             $trimmedValue = trim($option);
-                                            echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                            echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -500,7 +507,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                         <?php
                                         foreach ($enumtesAmfetaminUrin as $option) {
                                             $trimmedValue = trim($option);
-                                            echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                            echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -515,7 +522,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                     <?php
                                     foreach ($enumarusPernafasanEkspirasi as $option) {
                                         $trimmedValue = trim($option);
-                                        echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                        echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -639,35 +646,35 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["namaLengkap"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["beratBadan"]; ?></td>
-                            <td><?= $datahasil["tinggiBadan"]; ?></td>
-                            <td><?= $datahasil["tekananDarah"]; ?></td>
-                            <td><?= $datahasil["gulaDarah"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["beratBadan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["tinggiBadan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["tekananDarah"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["gulaDarah"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 $datadetail = array(
-                                    array("PASIEN", "namaLengkap", $datahasil["namaLengkap"], 1),
-                                    array("TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
-                                    array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                    array("TANGGAL RUJUKAN", "tanggalRujukan", $datahasil["tanggalRujukan"], 1),
-                                    array("ALASAN RUJUKAN", "alasanRujukan", $datahasil["alasanRujukan"], 1),
-                                    array("TINGGI BADAN", "tinggiBadan", $datahasil["tinggiBadan"], 1),
-                                    array("BERAT BADAN", "beratBadan", $datahasil["beratBadan"], 1),
-                                    array("TEKANAN DARAH", "tekananDarah", $datahasil["tekananDarah"], 1),
-                                    array("GULA DARAH", "gulaDarah", $datahasil["gulaDarah"], 1),
-                                    array("KOLESTEROL", "kolesterol", $datahasil["kolesterol"], 1),
-                                    array("TRIGLISERIDA", "trigliserida", $datahasil["trigliserida"], 1),
-                                    array("BENJOLAN PAYUDARA", "benjolanPayudara", $datahasil["benjolanPayudara"], 1),
-                                    array("INSPEKSI VISUAL ASAM ASETAT", "inspeksiVisualAsamAsetat", $datahasil["inspeksiVisualAsamAsetat"], 1),
-                                    array("KADAR ALKOHOL PERNAFASAN", "kadarAlkoholPernafasan", $datahasil["kadarAlkoholPernafasan"], 1),
-                                    array("TES AMFETAMIN URIN", "tesAmfetaminUrin", $datahasil["tesAmfetaminUrin"], 1),
-                                    array("ARUS PERNAFASAN EKSPIRASI", "arusPernafasanEkspirasi", $datahasil["arusPernafasanEkspirasi"], 1),
-                                    array("FAKTOR PERNAFASAN EKSPIRASI", "faktorResikoPerilaku", $datahasil["faktorResikoPerilaku"], 1),
-                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                    array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                    array("PASIEN", "namaLengkap", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
+                                    array("TERAPIS", "namaTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                    array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                    array("TANGGAL RUJUKAN", "tanggalRujukan", htmlspecialchars($datahasil["tanggalRujukan"] ?? ''), 1),
+                                    array("ALASAN RUJUKAN", "alasanRujukan", htmlspecialchars($datahasil["alasanRujukan"] ?? ''), 1),
+                                    array("TINGGI BADAN", "tinggiBadan", htmlspecialchars($datahasil["tinggiBadan"] ?? ''), 1),
+                                    array("BERAT BADAN", "beratBadan", htmlspecialchars($datahasil["beratBadan"] ?? ''), 1),
+                                    array("TEKANAN DARAH", "tekananDarah", htmlspecialchars($datahasil["tekananDarah"] ?? ''), 1),
+                                    array("GULA DARAH", "gulaDarah", htmlspecialchars($datahasil["gulaDarah"] ?? ''), 1),
+                                    array("KOLESTEROL", "kolesterol", htmlspecialchars($datahasil["kolesterol"] ?? ''), 1),
+                                    array("TRIGLISERIDA", "trigliserida", htmlspecialchars($datahasil["trigliserida"] ?? ''), 1),
+                                    array("BENJOLAN PAYUDARA", "benjolanPayudara", htmlspecialchars($datahasil["benjolanPayudara"] ?? ''), 1),
+                                    array("INSPEKSI VISUAL ASAM ASETAT", "inspeksiVisualAsamAsetat", htmlspecialchars($datahasil["inspeksiVisualAsamAsetat"] ?? ''), 1),
+                                    array("KADAR ALKOHOL PERNAFASAN", "kadarAlkoholPernafasan", htmlspecialchars($datahasil["kadarAlkoholPernafasan"] ?? ''), 1),
+                                    array("TES AMFETAMIN URIN", "tesAmfetaminUrin", htmlspecialchars($datahasil["tesAmfetaminUrin"] ?? ''), 1),
+                                    array("ARUS PERNAFASAN EKSPIRASI", "arusPernafasanEkspirasi", htmlspecialchars($datahasil["arusPernafasanEkspirasi"] ?? ''), 1),
+                                    array("FAKTOR PERNAFASAN EKSPIRASI", "faktorResikoPerilaku", htmlspecialchars($datahasil["faktorResikoPerilaku"] ?? ''), 1),
+                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                    array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                 );
                                 _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL SCREENING " . $datahasil["idHasilLayanan"], "", $datadetail, "", $idJadwal, "");
                                 ?>
@@ -689,10 +696,10 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                 <figure class="text-left">
                                                     <blockquote class="blockquote">EDIT HASIL SCREENING</blockquote>
                                                     <figcaption class="blockquote-footer">
-                                                        <?= $datahasil["idHasilLayanan"]; ?>
+                                                        <?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>
                                                     </figcaption>
-                                                    <figcaption class="blockquote-footer"><?= $datahasil["namaLengkap"]; ?>
-                                                        (<?= $datahasil["tanggalKegiatan"]; ?>)</figcaption>
+                                                    <figcaption class="blockquote-footer"><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?>
+                                                        (<?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? ''); ?>)</figcaption>
                                                 </figure>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -701,21 +708,21 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <input class="form-control" type="text" name="idHasilLayanan"
-                                                            id="idHasilLayanan" value="<?= $datahasil["idHasilLayanan"]; ?>"
+                                                            id="idHasilLayanan" value="<?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idJadwal"
-                                                            id="idJadwal" value="<?= $datahasil["idJadwal"]; ?>"
+                                                            id="idJadwal" value="<?= htmlspecialchars($datahasil["idJadwal"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idUser" id="idUser"
-                                                            value="<?= $datahasil["idUser"]; ?>" maxlength="255" size=""
+                                                            value="<?= htmlspecialchars($datahasil["idUser"] ?? ''); ?>" maxlength="255" size=""
                                                             hidden>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="idPasien">ID Pasien <span
                                                                 class="required">*</span></label>
                                                         <select name="idPasien" id="idPasien" class="form-control" required>
-                                                            <option value="<?= $datahasil["idPasien"]; ?>">
-                                                                <?= $datahasil["namaLengkap"] . " - " . $datahasil["idPasien"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idPasien"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaLengkap"] ?? '') . " - " . ($datahasil["idPasien"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlpasien = "SELECT * FROM pasien WHERE statusPasien = 'Aktif' ORDER BY namaLengkap ASC";
@@ -723,7 +730,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                             $arraypasien = $view->vViewData($sqlpasien);
 
                                                             foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -733,8 +740,8 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                                 class="required">*</span></label>
                                                         <select name="idTerapis" id="idTerapis" class="form-control"
                                                             required>
-                                                            <option value="<?= $datahasil["idTerapis"]; ?>">
-                                                                <?= $datahasil["namaTerapis"] . " - " . $datahasil["idTerapis"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idTerapis"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaTerapis"] ?? '') . " - " . ($datahasil["idTerapis"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlterapis = "SELECT * FROM terapis WHERE statusTerapis = 'Aktif' ORDER BY namaTerapis ASC";
@@ -742,7 +749,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                             $arrayterapis = $view->vViewData($sqlterapis);
 
                                                             foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -750,14 +757,14 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                     <div class="mb-3">
                                                         <label for="keluhan">Keluhan <span class="required">*</span></label>
                                                         <input class="form-control" type="text" name="keluhan" id="keluhan"
-                                                            value="<?= $datahasil["keluhan"]; ?>"
+                                                            value="<?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?>"
                                                             placeholder="Keluhan yang dirasakan pasien" maxlength="255"
                                                             size="" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggalRujukan">Tanggal Rujukan</label>
                                                         <input class="form-control" type="date" name="tanggalRujukan"
-                                                            id="tanggalRujukan" value="<?= $datahasil["tanggalRujukan"]; ?>"
+                                                            id="tanggalRujukan" value="<?= htmlspecialchars($datahasil["tanggalRujukan"] ?? ''); ?>"
                                                             placeholder="Tanggal Rujukan" maxlength="255" size="">
                                                     </div>
 
@@ -766,20 +773,20 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <textarea class="form-control" id="alasanRujukan"
                                                             name="alasanRujukan" placeholder="Alasan rujukan" rows="3"
                                                             cols=""
-                                                            id="floatingTextarea"><?= $datahasil["alasanRujukan"]; ?></textarea>
+                                                            id="floatingTextarea"><?= htmlspecialchars($datahasil["alasanRujukan"] ?? ''); ?></textarea>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="tinggiBadan">Tinggi Badan </label>
                                                             <input class="form-control" type="number" name="tinggiBadan"
-                                                                id="tinggiBadan" value="<?= $datahasil["tinggiBadan"]; ?>"
+                                                                id="tinggiBadan" value="<?= htmlspecialchars($datahasil["tinggiBadan"] ?? ''); ?>"
                                                                 placeholder="Tinggi Badan pasien" maxlength="255" size="">
                                                         </div>
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="beratBadan">Berat Badan </label>
                                                             <input class="form-control" type="number" name="beratBadan"
-                                                                id="beratBadan" value="<?= $datahasil["beratBadan"]; ?>"
+                                                                id="beratBadan" value="<?= htmlspecialchars($datahasil["beratBadan"] ?? ''); ?>"
                                                                 placeholder="Berat Badan pasien" maxlength="255" size="">
                                                         </div>
 
@@ -788,13 +795,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="tekananDarah">Tekanan Darah</label>
                                                             <input class="form-control" type="text" name="tekananDarah"
-                                                                id="tekananDarah" value="<?= $datahasil["tekananDarah"]; ?>"
+                                                                id="tekananDarah" value="<?= htmlspecialchars($datahasil["tekananDarah"] ?? ''); ?>"
                                                                 placeholder="Tekanan Darah pasien" maxlength="255" size="">
                                                         </div>
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="gulaDarah">Gula Darah</label>
                                                             <input class="form-control" type="number" name="gulaDarah"
-                                                                id="gulaDarah" value="<?= $datahasil["gulaDarah"]; ?>"
+                                                                id="gulaDarah" value="<?= htmlspecialchars($datahasil["gulaDarah"] ?? ''); ?>"
                                                                 placeholder="Gula Darah pasien" maxlength="255" size="">
                                                         </div>
                                                     </div>
@@ -802,13 +809,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="kolesterol">Kolesterol</label>
                                                             <input class="form-control" type="text" name="kolesterol"
-                                                                id="kolesterol" value="<?= $datahasil["kolesterol"]; ?>"
+                                                                id="kolesterol" value="<?= htmlspecialchars($datahasil["kolesterol"] ?? ''); ?>"
                                                                 placeholder="Kolesterol pasien" maxlength="255" size="">
                                                         </div>
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="trigliserida">Trigliserida</label>
                                                             <input class="form-control" type="number" name="trigliserida"
-                                                                id="trigliserida" value="<?= $datahasil["trigliserida"]; ?>"
+                                                                id="trigliserida" value="<?= htmlspecialchars($datahasil["trigliserida"] ?? ''); ?>"
                                                                 placeholder="trigliserida pasien" maxlength="255" size="">
                                                         </div>
                                                     </div>
@@ -818,13 +825,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="benjolanPayudara">Benjolan Payudara</label>
                                                             <select name="benjolanPayudara" class="form-control">
-                                                                <option value="<?= $datahasil["benjolanPayudara"]; ?>">
-                                                                    <?= $datahasil["benjolanPayudara"]; ?>
+                                                                <option value="<?= htmlspecialchars($datahasil["benjolanPayudara"] ?? ''); ?>">
+                                                                    <?= htmlspecialchars($datahasil["benjolanPayudara"] ?? ''); ?>
                                                                 </option>
                                                                 <?php
                                                                 foreach ($enumbenjolanpayudara as $option) {
                                                                     $trimmedValue = trim($option);
-                                                                    echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                    echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                                 }
                                                                 ?>
                                                             </select>
@@ -834,13 +841,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                                 Asetat</label>
                                                             <select name="inspeksiVisualAsamAsetat" class="form-control">
                                                                 <option
-                                                                    value="<?= $datahasil["inspeksiVisualAsamAsetat"]; ?>">
-                                                                    <?= $datahasil["inspeksiVisualAsamAsetat"]; ?>
+                                                                    value="<?= htmlspecialchars($datahasil["inspeksiVisualAsamAsetat"] ?? ''); ?>">
+                                                                    <?= htmlspecialchars($datahasil["inspeksiVisualAsamAsetat"] ?? ''); ?>
                                                                 </option>
                                                                 <?php
                                                                 foreach ($enuminspeksiVisualAsamAsetat as $option) {
                                                                     $trimmedValue = trim($option);
-                                                                    echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                    echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                                 }
                                                                 ?>
                                                             </select>
@@ -854,13 +861,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                                 Pernafasan</label>
                                                             <select name="kadarAlkoholPernafasan" class="form-control">
                                                                 <option
-                                                                    value="<?= $datahasil["kadarAlkoholPernafasan"]; ?>">
-                                                                    <?= $datahasil["kadarAlkoholPernafasan"]; ?>
+                                                                    value="<?= htmlspecialchars($datahasil["kadarAlkoholPernafasan"] ?? ''); ?>">
+                                                                    <?= htmlspecialchars($datahasil["kadarAlkoholPernafasan"] ?? ''); ?>
                                                                 </option>
                                                                 <?php
                                                                 foreach ($enumkadarAlkoholPernafasan as $option) {
                                                                     $trimmedValue = trim($option);
-                                                                    echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                    echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                                 }
                                                                 ?>
                                                             </select>
@@ -868,13 +875,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="tesAmfetaminUrin">Tes Amfetamin Urin</label>
                                                             <select name="tesAmfetaminUrin" class="form-control">
-                                                                <option value="<?= $datahasil["tesAmfetaminUrin"]; ?>">
-                                                                    <?= $datahasil["tesAmfetaminUrin"]; ?>
+                                                                <option value="<?= htmlspecialchars($datahasil["tesAmfetaminUrin"] ?? ''); ?>">
+                                                                    <?= htmlspecialchars($datahasil["tesAmfetaminUrin"] ?? ''); ?>
                                                                 </option>
                                                                 <?php
                                                                 foreach ($enumtesAmfetaminUrin as $option) {
                                                                     $trimmedValue = trim($option);
-                                                                    echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                    echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                                 }
                                                                 ?>
                                                             </select>
@@ -884,13 +891,13 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <label for="arusPernafasanEkspirasi">Arus Pernafasan
                                                             Ekspiarasi</label>
                                                         <select name="arusPernafasanEkspirasi" class="form-control">
-                                                            <option value="<?= $datahasil["arusPernafasanEkspirasi"]; ?>">
-                                                                <?= $datahasil["arusPernafasanEkspirasi"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["arusPernafasanEkspirasi"] ?? ''); ?>">
+                                                                <?= htmlspecialchars($datahasil["arusPernafasanEkspirasi"] ?? ''); ?>
                                                             </option>
                                                             <?php
                                                             foreach ($enumarusPernafasanEkspirasi as $option) {
                                                                 $trimmedValue = trim($option);
-                                                                echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -968,7 +975,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                             name="hasilPemeriksaan"
                                                             placeholder="Hasil pemeriksaan oleh terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["hasilPemeriksaan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></textarea>
                                                     </div>
 
                                                     <div class="mb-3">
@@ -977,7 +984,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                         <textarea class="form-control" id="diagnosis" name="diagnosis"
                                                             placeholder="Diagnosis dari terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["diagnosis"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="catatanTindakan">Catatan dan Rencana Tindakan <span
@@ -986,7 +993,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                             name="catatanTindakan"
                                                             placeholder="Catatan dan rekomendasi rencana tindakan dari terapis"
                                                             rows="3" cols="" id="floatingTextarea"
-                                                            required><?= $datahasil["catatanTindakan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -1029,7 +1036,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                             </h5>
                                                         </blockquote>
                                                         <figcaption class="blockquote-footer">Hasil Screening
-                                                            <?= $datahasil["tanggalKegiatan"] ?>
+                                                            <?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? '') ?>
                                                         </figcaption>
                                                     </figure>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -1037,7 +1044,7 @@ if (!empty($arrayfaktorResikoPerilaku)) {
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Yakin ingin menghapus hasil screening
-                                                        <strong><?= $datahasil["namaLengkap"] ?></strong>?
+                                                        <strong><?= htmlspecialchars($datahasil["namaLengkap"] ?? '') ?></strong>?
                                                     </p>
                                                     <div class="form-group">
                                                         <label for="password_verif<?= $idHapus; ?>">Masukkan Password

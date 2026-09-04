@@ -1,4 +1,13 @@
 ﻿<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -21,10 +30,10 @@ $segments = explode('/', (string)$request);
 // FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
 $posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = $segments[$posMenu + 1];
+    $idJadwal = (int) $segments[$posMenu + 1];
 } else {
     // Fallback for unexpected URL structures
-    $idJadwal = isset($segments[3]) ? $segments[3] : 0;
+    $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
 }
 
 $conn = new cConnect();
@@ -61,35 +70,35 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th style="width: 200px;">Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Nama Kegiatan</th>
-                        <td><?= $datajadwal['namaKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['namaKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Topik</th>
-                        <td><?= $datajadwal['topik'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['topik'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -102,17 +111,21 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 <?php
 // insert
 if (!empty($_POST["savebtn"])) {
-    $linkurl = $idJadwal;
 
     // Upload file
+    // Path fisik mengarah ke folder uploads terpusat di admin/ (satu-satunya yang punya .htaccess anti-eksekusi),
+    // sedangkan path yang disimpan ke DB tetap relatif tanpa prefix "admin/" agar konsisten dengan data
+    // yang dibuat lewat admin/detailEdukasi.php dan dengan cara baca di file ini (lihat baris "../admin/" . $dokumentasi).
     $allowedDokumentasiExt = ["jpg", "jpeg", "png", "pdf"];
-    $targetDir = "uploads/hasilEdukasi/"; // Folder penyimpanan file
+    $targetDirFisik = "../admin/uploads/hasilEdukasi/"; // Folder penyimpanan file (fisik)
+    $targetDirSimpan = "uploads/hasilEdukasi/"; // Path yang disimpan ke database
     $fileName = basename((string)$_FILES["dokumentasi"]["name"]);
-    $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
+    $uniqueName = time() . "_" . $fileName;
+    $filePath = $targetDirFisik . $uniqueName;
 
     if (!empty($_FILES["dokumentasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDokumentasiExt)) {
         if (move_uploaded_file($_FILES["dokumentasi"]["tmp_name"], $filePath)) {
-            $dokumentasi = $filePath;
+            $dokumentasi = $targetDirSimpan . $uniqueName;
         } else {
             $dokumentasi = null; // Jika gagal upload
         }
@@ -134,7 +147,6 @@ if (!empty($_POST["savebtn"])) {
 <?php
 // update
 if (!empty($_POST["editbtn"])) {
-    $linkurl = $idJadwal;
 
     $sql = "SELECT dokumentasi FROM program_edukasi WHERE idEdukasi = ?";
     $view = new cView();
@@ -142,15 +154,17 @@ if (!empty($_POST["editbtn"])) {
 
     $dokumentasiLama = $arrayEdukasi[0]["dokumentasi"];
 
-    // Upload file
+    // Upload file (lihat catatan path fisik vs path simpan di blok insert di atas)
     $allowedDokumentasiExt = ["jpg", "jpeg", "png", "pdf"];
-    $targetDir = "uploads/hasilEdukasi/"; // Folder penyimpanan file
+    $targetDirFisik = "../admin/uploads/hasilEdukasi/"; // Folder penyimpanan file (fisik)
+    $targetDirSimpan = "uploads/hasilEdukasi/"; // Path yang disimpan ke database
     $fileName = basename((string)$_FILES["dokumentasi"]["name"]);
-    $filePath = $targetDir . time() . "_" . $fileName; // Buat nama unik
+    $uniqueName = time() . "_" . $fileName;
+    $filePath = $targetDirFisik . $uniqueName;
 
     if (!empty($_FILES["dokumentasi"]["tmp_name"]) && _isAllowedUploadExtension($fileName, $allowedDokumentasiExt)) {
         if (move_uploaded_file($_FILES["dokumentasi"]["tmp_name"], $filePath)) {
-            $dokumentasi = $filePath;
+            $dokumentasi = $targetDirSimpan . $uniqueName;
         } else {
             $dokumentasi = $dokumentasiLama; // Jika gagal upload
         }
@@ -236,8 +250,8 @@ if (!empty($datahasil)) {
                     <div class="mb-3">
                         <label for="dokumentasi" class="form-label">Dokumentasi (PNG/JPG/PDF)</label>
                         <?php if ($dokumentasi != "Belum ada dokumentasi"): ?>
-                            <p>File sebelumnya: <a href="<?= $baseurl ?>/admin/<?= $dokumentasi ?>"
-                                    target="_blank"><?= basename((string)$dokumentasi) ?></a></p>
+                            <p>File sebelumnya: <a href="<?= $baseurl ?>/admin/<?= htmlspecialchars($dokumentasi) ?>"
+                                    target="_blank"><?= htmlspecialchars(basename((string)$dokumentasi)) ?></a></p>
                         <?php endif; ?>
                         <input type="file" name="dokumentasi" class="form-control" accept=".png,.jpg,.jpeg,.pdf">
                     </div>
@@ -261,7 +275,7 @@ if (!empty($datahasil)) {
                 <table class="table">
                     <tr>
                         <th>Hasil Kegiatan</th>
-                        <td><?= $hasilKegiatan ?></td>
+                        <td><?= htmlspecialchars($hasilKegiatan) ?></td>
                     </tr>
                     <tr>
                         <th>Dokumentasi</th>
@@ -284,7 +298,6 @@ if (!empty($datahasil)) {
 <?php
 // insert
 if (!empty($_POST["simpanbtn"])) {
-    $linkurl = $idJadwal;
 
     // Data untuk peserta_edukasi
     $datafield_pesertaEdukasi = array("idEdukasi", "idPeserta");
@@ -316,7 +329,6 @@ if (!empty($_POST["simpanbtn"])) {
 <?php
 // update
 if (!empty($_POST["ubahbtn"])) {
-    $linkurl = $idJadwal;
 
     $datafield_peserta = array("nama", "asalLembaga", "jenisKelamin", "usia", "alamat");
     $datavalue_peserta = array($_POST["nama"], $_POST["asalLembaga"] === '' ? "" : $_POST["asalLembaga"], $_POST["jenisKelamin"], $_POST["usia"], $_POST["alamat"] === '' ? "" : $_POST["alamat"]);
@@ -377,8 +389,6 @@ if (!empty($_POST["btndelete"])) {
         $view = new cView();
         $pesertaList = $view->vViewData($queryPeserta);
 
-        // add new data
-        $linkurl = $idJadwal;
         ?>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -399,8 +409,8 @@ if (!empty($_POST["btndelete"])) {
                                 <select id="pilihPeserta" name="idPeserta" class="form-control">
                                     <option value="">- Pilih Peserta -</option>
                                     <?php foreach ($pesertaList as $peserta): ?>
-                                        <option value="<?= $peserta['idPeserta'] ?>">
-                                            <?= $peserta['nama'] ?> - <?= $peserta['asalLembaga'] ?>
+                                        <option value="<?= htmlspecialchars($peserta['idPeserta'] ?? '') ?>">
+                                            <?= htmlspecialchars($peserta['nama'] ?? '') ?> - <?= htmlspecialchars($peserta['asalLembaga'] ?? '') ?>
                                         </option>
                                     <?php endforeach; ?>
                                     <!-- <option value="baru">Nama tidak ada di daftar</option> -->
@@ -435,7 +445,7 @@ if (!empty($_POST["btndelete"])) {
                                         <option value="">- pilihan -</option>
                                         <?php
                                         foreach ($enumJK as $option) {
-                                            $trimmedValue = trim($option);
+                                            $trimmedValue = htmlspecialchars(trim($option));
                                             echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
                                         }
                                         ?>
@@ -447,7 +457,7 @@ if (!empty($_POST["btndelete"])) {
                                         <option value="">- pilihan -</option>
                                         <?php
                                         foreach ($enumUsia as $option) {
-                                            $trimmedValue = trim($option);
+                                            $trimmedValue = htmlspecialchars(trim($option));
                                             echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
                                         }
                                         ?>
@@ -549,191 +559,12 @@ if (!empty($_POST["btndelete"])) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datapeserta["nama"]; ?></td>
-                            <td><?= $datapeserta["asalLembaga"]; ?></td>
-                            <td><?= $datapeserta["jenisKelamin"]; ?></td>
-                            <td><?= $datapeserta["usia"]; ?></td>
-                            <td><?= $datapeserta["alamat"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["nama"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datapeserta["asalLembaga"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datapeserta["jenisKelamin"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datapeserta["usia"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datapeserta["alamat"] ?? ''); ?></td>
                             <?php /* Kolom EDIT dan HAPUS disembunyikan untuk terapis (read only) */ ?>
-                            <?php if (false): ?>
-                            <td>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#formedit<?= $datapeserta["idPeserta"]; ?>" style="border-radius: 8px;">
-                                    <i class="fa-regular fa-pen-to-square" style="color: #000000;"></i>
-                                </button>
-
-                                <?php
-                                // Query ENUM 'kelompokUsia'
-                                $usia = "SHOW COLUMNS FROM peserta LIKE 'usia'";
-                                $view = new cView();
-                                $arrayUsia = $view->vViewData($usia);
-                                $enumUsia = [];
-                                if (!empty($arrayUsia)) {
-                                    $row = $arrayUsia[0]; // Ambil hasil pertama
-                                    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-                                        $enumUsia = explode(",", str_replace("'", "", $matches[1]));
-                                    }
-                                }
-
-                                // Query ENUM 'jenisKelamin'
-                                $jk = "SHOW COLUMNS FROM peserta LIKE 'jenisKelamin'";
-                                $view = new cView();
-                                $arrayJK = $view->vViewData($jk);
-                                $enumJK = [];
-                                if (!empty($arrayJK)) {
-                                    $row = $arrayJK[0]; // Ambil hasil pertama
-                                    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-                                        $enumJK = explode(",", str_replace("'", "", $matches[1]));
-                                    }
-                                }
-
-                                // add new data
-                                $linkurl = $idJadwal;
-                                ?>
-                                <div class="modal fade" id="formedit<?= $datapeserta["idPeserta"]; ?>" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog text-start">
-                                        <div class="modal-content text-left">
-                                            <div class="modal-header">
-                                                <figure class="text-left">
-                                                    <blockquote class="blockquote">
-                                                        <p>EDIT PESERTA</p>
-                                                    </blockquote>
-                                                    <figcaption class="blockquote-footer"><?= $datapeserta["idPeserta"]; ?>
-                                                    </figcaption>
-                                                    <figcaption class="blockquote-footer"><?= $datapeserta["nama"]; ?>
-                                                    </figcaption>
-                                                </figure>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <form class="" method="post" action="<?= $idJadwal ?>"
-                                                enctype="multipart/form-data">
-                                                <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <input class="form-control" type="text" name="idPeserta"
-                                                            id="idPeserta" value="<?= $datapeserta["idPeserta"]; ?>"
-                                                            placeholder="id Peserta" maxlength="255" size="" hidden>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="nama">NAMA PESERTA <span
-                                                                class="required">*</span></label>
-                                                        <input class="form-control" type="text" name="nama" id="nama"
-                                                            value="<?= $datapeserta["nama"]; ?>" placeholder="Nama Lengkap"
-                                                            maxlength="255" size="" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="asalLembaga">ASAL LEMBAGA <span
-                                                                class="required">*</span></label>
-                                                        <input class="form-control" type="text" name="asalLembaga"
-                                                            id="asalLembaga" value="<?= $datapeserta["asalLembaga"]; ?>"
-                                                            placeholder="Asal Lembaga" maxlength="255" size="" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="jenisKelamin">JENIS KELAMIN <span
-                                                                class="required">*</span></label>
-                                                        <select name="jenisKelamin" class="form-control" required>
-                                                            <option value="<?= $datapeserta["jenisKelamin"]; ?>">
-                                                                <?= $datapeserta["jenisKelamin"]; ?>
-                                                            </option>
-                                                            <?php
-                                                            foreach ($enumJK as $option) {
-                                                                $trimmedValue = trim($option);
-                                                                echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="usia">USIA <span class="required">*</span></label>
-                                                        <select name="usia" class="form-control" required>
-                                                            <option value="<?= $datapeserta["usia"]; ?>">
-                                                                <?= $datapeserta["usia"]; ?>
-                                                            </option>
-                                                            <?php
-                                                            foreach ($enumUsia as $option) {
-                                                                $trimmedValue = trim($option);
-                                                                echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="alamat">ALAMAT <span class="required">*</span></label>
-                                                        <input class="form-control" type="text" name="alamat" id="alamat"
-                                                            value="<?= $datapeserta["alamat"]; ?>"
-                                                            placeholder="Alamat Peserta" maxlength="255" size="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" name="ubahbtn" value="true"
-                                                        class="btn btn-primary btn-sm"
-                                                        style="border-radius: 25px;">SIMPAN</button>
-                                                    <button type="button" class="btn btn-secondary btn-sm"
-                                                        data-bs-dismiss="modal" style="border-radius: 25px;">TUTUP</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#formdelete<?= $datapeserta["idPeserta"]; ?>"
-                                    style="border-radius: 8px;">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="formdelete<?= $datapeserta["idPeserta"]; ?>" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header text-start">
-                                                <figure>
-                                                    <blockquote class="blockquote">
-                                                        <p>HAPUS</p>
-                                                    </blockquote>
-                                                    <figcaption class="blockquote-footer"><?= $datapeserta["idPeserta"] ?>
-                                                    </figcaption>
-                                                    <figcaption class="blockquote-footer">
-                                                        <?= $datapeserta["nama"] . " - " . $datapeserta["asalLembaga"] ?>
-                                                    </figcaption>
-                                                </figure>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body text-start">
-                                                <h6 class="">Yakin akan menghapus <ion-icon name="help-outline"></ion-icon>
-                                                </h6>
-                                            </div>
-                                            <form action="" method="post">
-                                                <div class="modal-footer">
-                                                    <?php
-                                                    $datadelete = array(
-                                                        array("idPesertaEdukasi", $datapeserta["idPesertaEdukasi"], "peserta_edukasi")
-                                                    );
-                                                    foreach ($datadelete as $key => $val) {
-                                                        ?>
-                                                        <input type="hidden" name="hiddendeletevalue[<?= $key ?>][field]"
-                                                            value="<?= htmlspecialchars($val[0]) ?>">
-                                                        <input type="hidden" name="hiddendeletevalue[<?= $key ?>][value]"
-                                                            value="<?= htmlspecialchars($val[1]) ?>">
-                                                        <input type="hidden" name="hiddendeletevalue[<?= $key ?>][table]"
-                                                            value="<?= htmlspecialchars($val[2]) ?>">
-                                                    <?php } ?>
-                                                    <button type="submit" name="btndelete" value="true"
-                                                        class="btn btn-danger btn-sm"
-                                                        style="border-radius: 25px;">HAPUS</button>
-                                                    <button type="button" class="btn btn-secondary btn-sm"
-                                                        data-bs-dismiss="modal" style="border-radius: 25px;">TUTUP</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <?php endif; ?>
                         </tr>
                     <?php } ?>
                 </tbody>

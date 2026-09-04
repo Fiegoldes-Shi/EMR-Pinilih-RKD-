@@ -22,14 +22,14 @@ if ($idJenisDisabilitas == 0) {
     exit;
 }
 
-$sql = "SELECT sd.namaDisabilitas, COUNT(p.idPasien) AS jumlah 
+$sql = "SELECT sd.namaDisabilitas, COUNT(p.idPasien) AS jumlah
         FROM pasien p
-        JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas 
-        WHERE sd.idJenisDisabilitas = $idJenisDisabilitas
+        JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
+        WHERE sd.idJenisDisabilitas = ?
         GROUP BY sd.idSubDisabilitas";
 
 $view = new cView();
-$data = $view->vViewData($sql);
+$data = $view->vViewDataPrepared($sql, [$idJenisDisabilitas], "i");
 
 $result = ["labels" => [], "datas" => []];
 foreach ($data as $row) {

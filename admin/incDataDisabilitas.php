@@ -1,7 +1,14 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 if (!empty($_POST["savebtn"])) {
-    $linkurl = 24;
-
     // Data untuk sub disabilitas
     $datafield_dis = array("idJenisDisabilitas", "namaDisabilitas");
 
@@ -32,8 +39,6 @@ if (!empty($_POST["savebtn"])) {
 <?php
 // update
 if (!empty($_POST["editbtn"])) {
-    $linkurl = 24;
-
     $idJenisDisabilitas = $_POST["idJenisDisabilitas"] ? $_POST['idJenisDisabilitas'] : NULL;
 
     $datafield_dis = array("idJenisDisabilitas", "namaDisabilitas");
@@ -146,7 +151,7 @@ if (!empty($_POST["btnSetUtama"])) {
 
                                             foreach ($resultJD as $row): ?>
                                                 <option value="<?= $row['idJenisDisabilitas'] ?>">
-                                                    <?= $row['jenisDisabilitas'] ?>
+                                                    <?= htmlspecialchars($row['jenisDisabilitas'] ?? '') ?>
                                                 </option>
                                             <?php endforeach; ?>
                                             <option value="baru" style="color: blue;"> + Tambah Jenis Disabilitas Baru
@@ -300,7 +305,7 @@ if (!empty($_POST["btnSetUtama"])) {
                                     foreach ($resultKJD as $rowKJD):
                                         ?>
                                         <tr>
-                                            <td class="align-middle ps-3 border-0 py-2"><?= $rowKJD['jenisDisabilitas'] ?>
+                                            <td class="align-middle ps-3 border-0 py-2"><?= htmlspecialchars($rowKJD['jenisDisabilitas'] ?? '') ?>
                                             </td>
                                             <td class="text-center align-middle border-0 py-2">
                                                 <form method="post" action="data-disabilitas" style="margin:0;">

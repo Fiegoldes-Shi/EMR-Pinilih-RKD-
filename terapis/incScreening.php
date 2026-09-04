@@ -1,7 +1,15 @@
-﻿<?php
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // insert
 if (!empty($_POST["savebtn"])) {
-    $linkurl = 33;
 
     $_POST["idProgram"] = 3;
     $idUser = $_SESSION["idUser"];
@@ -19,7 +27,6 @@ if (!empty($_POST["savebtn"])) {
 <?php
 // update
 if (!empty($_POST["editbtn"])) {
-    $linkurl = 33;
 
     $_POST["idProgram"] = 3;
     $idUser = $_SESSION["idUser"];

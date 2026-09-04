@@ -1,9 +1,4 @@
 <?php
-// if (empty($_SESSION["keyaccess"]) or $_SESSION["keyaccess"] != "123456") {
-//     header("Location: ");
-//     die;
-// }
-
 session_start();
 
 // === BASEURL DINAMIS (tanpa hardcode localhost) ===

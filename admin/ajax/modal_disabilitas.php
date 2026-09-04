@@ -39,17 +39,17 @@ if ($action == 'view') {
                         <tr>
                             <td width="39%">ID</td>
                             <td width="1%">:</td>
-                            <td width="60%"><?= $datadisabilitas["idSubDisabilitas"]; ?></td>
+                            <td width="60%"><?= htmlspecialchars($datadisabilitas["idSubDisabilitas"]); ?></td>
                         </tr>
                         <tr>
                             <td>Jenis Disabilitas</td>
                             <td>:</td>
-                            <td><?= $datadisabilitas["jenisDisabilitas"]; ?></td>
+                            <td><?= htmlspecialchars($datadisabilitas["jenisDisabilitas"]); ?></td>
                         </tr>
                         <tr>
                             <td>Nama Disabilitas</td>
                             <td>:</td>
-                            <td><?= $datadisabilitas["namaDisabilitas"]; ?></td>
+                            <td><?= htmlspecialchars($datadisabilitas["namaDisabilitas"]); ?></td>
                         </tr>
                     </table>
                 </div>
@@ -72,29 +72,29 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">EDIT DISABILITAS</blockquote>
-                        <figcaption class="blockquote-footer"><?= $datadisabilitas["idSubDisabilitas"]; ?></figcaption>
-                        <figcaption class="blockquote-footer"><?= $datadisabilitas["namaDisabilitas"]; ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datadisabilitas["idSubDisabilitas"]); ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datadisabilitas["namaDisabilitas"]); ?></figcaption>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" enctype="multipart/form-data" action="">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="idSubDisabilitas" value="<?= $datadisabilitas["idSubDisabilitas"]; ?>" hidden>
+                            <input class="form-control" type="text" name="idSubDisabilitas" value="<?= htmlspecialchars($datadisabilitas["idSubDisabilitas"]); ?>" hidden>
                         </div>
                         <div class="mb-3">
                             <label>Jenis Disabilitas <span class="required">*</span></label>
                             <select name="idJenisDisabilitas" class="form-control" required>
                                 <?php foreach ($resultJD as $row): ?>
-                                    <option value="<?= $row['idJenisDisabilitas'] ?>" <?= ($row['idJenisDisabilitas'] == $datadisabilitas['idJenisDisabilitas']) ? 'selected' : ''; ?>>
-                                        <?= $row['jenisDisabilitas'] ?>
+                                    <option value="<?= htmlspecialchars($row['idJenisDisabilitas']) ?>" <?= ($row['idJenisDisabilitas'] == $datadisabilitas['idJenisDisabilitas']) ? 'selected' : ''; ?>>
+                                        <?= htmlspecialchars($row['jenisDisabilitas']) ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label>Nama Disabilitas <span class="required">*</span></label>
-                            <input class="form-control" type="text" name="namaDisabilitas" value="<?= $datadisabilitas["namaDisabilitas"]; ?>" required>
+                            <input class="form-control" type="text" name="namaDisabilitas" value="<?= htmlspecialchars($datadisabilitas["namaDisabilitas"]); ?>" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -114,7 +114,7 @@ if ($action == 'view') {
             <div class="modal-content">
                 <form action="" method="post">
                     <input type="hidden" name="hiddendeletevalue[0][field]" value="idSubDisabilitas">
-                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= $datadisabilitas["idSubDisabilitas"]; ?>">
+                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= htmlspecialchars($datadisabilitas["idSubDisabilitas"]); ?>">
                     <input type="hidden" name="hiddendeletevalue[0][table]" value="sub_disabilitas">
 
                     <div class="modal-header">
@@ -122,12 +122,12 @@ if ($action == 'view') {
                             <blockquote class="blockquote">
                                 <h5 class="modal-title">HAPUS</h5>
                             </blockquote>
-                            <figcaption class="blockquote-footer">Disabilitas <?= $datadisabilitas["jenisDisabilitas"] ?> - <?= $datadisabilitas["namaDisabilitas"] ?></figcaption>
+                            <figcaption class="blockquote-footer">Disabilitas <?= htmlspecialchars($datadisabilitas["jenisDisabilitas"]) ?> - <?= htmlspecialchars($datadisabilitas["namaDisabilitas"]) ?></figcaption>
                         </figure>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Yakin ingin menghapus <strong><?= $datadisabilitas["jenisDisabilitas"] ?> - <?= $datadisabilitas["namaDisabilitas"] ?></strong>?</p>
+                        <p>Yakin ingin menghapus <strong><?= htmlspecialchars($datadisabilitas["jenisDisabilitas"]) ?> - <?= htmlspecialchars($datadisabilitas["namaDisabilitas"]) ?></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="btnhapus" class="btn btn-danger btn-sm" style="border-radius: 25px;">HAPUS</button>

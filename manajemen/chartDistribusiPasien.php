@@ -31,19 +31,16 @@ SELECT
     COALESCE(SUM(CASE WHEN j.idProgram = 3 THEN 1 ELSE 0 END), 0) AS screening,
     COALESCE(SUM(CASE WHEN j.idProgram = 4 THEN 1 ELSE 0 END), 0) AS konsultasi
 FROM Bulan b
-LEFT JOIN jadwal_program j 
-    ON MONTH(j.tanggalKegiatan) = b.bulan 
-    AND YEAR(j.tanggalKegiatan) = $tahun  -- Filter tahun
-LEFT JOIN hasil_layanan h 
+LEFT JOIN jadwal_program j
+    ON MONTH(j.tanggalKegiatan) = b.bulan
+    AND YEAR(j.tanggalKegiatan) = ?  -- Filter tahun
+LEFT JOIN hasil_layanan h
     ON j.idJadwal = h.idJadwal
 GROUP BY b.bulan
 ORDER BY b.bulan";
 
 $view = new cView();
-$data = $view->vViewData($sql);
-
-// Debugging untuk melihat hasil query
-// var_dump($data); exit;
+$data = $view->vViewDataPrepared($sql, [$tahun], "i");
 
 $result = [
     "labels" => [],

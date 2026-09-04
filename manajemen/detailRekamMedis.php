@@ -1,15 +1,18 @@
 <?php
-// session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cUpdate.php");
 include_once("../_function_i/inc_f_object.php");
 
-$request = $_SERVER['REQUEST_URI'];
-$request = trim($request, '/');
-$segments = explode('/', (string) $request);
-
-// $idPasien = $segments[count($segments) - 1] ?? 0;
 // Ambil idPasien dari session jika tersedia
 if (isset($_POST['idPasien'])) {
     $_SESSION['idPasien'] = $_POST['idPasien']; // Simpan ke session
@@ -65,7 +68,7 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                 style="color: black;"></ion-icon></a>
     </div>
     <div class="col-12 col-md-10 col-lg-11">
-        <?php _myHeader("DETAIL REKAM MEDIS PASIEN " . strtoupper($datahasil['namaLengkap']), "Detail Hasil Rekam Medis"); ?>
+        <?php _myHeader("DETAIL REKAM MEDIS PASIEN " . htmlspecialchars(strtoupper($datahasil['namaLengkap'] ?? '')), "Detail Hasil Rekam Medis"); ?>
     </div>
 </div>
 
@@ -160,12 +163,12 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["tanggalKegiatan"]; ?></td>
-                            <td><?= $datahasil["namaProgram"]; ?></td>
-                            <td><?= $datahasil["namaTerapis"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["diagnosis"]; ?></td>
-                            <td><?= $datahasil["catatanTindakan"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaProgram"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaTerapis"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 // Ambil idHasilLayanan dari data hasil layanan yang sedang di-loop
@@ -190,56 +193,56 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                                 switch ($idProgram) {
                                     case '1': // Detail Fisioterapi
                                         $datadetail = array(
-                                            array("NAMA TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
-                                            array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                            array("AREA TUBUH YANG DITERAPI", "areaTubuh", $datahasil["areaTubuh"], 1),
-                                            array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                            array("NAMA TERAPIS", "namaTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                            array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                            array("AREA TUBUH YANG DITERAPI", "areaTubuh", htmlspecialchars($datahasil["areaTubuh"] ?? ''), 1),
+                                            array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                         );
                                         _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL FISIOTERAPI", "", $datadetail, "", $linkurl, "");
                                         break;
 
                                     case '2': // Detail Kinesioterapi
                                         $datadetail = array(
-                                            array("NAMA TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
-                                            array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                            array("TINGKAT NYERI", "tingkatNyeri", $datahasil["tingkatNyeri"], 1),
-                                            array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", $datahasil["waktuMunculKeluhan"], 1),
-                                            array("SIFAT SAKIT", "sifatSakit", $datahasil["sifatSakit"], 1),
-                                            array("OBAT", "obat", $datahasil["obat"], 1),
-                                            array("POSTUR TUBUH", "posturTubuh", $datahasil["posturTubuh"], 1),
-                                            array("ROM", "ROM", $datahasil["ROM"], 1),
-                                            array("POSITIVE", "positive", $datahasil["positive"], 1),
-                                            array("MANAGEMENT", "management", $datahasil["management"], 1),
-                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 3),
-                                            array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                            array("NAMA TERAPIS", "namaTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                            array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                            array("TINGKAT NYERI", "tingkatNyeri", htmlspecialchars($datahasil["tingkatNyeri"] ?? ''), 1),
+                                            array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", htmlspecialchars($datahasil["waktuMunculKeluhan"] ?? ''), 1),
+                                            array("SIFAT SAKIT", "sifatSakit", htmlspecialchars($datahasil["sifatSakit"] ?? ''), 1),
+                                            array("OBAT", "obat", htmlspecialchars($datahasil["obat"] ?? ''), 1),
+                                            array("POSTUR TUBUH", "posturTubuh", htmlspecialchars($datahasil["posturTubuh"] ?? ''), 1),
+                                            array("ROM", "ROM", htmlspecialchars($datahasil["ROM"] ?? ''), 1),
+                                            array("POSITIVE", "positive", htmlspecialchars($datahasil["positive"] ?? ''), 1),
+                                            array("MANAGEMENT", "management", htmlspecialchars($datahasil["management"] ?? ''), 1),
+                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 3),
+                                            array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                         );
                                         _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL KINESIOTERAPI", "", $datadetail, "", $linkurl, "");
                                         break;
 
                                     case '3': // Detail Screening
                                         $datadetail = array(
-                                            array("NAMA TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
-                                            array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                            array("TANGGAL RUJUKAN", "tanggalRujukan", $datahasil["tanggalRujukan"], 1),
-                                            array("ALASAN RUJUKAN", "alasanRujukan", $datahasil["alasanRujukan"], 1),
-                                            array("TINGGI BADAN", "tinggiBadan", $datahasil["tinggiBadan"], 1),
-                                            array("BERAT BADAN", "beratBadan", $datahasil["beratBadan"], 1),
-                                            array("TEKANAN DARAH", "tekananDarah", $datahasil["tekananDarah"], 1),
-                                            array("GULA DARAH", "gulaDarah", $datahasil["gulaDarah"], 1),
-                                            array("KOLESTEROL", "kolesterol", $datahasil["kolesterol"], 1),
-                                            array("TRIGLISERIDA", "trigliserida", $datahasil["trigliserida"], 1),
-                                            array("BENJOLAN PAYUDARA", "benjolanPayudara", $datahasil["benjolanPayudara"], 1),
-                                            array("INSPEKSI VISUAL ASAM ASETAT", "inspeksiVisualAsamAsetat", $datahasil["inspeksiVisualAsamAsetat"], 1),
-                                            array("KADAR ALKOHOL PERNAFASAN", "kadarAlkoholPernafasan", $datahasil["kadarAlkoholPernafasan"], 1),
-                                            array("TES AMFETAMIN URIN", "tesAmfetaminUrin", $datahasil["tesAmfetaminUrin"], 1),
-                                            array("ARUS PERNAFASAN EKSPIRASI", "arusPernafasanEkspirasi", $datahasil["arusPernafasanEkspirasi"], 1),
-                                            array("FAKTOR RESIKO PERILAKU", "faktorResikoPerilaku", $datahasil["faktorResikoPerilaku"], 1),
-                                            array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                            array("NAMA TERAPIS", "namaTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                            array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                            array("TANGGAL RUJUKAN", "tanggalRujukan", htmlspecialchars($datahasil["tanggalRujukan"] ?? ''), 1),
+                                            array("ALASAN RUJUKAN", "alasanRujukan", htmlspecialchars($datahasil["alasanRujukan"] ?? ''), 1),
+                                            array("TINGGI BADAN", "tinggiBadan", htmlspecialchars($datahasil["tinggiBadan"] ?? ''), 1),
+                                            array("BERAT BADAN", "beratBadan", htmlspecialchars($datahasil["beratBadan"] ?? ''), 1),
+                                            array("TEKANAN DARAH", "tekananDarah", htmlspecialchars($datahasil["tekananDarah"] ?? ''), 1),
+                                            array("GULA DARAH", "gulaDarah", htmlspecialchars($datahasil["gulaDarah"] ?? ''), 1),
+                                            array("KOLESTEROL", "kolesterol", htmlspecialchars($datahasil["kolesterol"] ?? ''), 1),
+                                            array("TRIGLISERIDA", "trigliserida", htmlspecialchars($datahasil["trigliserida"] ?? ''), 1),
+                                            array("BENJOLAN PAYUDARA", "benjolanPayudara", htmlspecialchars($datahasil["benjolanPayudara"] ?? ''), 1),
+                                            array("INSPEKSI VISUAL ASAM ASETAT", "inspeksiVisualAsamAsetat", htmlspecialchars($datahasil["inspeksiVisualAsamAsetat"] ?? ''), 1),
+                                            array("KADAR ALKOHOL PERNAFASAN", "kadarAlkoholPernafasan", htmlspecialchars($datahasil["kadarAlkoholPernafasan"] ?? ''), 1),
+                                            array("TES AMFETAMIN URIN", "tesAmfetaminUrin", htmlspecialchars($datahasil["tesAmfetaminUrin"] ?? ''), 1),
+                                            array("ARUS PERNAFASAN EKSPIRASI", "arusPernafasanEkspirasi", htmlspecialchars($datahasil["arusPernafasanEkspirasi"] ?? ''), 1),
+                                            array("FAKTOR RESIKO PERILAKU", "faktorResikoPerilaku", htmlspecialchars($datahasil["faktorResikoPerilaku"] ?? ''), 1),
+                                            array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                         );
                                         _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL SCREENING", "", $datadetail, "", $linkurl, "");
 
@@ -247,12 +250,12 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
 
                                     case '4': // Detail Konsultasi
                                         $datadetail = array(
-                                            array("NAMA TERAPIS", "namaTerapis", $datahasil["namaTerapis"], 1),
-                                            array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                            array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                            array("SARAN DAN RUJUKAN", "saranRujukan", $datahasil["saranRujukan"], 1),
-                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                            array("NAMA TERAPIS", "namaTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                            array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                            array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                            array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                            array("SARAN DAN RUJUKAN", "saranRujukan", htmlspecialchars($datahasil["saranRujukan"] ?? ''), 1),
+                                            array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                         );
                                         _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL KONSULTASI", "", $datadetail, "", $linkurl, "");
                                         break;
@@ -274,15 +277,15 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
 
             <div class="button-container">
                 <form method="post" action="export_pdfdetail.php" target="_blank">
-                    <input type="hidden" name="tanggalMulai" value="<?= $_POST["tanggalMulai"] ?? ''; ?>">
-                    <input type="hidden" name="tanggalSelesai" value="<?= $_POST["tanggalSelesai"] ?? ''; ?>">
-                    <input type="hidden" name="idPasien" value="<?= $idPasien; ?>">
+                    <input type="hidden" name="tanggalMulai" value="<?= htmlspecialchars($_POST["tanggalMulai"] ?? ''); ?>">
+                    <input type="hidden" name="tanggalSelesai" value="<?= htmlspecialchars($_POST["tanggalSelesai"] ?? ''); ?>">
+                    <input type="hidden" name="idPasien" value="<?= htmlspecialchars($idPasien ?? ''); ?>">
                     <button type="submit" name="export_pdfdetail" class="btn btn-danger">CETAK PDF</button>
                 </form>
                 <form method="post" action="export_exceldetail.php">
-                    <input type="hidden" name="tanggalMulai" value="<?= $_POST["tanggalMulai"] ?? ''; ?>">
-                    <input type="hidden" name="tanggalSelesai" value="<?= $_POST["tanggalSelesai"] ?? ''; ?>">
-                    <input type="hidden" name="idPasien" value="<?= $idPasien; ?>">
+                    <input type="hidden" name="tanggalMulai" value="<?= htmlspecialchars($_POST["tanggalMulai"] ?? ''); ?>">
+                    <input type="hidden" name="tanggalSelesai" value="<?= htmlspecialchars($_POST["tanggalSelesai"] ?? ''); ?>">
+                    <input type="hidden" name="idPasien" value="<?= htmlspecialchars($idPasien ?? ''); ?>">
                     <button type="submit" name="export_exceldetail" class="btn btn-success">CETAK EXCEL</button>
                 </form>
             </div>

@@ -43,7 +43,7 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">DETAIL PESERTA
-                            <?= $datapeserta["idPeserta"]; ?>
+                            <?= htmlspecialchars($datapeserta["idPeserta"]); ?>
                         </blockquote>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -53,32 +53,32 @@ if ($action == 'view') {
                         <tr>
                             <td width="39%">Nama Lengkap</td>
                             <td width="1%">:</td>
-                            <td width="60%"><?= $datapeserta["nama"]; ?></td>
+                            <td width="60%"><?= htmlspecialchars($datapeserta["nama"]); ?></td>
                         </tr>
                         <tr>
                             <td>Asal Lembaga</td>
                             <td>:</td>
-                            <td><?= $datapeserta["asalLembaga"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["asalLembaga"]); ?></td>
                         </tr>
                         <tr>
                             <td>Usia</td>
                             <td>:</td>
-                            <td><?= $datapeserta["usia"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["usia"]); ?></td>
                         </tr>
                         <tr>
                             <td>Jenis Kelamin</td>
                             <td>:</td>
-                            <td><?= $datapeserta["jenisKelamin"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["jenisKelamin"]); ?></td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
                             <td>:</td>
-                            <td><?= $datapeserta["alamat"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["alamat"]); ?></td>
                         </tr>
                         <tr>
                             <td>Disabilitas</td>
                             <td>:</td>
-                            <td><?= $datapeserta["namaDisabilitas"]; ?></td>
+                            <td><?= htmlspecialchars($datapeserta["namaDisabilitas"]); ?></td>
                         </tr>
                     </table>
                 </div>
@@ -103,58 +103,58 @@ if ($action == 'view') {
                 <div class="modal-header">
                     <figure class="text-left">
                         <blockquote class="blockquote">EDIT PESERTA</blockquote>
-                        <figcaption class="blockquote-footer"><?= $datapeserta["idPeserta"]; ?></figcaption>
-                        <figcaption class="blockquote-footer"><?= $datapeserta["nama"]; ?> - <?= $datapeserta["asalLembaga"]; ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datapeserta["idPeserta"]); ?></figcaption>
+                        <figcaption class="blockquote-footer"><?= htmlspecialchars($datapeserta["nama"]); ?> - <?= htmlspecialchars($datapeserta["asalLembaga"]); ?></figcaption>
                     </figure>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" enctype="multipart/form-data" action="">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="idPeserta" value="<?= $datapeserta["idPeserta"]; ?>" hidden>
+                            <input class="form-control" type="text" name="idPeserta" value="<?= htmlspecialchars($datapeserta["idPeserta"]); ?>" hidden>
                         </div>
                         <div class="mb-3">
                             <label>Nama Lengkap Peserta <span class="required">*</span></label>
-                            <input class="form-control" type="text" name="nama" value="<?= $datapeserta["nama"]; ?>" required>
+                            <input class="form-control" type="text" name="nama" value="<?= htmlspecialchars($datapeserta["nama"]); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label>Asal Lembaga</label>
-                            <input class="form-control" type="text" name="asalLembaga" value="<?= $datapeserta["asalLembaga"]; ?>">
+                            <input class="form-control" type="text" name="asalLembaga" value="<?= htmlspecialchars($datapeserta["asalLembaga"]); ?>">
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Jenis Kelamin <span class="required">*</span></label>
                                 <select name="jenisKelamin" class="form-control" required>
-                                    <option value="<?= $datapeserta["jenisKelamin"]; ?>"><?= $datapeserta["jenisKelamin"]; ?></option>
+                                    <option value="<?= htmlspecialchars($datapeserta["jenisKelamin"]); ?>"><?= htmlspecialchars($datapeserta["jenisKelamin"]); ?></option>
                                     <?php foreach ($enumJK as $opt) echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Usia <span class="required">*</span></label>
                                 <select name="usia" class="form-control" required>
-                                    <option value="<?= $datapeserta["usia"]; ?>"><?= $datapeserta["usia"]; ?></option>
+                                    <option value="<?= htmlspecialchars($datapeserta["usia"]); ?>"><?= htmlspecialchars($datapeserta["usia"]); ?></option>
                                     <?php foreach ($enumKelompokUsia as $opt) echo '<option value="' . trim($opt) . '">' . trim($opt) . '</option>'; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label>Alamat Peserta</label>
-                            <input class="form-control" type="text" name="alamat" value="<?= $datapeserta["alamat"]; ?>">
+                            <input class="form-control" type="text" name="alamat" value="<?= htmlspecialchars($datapeserta["alamat"]); ?>">
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Jenis Disabilitas</label>
                                 <select id="jenisDisabilitas_editPeserta" class="form-control jd-peserta-edit">
-                                    <option value="<?= $datapeserta["idJenisDisabilitas"]; ?>"><?= $datapeserta["jenisDisabilitas"] ?></option>
+                                    <option value="<?= htmlspecialchars($datapeserta["idJenisDisabilitas"]); ?>"><?= htmlspecialchars($datapeserta["jenisDisabilitas"]) ?></option>
                                     <?php foreach ($resultJD as $row): ?>
-                                        <option value="<?= $row['idJenisDisabilitas'] ?>"><?= $row['jenisDisabilitas'] ?></option>
+                                        <option value="<?= htmlspecialchars($row['idJenisDisabilitas']) ?>"><?= htmlspecialchars($row['jenisDisabilitas']) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label>Sub Jenis Disabilitas <span id="reqSubDisPesertaEdit" class="required" <?= empty($datapeserta['idJenisDisabilitas']) ? 'style="display:none;"' : '' ?>>*</span></label>
                                 <select name="subDisabilitas" id="subDisabilitas_editPeserta" class="form-control sd-peserta-edit" <?= empty($datapeserta['idJenisDisabilitas']) ? '' : 'required' ?>>
-                                    <option value="<?= $datapeserta["idSubDisabilitas"]; ?>"><?= $datapeserta["namaDisabilitas"] ?></option>
+                                    <option value="<?= htmlspecialchars($datapeserta["idSubDisabilitas"]); ?>"><?= htmlspecialchars($datapeserta["namaDisabilitas"]) ?></option>
                                 </select>
                             </div>
                         </div>
@@ -201,7 +201,7 @@ if ($action == 'view') {
             <div class="modal-content">
                 <form action="" method="post">
                     <input type="hidden" name="hiddendeletevalue[0][field]" value="idPeserta">
-                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= $datapeserta["idPeserta"]; ?>">
+                    <input type="hidden" name="hiddendeletevalue[0][value]" value="<?= htmlspecialchars($datapeserta["idPeserta"]); ?>">
                     <input type="hidden" name="hiddendeletevalue[0][table]" value="peserta">
 
                     <div class="modal-header">
@@ -214,7 +214,7 @@ if ($action == 'view') {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Yakin ingin menghapus peserta <strong><?= $datapeserta["nama"] ?></strong>?</p>
+                        <p>Yakin ingin menghapus peserta <strong><?= htmlspecialchars($datapeserta["nama"]) ?></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="btnhapus" class="btn btn-danger btn-sm" style="border-radius: 25px;">HAPUS</button>

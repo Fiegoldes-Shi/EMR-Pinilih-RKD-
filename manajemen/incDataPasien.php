@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // Query ENUM 'kelompokUsia'
 $usia = "SHOW COLUMNS FROM pasien LIKE 'kelompokUsia'";
 $view = new cView();

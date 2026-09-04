@@ -1,19 +1,12 @@
 <?php
-session_start();
-date_default_timezone_set('Asia/Jakarta');
-
-// === BASEURL DINAMIS (tanpa hardcode localhost) ===
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-$host     = $_SERVER['HTTP_HOST'];
-$path     = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); 
-$baseurl  = $protocol . $host . $path;
-
-// === CEK ROLE LOGIN ===
-if (!isset($_SESSION['role']) || ($_SESSION['role'] !== '1' && $_SESSION['role'] !== '2')) {
-    // Redirect ke halaman utama/login
-    header("Location: $baseurl/");
-    exit();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+if (!isset($_SESSION["idUser"]) || !isset($_SESSION['role']) || ($_SESSION['role'] !== '1' && $_SESSION['role'] !== '2')) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+date_default_timezone_set('Asia/Jakarta');
 
 set_time_limit(0);
 

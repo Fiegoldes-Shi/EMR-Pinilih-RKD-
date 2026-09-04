@@ -52,10 +52,6 @@ if (!empty($tanggalMulai) && !empty($tanggalSelesai)) {
 $sqlhasil .= " ORDER BY jp.tanggalKegiatan DESC";
 $datahasil = $view->vViewDataPrepared($sqlhasil, $params, $types);
 
-// if (empty($datahasil)) {
-//     die("Data tidak ditemukan.");
-// }
-
 // Definisi kolom hasil layanan per program
 $kolomPerProgram = [
     1 => ["areaTubuh"],

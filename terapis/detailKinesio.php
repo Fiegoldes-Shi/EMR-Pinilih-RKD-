@@ -1,4 +1,13 @@
 ﻿<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -21,10 +30,10 @@ $segments = explode('/', (string)$request);
 // Cari posisi slug 'detail' di URL untuk menangani kedalaman URL yang berbeda-beda
 $posMenu = array_search('detail', $segments);
 if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = $segments[$posMenu + 1];
+    $idJadwal = (int) $segments[$posMenu + 1];
 } else {
     // Fallback for unexpected URL structures
-    $idJadwal = isset($segments[3]) ? $segments[3] : 0;
+    $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
 }
 
 $conn = new cConnect();
@@ -61,27 +70,27 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th style="width: 200px;">Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -93,7 +102,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 // insert
 if (!empty($_POST["savebtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     $tingkatNyeri = !empty($_POST["tingkatNyeri"]) ? $_POST['tingkatNyeri'] : NULL;
     $waktuMunculKeluhan = empty($_POST["waktuMunculKeluhan"]) ? "" : $_POST["waktuMunculKeluhan"];
@@ -147,7 +155,6 @@ if (!empty($_POST["savebtn"])) {
 // update
 if (!empty($_POST["editbtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     $tingkatNyeri = !empty($_POST["tingkatNyeri"]) ? $_POST['tingkatNyeri'] : NULL;
     $waktuMunculKeluhan = empty($_POST["waktuMunculKeluhan"]) ? "" : $_POST["waktuMunculKeluhan"];
@@ -287,7 +294,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                     $arraypasien = $view->vViewData($sqlpasien);
 
                                     foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -302,7 +309,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                     $arrayterapis = $view->vViewData($sqlterapis);
 
                                     foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                        echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                        echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -325,7 +332,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                         <?php
                                         foreach ($enumWaktuMunculKeluhan as $option) {
                                             $trimmedValue = trim($option);
-                                            echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                            echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -615,11 +622,11 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["namaLengkap"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["hasilPemeriksaan"]; ?></td>
-                            <td><?= $datahasil["diagnosis"]; ?></td>
-                            <td><?= $datahasil["catatanTindakan"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 // Path ABSOLUT untuk pengecekan file (cek keberadaan file di server)
@@ -635,20 +642,20 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                 }
 
                                 $datadetail = array(
-                                    array("NAMA PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
-                                    array("NAMA TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
-                                    array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                    array("TINGKAT NYERI (0-10)", "tingkatNyeri", $datahasil["tingkatNyeri"], 1),
-                                    array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", $datahasil["waktuMunculKeluhan"], 1),
-                                    array("SIFAT SAKIT", "sifatSakit", $datahasil["sifatSakit"], 1),
-                                    array("OBAT", "obat", $datahasil["obat"], 1),
-                                    array("POSTUR TUBUH", "posturTubuh", $datahasil["posturTubuh"], 1),
-                                    array("ROM", "ROM", $datahasil["ROM"], 1),
-                                    array("POSITIVE", "positive", $datahasil["positive"], 1),
-                                    array("MANAGEMENT", "management", $datahasil["management"], 1),
-                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 3),
-                                    array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                    array("NAMA PASIEN", "idPasien", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
+                                    array("NAMA TERAPIS", "idTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                    array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                    array("TINGKAT NYERI (0-10)", "tingkatNyeri", htmlspecialchars($datahasil["tingkatNyeri"] ?? ''), 1),
+                                    array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", htmlspecialchars($datahasil["waktuMunculKeluhan"] ?? ''), 1),
+                                    array("SIFAT SAKIT", "sifatSakit", htmlspecialchars($datahasil["sifatSakit"] ?? ''), 1),
+                                    array("OBAT", "obat", htmlspecialchars($datahasil["obat"] ?? ''), 1),
+                                    array("POSTUR TUBUH", "posturTubuh", htmlspecialchars($datahasil["posturTubuh"] ?? ''), 1),
+                                    array("ROM", "ROM", htmlspecialchars($datahasil["ROM"] ?? ''), 1),
+                                    array("POSITIVE", "positive", htmlspecialchars($datahasil["positive"] ?? ''), 1),
+                                    array("MANAGEMENT", "management", htmlspecialchars($datahasil["management"] ?? ''), 1),
+                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 3),
+                                    array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                     array("DOKUMEN LAMPIRAN", "lampiran", $lampiran, 1, "")
                                 );
                                 _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL KINESIOTERAPI " . $datahasil["idHasilLayanan"], "", $datadetail, "", $idJadwal, "");
@@ -669,10 +676,10 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                 <figure class="text-left">
                                                     <blockquote class="blockquote">EDIT HASIL KINESIOTERAPI</blockquote>
                                                     <figcaption class="blockquote-footer">
-                                                        <?= $datahasil["idHasilLayanan"]; ?>
+                                                        <?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>
                                                     </figcaption>
-                                                    <figcaption class="blockquote-footer"><?= $datahasil["namaLengkap"]; ?>
-                                                        (<?= $datahasil["tanggalKegiatan"]; ?>)</figcaption>
+                                                    <figcaption class="blockquote-footer"><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?>
+                                                        (<?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? ''); ?>)</figcaption>
                                                 </figure>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -681,21 +688,21 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <input class="form-control" type="text" name="idHasilLayanan"
-                                                            id="idHasilLayanan" value="<?= $datahasil["idHasilLayanan"]; ?>"
+                                                            id="idHasilLayanan" value="<?= htmlspecialchars($datahasil["idHasilLayanan"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idJadwal"
-                                                            id="idJadwal" value="<?= $datahasil["idJadwal"]; ?>"
+                                                            id="idJadwal" value="<?= htmlspecialchars($datahasil["idJadwal"] ?? ''); ?>"
                                                             maxlength="255" size="" hidden>
                                                         <input class="form-control" type="text" name="idUser" id="idUser"
-                                                            value="<?= $datahasil["idUser"]; ?>" maxlength="255" size=""
+                                                            value="<?= htmlspecialchars($datahasil["idUser"] ?? ''); ?>" maxlength="255" size=""
                                                             hidden>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="idPasien">ID Pasien <span
                                                                 class="required">*</span></label>
                                                         <select name="idPasien" id="idPasien" class="form-control" required>
-                                                            <option value="<?= $datahasil["idPasien"]; ?>">
-                                                                <?= $datahasil["namaLengkap"] . " - " . $datahasil["idPasien"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idPasien"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaLengkap"] ?? '') . " - " . ($datahasil["idPasien"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlpasien = "SELECT * FROM pasien WHERE statusPasien = 'Aktif' ORDER BY namaLengkap ASC";
@@ -703,7 +710,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                             $arraypasien = $view->vViewData($sqlpasien);
 
                                                             foreach ($arraypasien as $datapasien) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $datapasien['idPasien'] . "'>" . $datapasien['namaLengkap'] . " - " . $datapasien['idPasien'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($datapasien['idPasien']) . "'>" . htmlspecialchars($datapasien['namaLengkap']) . " - " . htmlspecialchars($datapasien['idPasien']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -713,8 +720,8 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                                 class="required">*</span></label>
                                                         <select name="idTerapis" id="idTerapis" class="form-control"
                                                             required>
-                                                            <option value="<?= $datahasil["idTerapis"]; ?>">
-                                                                <?= $datahasil["namaTerapis"] . " - " . $datahasil["idTerapis"]; ?>
+                                                            <option value="<?= htmlspecialchars($datahasil["idTerapis"] ?? ''); ?>">
+                                                                <?= htmlspecialchars(($datahasil["namaTerapis"] ?? '') . " - " . ($datahasil["idTerapis"] ?? '')); ?>
                                                             </option>
                                                             <?php
                                                             $sqlterapis = "SELECT * FROM terapis WHERE statusTerapis = 'Aktif' ORDER BY namaTerapis ASC";
@@ -722,7 +729,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                             $arrayterapis = $view->vViewData($sqlterapis);
 
                                                             foreach ($arrayterapis as $dataterapis) { // Ambil semua data dari hasil eksekusi $sql
-                                                                echo "<option value='" . $dataterapis['idTerapis'] . "'>" . $dataterapis['namaTerapis'] . " - " . $dataterapis['idTerapis'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($dataterapis['idTerapis']) . "'>" . htmlspecialchars($dataterapis['namaTerapis']) . " - " . htmlspecialchars($dataterapis['idTerapis']) . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -730,7 +737,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                     <div class="mb-3">
                                                         <label for="keluhan">Keluhan <span class="required">*</span></label>
                                                         <input class="form-control" type="text" name="keluhan" id="keluhan"
-                                                            value="<?= $datahasil["keluhan"]; ?>"
+                                                            value="<?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?>"
                                                             placeholder="Keluhan yang dirasakan pasien" maxlength="255"
                                                             size="" required>
                                                     </div>
@@ -738,19 +745,19 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="tingkatNyeri">Tingkat Nyeri</label>
                                                             <input class="form-control" type="number" name="tingkatNyeri"
-                                                                id="tingkatNyeri" value="<?= $datahasil["tingkatNyeri"]; ?>"
+                                                                id="tingkatNyeri" value="<?= htmlspecialchars($datahasil["tingkatNyeri"] ?? ''); ?>"
                                                                 placeholder="Tingkat nyeri (0-10)" min="0" max="10" size="">
                                                         </div>
                                                         <div class="col-12 col-md-6 mb-3">
                                                             <label for="waktuMunculKeluhan">Waktu Muncul Keluhan</label>
                                                             <select name="waktuMunculKeluhan" class="form-control">
-                                                                <option value="<?= $datahasil["waktuMunculKeluhan"]; ?>">
-                                                                    <?= $datahasil["waktuMunculKeluhan"]; ?>
+                                                                <option value="<?= htmlspecialchars($datahasil["waktuMunculKeluhan"] ?? ''); ?>">
+                                                                    <?= htmlspecialchars($datahasil["waktuMunculKeluhan"] ?? ''); ?>
                                                                 </option>
                                                                 <?php
                                                                 foreach ($enumWaktuMunculKeluhan as $option) {
                                                                     $trimmedValue = trim($option);
-                                                                    echo '<option value="' . $trimmedValue . '">' . $trimmedValue . '</option>';
+                                                                    echo '<option value="' . htmlspecialchars($trimmedValue) . '">' . htmlspecialchars($trimmedValue) . '</option>';
                                                                 }
                                                                 ?>
                                                             </select>
@@ -822,14 +829,14 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                     <div class="mb-3">
                                                         <label for="obat">Obat</label>
                                                         <input class="form-control" type="text" name="obat" id="obat"
-                                                            value="<?= $datahasil["obat"]; ?>"
+                                                            value="<?= htmlspecialchars($datahasil["obat"] ?? ''); ?>"
                                                             placeholder="Obat yang dikonsumsi pasien" maxlength="255"
                                                             size="">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="ROM">ROM</label>
                                                         <input class="form-control" type="text" name="ROM" id="ROM"
-                                                            value="<?= $datahasil["ROM"]; ?>"
+                                                            value="<?= htmlspecialchars($datahasil["ROM"] ?? ''); ?>"
                                                             placeholder="ROM (Range of Motion) / Rentang Gerak Maksimum"
                                                             maxlength="255" size="">
                                                     </div>
@@ -838,7 +845,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                         <textarea class="form-control" id="posturTubuh" name="posturTubuh"
                                                             placeholder="Hasil pemeriksaan postur tubuh oleh terapis"
                                                             rows="3" cols=""
-                                                            id="floatingTextarea"><?= $datahasil["posturTubuh"]; ?></textarea>
+                                                            id="floatingTextarea"><?= htmlspecialchars($datahasil["posturTubuh"] ?? ''); ?></textarea>
                                                     </div>
 
                                                     <?php
@@ -1074,7 +1081,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                             name="hasilPemeriksaan"
                                                             placeholder="Hasil pemeriksaan oleh terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["hasilPemeriksaan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="diagnosis">Diagnosis <span
@@ -1082,7 +1089,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                         <textarea class="form-control" id="diagnosis" name="diagnosis"
                                                             placeholder="Diagnosis dari terapis" rows="3" cols=""
                                                             id="floatingTextarea"
-                                                            required><?= $datahasil["diagnosis"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="catatanTindakan">Catatan dan Rencana Tindakan <span
@@ -1091,7 +1098,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                             name="catatanTindakan"
                                                             placeholder="Catatan dan rekomendasi rencana tindakan dari terapis"
                                                             rows="3" cols="" id="floatingTextarea"
-                                                            required><?= $datahasil["catatanTindakan"]; ?></textarea>
+                                                            required><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="lampiran">Dokumen Lampiran</label>
@@ -1174,7 +1181,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                             </h5>
                                                         </blockquote>
                                                         <figcaption class="blockquote-footer">Hasil Kinesioterapi
-                                                            <?= $datahasil["tanggalKegiatan"] ?>
+                                                            <?= htmlspecialchars($datahasil["tanggalKegiatan"] ?? '') ?>
                                                         </figcaption>
                                                     </figure>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -1182,7 +1189,7 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Yakin ingin menghapus hasil kinesioterapi
-                                                        <strong><?= $datahasil["namaLengkap"] ?></strong>?
+                                                        <strong><?= htmlspecialchars($datahasil["namaLengkap"] ?? '') ?></strong>?
                                                     </p>
                                                     <div class="form-group">
                                                         <label for="password_verif<?= $idHapus; ?>">Masukkan Password

@@ -1,8 +1,15 @@
-﻿<?php
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // insert
 if (!empty($_POST["savebtn"])) {
-    $linkurl = 23;
-
     // Mapping role ke urlbase
     $roleMapping = [
         "1" => "admin",
@@ -98,8 +105,6 @@ if (!empty($_POST["editbtn"])) {
     
     // Tentukan urlbase berdasarkan role, tetapi tetap gunakan nilai lama jika role tidak berubah
     $urlbase = isset($roleMapping[$role]) ? $roleMapping[$role] : $oldUrlbase;
-    
-    $linkurl = 23;
 
     // Status aktif default = 1
     $status_aktif = 1;

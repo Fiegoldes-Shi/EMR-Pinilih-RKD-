@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // === BASEURL DINAMIS (tanpa hardcode localhost) ===
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'];
@@ -23,8 +32,6 @@ try {
 <?php
 // insert
 if (!empty($_POST["savebtn"])) {
-    $linkurl = 21;
-
     if (empty($_POST["subDisabilitas"])) {
         echo "<script>alert('Jenis Disabilitas / Sub Disabilitas wajib dipilih');</script>";
         return;
@@ -117,8 +124,6 @@ if (!empty($_POST["savebtn"])) {
 <?php
 // update
 if (!empty($_POST["editbtn"])) {
-    $linkurl = 21;
-
     if (empty($_POST["subDisabilitas"])) {
         echo "<script>alert('Jenis Disabilitas / Sub Disabilitas wajib dipilih');</script>";
         return;

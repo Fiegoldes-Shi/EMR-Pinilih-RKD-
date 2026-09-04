@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -27,8 +36,6 @@ if ($posMenu !== false && isset($segments[$posMenu + 1])) {
         $idJadwal = isset($segments[3]) ? (int)$segments[3] : 0;
     }
 }
-
-// echo $idJadwal;
 
 $conn = new cConnect();
 $conn->goConnect();
@@ -64,27 +71,27 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th>Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -115,10 +122,10 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                     JOIN user u ON jp.idUser = u.idUser
                     LEFT JOIN pasien p ON p.idPasien = hasil.idPasien
                     LEFT JOIN terapis t ON t.idTerapis = hasil.idTerapis
-                    WHERE hasil.idJadwal = $idJadwal
+                    WHERE hasil.idJadwal = ?
                     ORDER BY hasil.idHasilLayanan DESC";
         $view = new cView();
-        $arrayhasil = $view->vViewData($sqlhasil);
+        $arrayhasil = $view->vViewDataPrepared($sqlhasil, [$idJadwal], "i");
         ?>
         <div id="" class='table-responsive'>
             <table id='example' class='table table-condensed'>
@@ -141,11 +148,11 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["namaLengkap"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["hasilPemeriksaan"]; ?></td>
-                            <td><?= $datahasil["diagnosis"]; ?></td>
-                            <td><?= $datahasil["catatanTindakan"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 // Path ABSOLUT untuk pengecekan file (cek keberadaan file di server)
@@ -162,13 +169,13 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 
                                 $linkurl = $idJadwal;
                                 $datadetail = array(
-                                    array("ID PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
-                                    array("ID TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
-                                    array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 1),
-                                    array("AREA TUBUH YANG DITERAPI", "areaTubuh", $datahasil["areaTubuh"], 1),
-                                    array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                    array("ID PASIEN", "idPasien", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
+                                    array("ID TERAPIS", "idTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                    array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 1),
+                                    array("AREA TUBUH YANG DITERAPI", "areaTubuh", htmlspecialchars($datahasil["areaTubuh"] ?? ''), 1),
+                                    array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                     array("DOKUMEN LAMPIRAN", "lampiran", $lampiran, 1, "")
                                 );
                                 _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL FISIOTERAPI " . $datahasil['idHasilLayanan'], "", $datadetail, "", $linkurl, "");

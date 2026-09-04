@@ -32,7 +32,7 @@ $roleLabel = $enumSPMapping[$datapengguna["role"]] ?? $datapengguna["role"];
             <div class="modal-header">
                 <figure class="text-left">
                     <blockquote class="blockquote">DETAIL PENGGUNA
-                        <?= $datapengguna["idUser"]; ?>
+                        <?= htmlspecialchars($datapengguna["idUser"]); ?>
                     </blockquote>
                 </figure>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -42,57 +42,57 @@ $roleLabel = $enumSPMapping[$datapengguna["role"]] ?? $datapengguna["role"];
                     <tr>
                         <td width="39%">Nama Lengkap</td>
                         <td width="1%">:</td>
-                        <td width="60%"><?= $datapengguna["nama"]; ?></td>
+                        <td width="60%"><?= htmlspecialchars($datapengguna["nama"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td>:</td>
-                        <td><?= $datapengguna["jenisKelamin"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["jenisKelamin"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jabatan</td>
                         <td>:</td>
-                        <td><?= $datapengguna["jbtn"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["jbtn"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
                         <td>:</td>
-                        <td><?= $datapengguna["alamat"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["alamat"]); ?></td>
                     </tr>
                     <tr>
                         <td>Tanggal Mulai Aktif</td>
                         <td>:</td>
-                        <td><?= $datapengguna["tglMulaiAktif"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["tglMulaiAktif"]); ?></td>
                     </tr>
                     <tr>
                         <td>No Telepon</td>
                         <td>:</td>
-                        <td><?= $datapengguna["noTelp"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["noTelp"]); ?></td>
                     </tr>
                     <tr>
                         <td>Status Pengguna</td>
                         <td>:</td>
-                        <td><?= $roleLabel; ?></td>
+                        <td><?= htmlspecialchars($roleLabel); ?></td>
                     </tr>
                     <tr>
                         <td>Status Pekerja</td>
                         <td>:</td>
-                        <td><?= $datapengguna["statusPekerja"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["statusPekerja"]); ?></td>
                     </tr>
                     <tr>
                         <td>Username</td>
                         <td>:</td>
-                        <td><?= $datapengguna["username"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["username"]); ?></td>
                     </tr>
                     <tr>
                         <td>Email</td>
                         <td>:</td>
-                        <td><?= $datapengguna["email"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["email"]); ?></td>
                     </tr>
                     <tr>
                         <td>Keterangan</td>
                         <td>:</td>
-                        <td><?= $datapengguna["keterangan"]; ?></td>
+                        <td><?= htmlspecialchars($datapengguna["keterangan"]); ?></td>
                     </tr>
                 </table>
             </div>

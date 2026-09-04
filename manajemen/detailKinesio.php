@@ -1,4 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -61,27 +70,27 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
                 <table class="table">
                     <tr>
                         <th>Tanggal Kegiatan</th>
-                        <td><?= $datajadwal['tanggalKegiatan'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['tanggalKegiatan'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Mulai</th>
-                        <td><?= $datajadwal['waktuMulai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuMulai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Waktu Selesai</th>
-                        <td><?= $datajadwal['waktuSelesai'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['waktuSelesai'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td><?= $datajadwal['lokasi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['lokasi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Instansi</th>
-                        <td><?= $datajadwal['instansi'] ?></td>
+                        <td><?= htmlspecialchars($datajadwal['instansi'] ?? '') ?></td>
                     </tr>
                     <tr>
                         <th>Catatan</th>
-                        <td><?= nl2br($datajadwal['catatan']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($datajadwal['catatan'] ?? '')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -126,10 +135,10 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                     JOIN user u ON jp.idUser = u.idUser
                     JOIN pasien p ON p.idPasien = hasil.idPasien
                     JOIN terapis t ON t.idTerapis = hasil.idTerapis
-                    WHERE hasil.idJadwal = $idJadwal
+                    WHERE hasil.idJadwal = ?
                     ORDER BY hasil.idHasilLayanan DESC";
         $view = new cView();
-        $arrayhasil = $view->vViewData($sqlhasil);
+        $arrayhasil = $view->vViewDataPrepared($sqlhasil, [$idJadwal], "i");
 
         $sqlpasien = "SELECT * FROM pasien WHERE statusPasien = 'Aktif' ORDER BY namaLengkap ASC";
         $sqlterapis = "SELECT * FROM terapis WHERE statusTerapis = 'Aktif' ORDER BY namaTerapis ASC";
@@ -155,11 +164,11 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datahasil["namaLengkap"]; ?></td>
-                            <td><?= $datahasil["keluhan"]; ?></td>
-                            <td><?= $datahasil["hasilPemeriksaan"]; ?></td>
-                            <td><?= $datahasil["diagnosis"]; ?></td>
-                            <td><?= $datahasil["catatanTindakan"]; ?></td>
+                            <td><?= htmlspecialchars($datahasil["namaLengkap"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["keluhan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["diagnosis"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datahasil["catatanTindakan"] ?? ''); ?></td>
                             <td>
                                 <?php
                                 // Path ABSOLUT untuk pengecekan file (cek keberadaan file di server)
@@ -175,20 +184,20 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                 }
 
                                 $datadetail = array(
-                                    array("NAMA PASIEN", "idPasien", $datahasil["namaLengkap"], 1),
-                                    array("NAMA TERAPIS", "idTerapis", $datahasil["namaTerapis"], 1),
-                                    array("KELUHAN", "keluhan", $datahasil["keluhan"], 1),
-                                    array("TINGKAT NYERI (0-10)", "tingkatNyeri", $datahasil["tingkatNyeri"], 1),
-                                    array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", $datahasil["waktuMunculKeluhan"], 1),
-                                    array("SIFAT SAKIT", "sifatSakit", $datahasil["sifatSakit"], 1),
-                                    array("OBAT", "obat", $datahasil["obat"], 1),
-                                    array("POSTUR TUBUH", "posturTubuh", $datahasil["posturTubuh"], 1),
-                                    array("ROM", "ROM", $datahasil["ROM"], 1),
-                                    array("POSITIVE", "positive", $datahasil["positive"], 1),
-                                    array("MANAGEMENT", "management", $datahasil["management"], 1),
-                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", $datahasil["hasilPemeriksaan"], 3),
-                                    array("DIAGNOSIS", "diagnosis", $datahasil["diagnosis"], 1),
-                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", $datahasil["catatanTindakan"], 1),
+                                    array("NAMA PASIEN", "idPasien", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
+                                    array("NAMA TERAPIS", "idTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
+                                    array("KELUHAN", "keluhan", htmlspecialchars($datahasil["keluhan"] ?? ''), 1),
+                                    array("TINGKAT NYERI (0-10)", "tingkatNyeri", htmlspecialchars($datahasil["tingkatNyeri"] ?? ''), 1),
+                                    array("WAKTU MUNCUL KELUHAN", "waktuMunculKeluhan", htmlspecialchars($datahasil["waktuMunculKeluhan"] ?? ''), 1),
+                                    array("SIFAT SAKIT", "sifatSakit", htmlspecialchars($datahasil["sifatSakit"] ?? ''), 1),
+                                    array("OBAT", "obat", htmlspecialchars($datahasil["obat"] ?? ''), 1),
+                                    array("POSTUR TUBUH", "posturTubuh", htmlspecialchars($datahasil["posturTubuh"] ?? ''), 1),
+                                    array("ROM", "ROM", htmlspecialchars($datahasil["ROM"] ?? ''), 1),
+                                    array("POSITIVE", "positive", htmlspecialchars($datahasil["positive"] ?? ''), 1),
+                                    array("MANAGEMENT", "management", htmlspecialchars($datahasil["management"] ?? ''), 1),
+                                    array("HASIL PEMERIKSAAN", "hasilPemeriksaan", htmlspecialchars($datahasil["hasilPemeriksaan"] ?? ''), 3),
+                                    array("DIAGNOSIS", "diagnosis", htmlspecialchars($datahasil["diagnosis"] ?? ''), 1),
+                                    array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                     array("DOKUMEN LAMPIRAN", "lampiran", $lampiran, 1, "")
                                 );
                                 _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL KINESIOTERAPI " . $datahasil["idHasilLayanan"], "", $datadetail, "", $idJadwal, "");

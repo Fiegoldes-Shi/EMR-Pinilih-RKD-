@@ -21,18 +21,28 @@ $tahun = isset($_GET['tahun']) ? intval($_GET['tahun']) : 0;
 $sql = "SELECT namaProgram, COUNT(*) AS jumlah FROM jadwal_program jp
         JOIN program ON program.idProgram = jp.idProgram"; // Default tanpa filter
 
+$params = [];
+$types = "";
+$hasWhere = false;
+
 if ($bulan > 0) {
-    $sql .= " AND MONTH(jp.tanggalKegiatan) = $bulan"; // Sesuaikan dengan kolom tanggal di tabel
+    $sql .= ($hasWhere ? " AND" : " WHERE") . " MONTH(jp.tanggalKegiatan) = ?"; // Sesuaikan dengan kolom tanggal di tabel
+    $params[] = $bulan;
+    $types .= "i";
+    $hasWhere = true;
 }
 
 if ($tahun > 0) {
-    $sql .= " AND YEAR(jp.tanggalKegiatan) = $tahun"; // Sesuaikan dengan kolom tanggal di tabel
+    $sql .= ($hasWhere ? " AND" : " WHERE") . " YEAR(jp.tanggalKegiatan) = ?"; // Sesuaikan dengan kolom tanggal di tabel
+    $params[] = $tahun;
+    $types .= "i";
+    $hasWhere = true;
 }
 
 $sql .= " GROUP BY namaProgram ORDER BY jp.idProgram";
 
 $view = new cView();
-$arrayhasil = $view->vViewData($sql);
+$arrayhasil = $view->vViewDataPrepared($sql, $params, $types);
 
 $labels = [];
 $datas = [];

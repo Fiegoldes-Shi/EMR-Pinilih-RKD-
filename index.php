@@ -356,6 +356,7 @@ if ($gu == 0 and $gp == 1) {
         $(document).on('submit', '#formResetPassword', function (e) {
             e.preventDefault();
             let email = $('#alamatEmail').val();
+            let otp = $('#otp').val();
             let passwordBaru = $('#passwordBaru').val();
             let konfirmasiPassword = $('#konfirmasiPassword').val();
 
@@ -364,13 +365,17 @@ if ($gu == 0 and $gp == 1) {
                 return;
             }
 
-            $.post('resetPassword.php', { alamatEmail: email, passwordBaru: passwordBaru }, function (response) {
+            $.post('resetPassword.php', { alamatEmail: email, otp: otp, passwordBaru: passwordBaru }, function (response) {
                 if (response.trim() === "success") {
                     alert("Password berhasil diubah secara permanen! Silakan login dengan password baru.");
                     $('#formResetPassword')[0].reset();
                     $('#formOTP')[0].reset();
                     $('#formVerifyOTP')[0].reset();
                     $('#modalPassword').modal('hide');
+                } else if (response.trim() === "expired") {
+                    alert("Kode OTP sudah kedaluwarsa. Silakan ulangi proses lupa password dari awal.");
+                } else if (response.trim() === "invalid") {
+                    alert("Kode OTP tidak valid. Silakan ulangi proses verifikasi OTP.");
                 } else {
                     alert("Gagal mengubah password!");
                 }

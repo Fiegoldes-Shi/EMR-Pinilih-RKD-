@@ -1,8 +1,15 @@
-﻿<?php
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["idUser"])) {
+    http_response_code(401);
+    die("Akses ditolak. Silakan login terlebih dahulu.");
+}
+?>
+<?php
 // insert
 if (!empty($_POST["savebtn"])) {
-    $linkurl = 22;
-
     // Mapping ENUM dari Database ke Label Tampilan
     $enumJTMapping = [
         "Tenaga Medis" => "Tenaga Medis - Dokter, Psikiater",
@@ -84,8 +91,6 @@ if (!empty($_POST["savebtn"])) {
 <?php
 // update
 if (!empty($_POST["editbtn"])) {
-    $linkurl = 22;
-
     $sql = "SELECT dokumenSertifikasi, dokumenLainnya FROM terapis WHERE idTerapis = ?";
     $view = new cView();
     $arrayTerapis = $view->vViewDataPrepared($sql, [$_POST["idTerapis"]], "i");

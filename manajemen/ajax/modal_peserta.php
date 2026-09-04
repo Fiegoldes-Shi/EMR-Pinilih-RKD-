@@ -28,7 +28,7 @@ if (!$datapeserta) {
             <div class="modal-header">
                 <figure class="text-left">
                     <blockquote class="blockquote">DETAIL PESERTA
-                        <?= $datapeserta["idPeserta"]; ?>
+                        <?= htmlspecialchars($datapeserta["idPeserta"]); ?>
                     </blockquote>
                 </figure>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -38,32 +38,32 @@ if (!$datapeserta) {
                     <tr>
                         <td width="39%">Nama Lengkap</td>
                         <td width="1%">:</td>
-                        <td width="60%"><?= $datapeserta["nama"]; ?></td>
+                        <td width="60%"><?= htmlspecialchars($datapeserta["nama"]); ?></td>
                     </tr>
                     <tr>
                         <td>Asal Lembaga</td>
                         <td>:</td>
-                        <td><?= $datapeserta["asalLembaga"]; ?></td>
+                        <td><?= htmlspecialchars($datapeserta["asalLembaga"]); ?></td>
                     </tr>
                     <tr>
                         <td>Usia</td>
                         <td>:</td>
-                        <td><?= $datapeserta["usia"]; ?></td>
+                        <td><?= htmlspecialchars($datapeserta["usia"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td>:</td>
-                        <td><?= $datapeserta["jenisKelamin"]; ?></td>
+                        <td><?= htmlspecialchars($datapeserta["jenisKelamin"]); ?></td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
                         <td>:</td>
-                        <td><?= $datapeserta["alamat"]; ?></td>
+                        <td><?= htmlspecialchars($datapeserta["alamat"]); ?></td>
                     </tr>
                     <tr>
                         <td>Disabilitas</td>
                         <td>:</td>
-                        <td><?= $datapeserta["namaDisabilitas"]; ?></td>
+                        <td><?= htmlspecialchars($datapeserta["namaDisabilitas"]); ?></td>
                     </tr>
                 </table>
             </div>

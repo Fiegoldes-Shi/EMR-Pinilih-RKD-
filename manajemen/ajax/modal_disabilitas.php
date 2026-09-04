@@ -36,17 +36,17 @@ if (!$datadisabilitas) {
                     <tr>
                         <td width="39%">ID</td>
                         <td width="1%">:</td>
-                        <td width="60%"><?= $datadisabilitas["idSubDisabilitas"]; ?></td>
+                        <td width="60%"><?= htmlspecialchars($datadisabilitas["idSubDisabilitas"]); ?></td>
                     </tr>
                     <tr>
                         <td>Jenis Disabilitas</td>
                         <td>:</td>
-                        <td><?= $datadisabilitas["jenisDisabilitas"]; ?></td>
+                        <td><?= htmlspecialchars($datadisabilitas["jenisDisabilitas"]); ?></td>
                     </tr>
                     <tr>
                         <td>Nama Disabilitas</td>
                         <td>:</td>
-                        <td><?= $datadisabilitas["namaDisabilitas"]; ?></td>
+                        <td><?= htmlspecialchars($datadisabilitas["namaDisabilitas"]); ?></td>
                     </tr>
                 </table>
             </div>

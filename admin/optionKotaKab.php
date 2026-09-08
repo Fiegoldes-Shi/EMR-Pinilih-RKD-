@@ -37,7 +37,7 @@ $sql->execute([':idProvinsi' => $id_provinsi]); // Eksekusi querynya
 
 $html = "<option value=''>- pilihan -</option>";
 while($data = $sql->fetch()){ // Ambil semua data dari hasil eksekusi $sql
-  $html .= "<option value='".$data['idKotaKabupaten']."'>".$data['namaKotaKabupaten']."</option>"; // Tambahkan tag option ke variabel $html
+  $html .= "<option value='".$data['idKotaKabupaten']."'>".htmlspecialchars($data['namaKotaKabupaten'])."</option>"; // Tambahkan tag option ke variabel $html
 }
 
 $callback = array('data_kotaKab'=>$html); // Masukan variabel html tadi ke dalam array $callback dengan index array : data_subDisabilitas

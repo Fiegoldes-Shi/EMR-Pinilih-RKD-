@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 function _myHeader($header, $footer)
 {
 	?>
@@ -82,19 +82,6 @@ function _CreateWindowModalDetil($number, $type, $name, $button, $width, $height
 	$titledetil = explode('#', $title);
 	$countcolum = count($titledetil);
 
-	// get width
-	if (empty($width)) {
-		$modalsize = '';
-	} elseif ($width == 'xl') {
-		$modalsize = 'modal-xl';
-	} elseif ($width == 'lg') {
-		$modalsize = 'modal-lg';
-	} elseif ($width == 'sm') {
-		$modalsize = 'modal-sm';
-	} elseif ($width == 'xs') {
-		$modalsize = 'modal-xs';
-	}
-
 	$number = $type . $name . $number;
 	$count_field = count($afield) - 1;
 ?>
@@ -155,20 +142,6 @@ function _CreateWindowModalDelete($number, $type, $name, $button, $width, $heigh
 	$titledetil = explode('#', $title);
 	$countcolum = count($titledetil);
 	$number = $type . $name . $number;
-
-	// get width
-	if (empty($width)) {
-		$modalsize = '';
-	} elseif ($width == 'xl') {
-		$modalsize = 'modal-xl';
-	} elseif ($width == 'lg') {
-		$modalsize = 'modal-lg';
-	} elseif ($width == 'sm') {
-		$modalsize = 'modal-sm';
-	} elseif ($width == 'xs') {
-		$modalsize = 'modal-xs';
-	}
-
 ?>
 	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#formdelete<?= $number; ?>" style="border-radius: 8px;">
 		<i class="fa-solid fa-trash" style="color: #ffffff;"></i>

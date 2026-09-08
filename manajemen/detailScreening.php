@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -91,78 +91,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
         </div>
     </div>
 </div>
-
-<?php
-// Query ENUM 'benjolanPayudara'
-$benjolanpayudara = "SHOW COLUMNS FROM hasil_layanan LIKE 'benjolanPayudara'";
-$view = new cView();
-$arraybenjolanpayudara = $view->vViewData($benjolanpayudara);
-$enumbenjolanpayudara = [];
-if (!empty($arraybenjolanpayudara)) {
-    $row = $arraybenjolanpayudara[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumbenjolanpayudara = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-// Query ENUM 'inspeksiVisualAsamAsetat'
-$inspeksiVisualAsamAsetat = "SHOW COLUMNS FROM hasil_layanan LIKE 'tesAmfetaminUrin'";
-$view = new cView();
-$arrayinspeksiVisualAsamAsetat = $view->vViewData($inspeksiVisualAsamAsetat);
-$enuminspeksiVisualAsamAsetat = [];
-if (!empty($arrayinspeksiVisualAsamAsetat)) {
-    $row = $arrayinspeksiVisualAsamAsetat[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enuminspeksiVisualAsamAsetat = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-// Query ENUM 'kadarAlkoholPernafasan'
-$kadarAlkoholPernafasan = "SHOW COLUMNS FROM hasil_layanan LIKE 'kadarAlkoholPernafasan'";
-$view = new cView();
-$arraykadarAlkoholPernafasan = $view->vViewData($kadarAlkoholPernafasan);
-$enumkadarAlkoholPernafasan = [];
-if (!empty($arraykadarAlkoholPernafasan)) {
-    $row = $arraykadarAlkoholPernafasan[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumkadarAlkoholPernafasan = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-// Query ENUM 'tesAmfetaminUrin'
-$tesAmfetaminUrin = "SHOW COLUMNS FROM hasil_layanan LIKE 'tesAmfetaminUrin'";
-$view = new cView();
-$arraytesAmfetaminUrin = $view->vViewData($tesAmfetaminUrin);
-$enumtesAmfetaminUrin = [];
-if (!empty($arraytesAmfetaminUrin)) {
-    $row = $arraytesAmfetaminUrin[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumtesAmfetaminUrin = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-
-// Query ENUM 'arusPernafasanEkspirasi'
-$arusPernafasanEkspirasi = "SHOW COLUMNS FROM hasil_layanan LIKE 'arusPernafasanEkspirasi'";
-$view = new cView();
-$arrayarusPernafasanEkspirasi = $view->vViewData($arusPernafasanEkspirasi);
-$enumarusPernafasanEkspirasi = [];
-if (!empty($arrayarusPernafasanEkspirasi)) {
-    $row = $arrayarusPernafasanEkspirasi[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumarusPernafasanEkspirasi = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-
-// Query SET 'faktorResikoPerilaku'
-$faktorResikoPerilaku = "SHOW COLUMNS FROM hasil_layanan LIKE 'faktorResikoPerilaku'";
-$view = new cView();
-$arrayfaktorResikoPerilaku = $view->vViewData($faktorResikoPerilaku);
-$setfaktorResikoPerilaku = [];
-if (!empty($arrayfaktorResikoPerilaku)) {
-    $row = $arrayfaktorResikoPerilaku[0]; // Ambil hasil pertama
-    if (preg_match("/^set\((.*)\)$/", $row['Type'], $matches)) {
-        $setfaktorResikoPerilaku = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-?>
-
 
 <p></p>
 <div class="row">

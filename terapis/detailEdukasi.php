@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -22,18 +22,20 @@ if (!isset($baseurl)) {
     $baseurl = $protocol . $host . $path;
 }
 
-// Ambil URL path dari permintaan
-$request = $_SERVER['REQUEST_URI'];
-$request = trim($request, '/');
-$segments = explode('/', (string)$request);
+if (!isset($idJadwal)) {
+    // Ambil URL path dari permintaan
+    $request = $_SERVER['REQUEST_URI'];
+    $request = trim($request, '/');
+    $segments = explode('/', (string)$request);
 
-// FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
-$posMenu = array_search('detail', $segments);
-if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = (int) $segments[$posMenu + 1];
-} else {
-    // Fallback for unexpected URL structures
-    $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
+    // FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
+    $posMenu = array_search('detail', $segments);
+    if ($posMenu !== false && isset($segments[$posMenu + 1])) {
+        $idJadwal = (int) $segments[$posMenu + 1];
+    } else {
+        // Fallback for unexpected URL structures
+        $idJadwal = isset($segments[3]) ? (int) $segments[3] : 0;
+    }
 }
 
 $conn = new cConnect();

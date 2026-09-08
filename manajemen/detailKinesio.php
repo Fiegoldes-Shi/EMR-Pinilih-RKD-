@@ -98,20 +98,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
     </div>
 </div>
 
-<?php
-// Query ENUM 'waktuMunculKeluhan'
-$waktuMunculKeluhan = "SHOW COLUMNS FROM hasil_layanan LIKE 'waktuMunculKeluhan'";
-$view = new cView();
-$arrayWaktuMunculKeluhan = $view->vViewData($waktuMunculKeluhan);
-$enumWaktuMunculKeluhan = [];
-if (!empty($arrayWaktuMunculKeluhan)) {
-    $row = $arrayWaktuMunculKeluhan[0]; // Ambil hasil pertama
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumWaktuMunculKeluhan = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-?>
-
 <p></p>
 <div class="row">
     <div class="col-md-12">
@@ -139,9 +125,6 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                     ORDER BY hasil.idHasilLayanan DESC";
         $view = new cView();
         $arrayhasil = $view->vViewDataPrepared($sqlhasil, [$idJadwal], "i");
-
-        $sqlpasien = "SELECT * FROM pasien WHERE statusPasien = 'Aktif' ORDER BY namaLengkap ASC";
-        $sqlterapis = "SELECT * FROM terapis WHERE statusTerapis = 'Aktif' ORDER BY namaTerapis ASC";
         ?>
         <div id="" class='table-responsive'>
             <table id='example' class='table table-condensed'>

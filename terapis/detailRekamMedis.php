@@ -284,6 +284,7 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                                         break;
 
                                     case '5': // Detail Edukasi
+                                        $idJadwal = (int) $datahasil["idJadwal"];
                                         include("detailEdukasi.php");
                                         break;
 

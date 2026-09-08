@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -102,7 +102,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 // insert
 if (!empty($_POST["savebtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     // field
     $datafield_hasil = array("idJadwal", "idUser", "idPasien", "idTerapis", "keluhan", "hasilPemeriksaan", "diagnosis", "catatanTindakan", "saranRujukan");
@@ -119,7 +118,6 @@ if (!empty($_POST["savebtn"])) {
 // update
 if (!empty($_POST["editbtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     $datafield_hasil = array("idJadwal", "idUser", "idPasien", "idTerapis", "keluhan", "hasilPemeriksaan", "diagnosis", "catatanTindakan", "saranRujukan");
 

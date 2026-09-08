@@ -213,7 +213,7 @@ include_once("../_function_i/inc_f_object.php");
                         <select name="jenisDisabilitas" class="form-control">
                             <option value="">- pilihan -</option>
                             <?php foreach ($enumDisabilitas as $row) {
-                                echo '<option value="' . trim($row["jenisDisabilitas"]) . '">' . trim($row["jenisDisabilitas"]) . '</option>';
+                                echo '<option value="' . htmlspecialchars(trim($row["jenisDisabilitas"])) . '">' . htmlspecialchars(trim($row["jenisDisabilitas"])) . '</option>';
                             } ?>
                         </select>
                     </div>
@@ -222,7 +222,7 @@ include_once("../_function_i/inc_f_object.php");
                         <select name="idKelurahan" class="form-control">
                             <option value="">- pilihan -</option>
                             <?php foreach ($kelurahanList as $row) {
-                                echo '<option value="' . $row["idKelurahan"] . '">' . $row["namaKelurahan"] . '</option>';
+                                echo '<option value="' . $row["idKelurahan"] . '">' . htmlspecialchars($row["namaKelurahan"]) . '</option>';
                             } ?>
                         </select>
                     </div>
@@ -264,15 +264,15 @@ include_once("../_function_i/inc_f_object.php");
                                 ?>
                                 <tr>
                                     <td class="text-right"><?= $cnourut; ?></td>
-                                    <td><?= $data["namaLengkap"]; ?></td>
-                                    <td><?= $data["jenisKelamin"]; ?></td>
-                                    <td><?= $data["kelompokUsia"]; ?></td>
-                                    <td><?= $data["golonganDarah"]; ?></td>
-                                    <td><?= $data["alamatDomisili"]; ?></td>
-                                    <td><?= $data["namaKelurahan"]; ?></td>
-                                    <td><?= $data["jenisDisabilitas"]; ?></td>
-                                    <td><?= $data["namaDisabilitas"]; ?></td>
-                                    <td><?= $data["alatBantu"]; ?></td>
+                                    <td><?= htmlspecialchars($data["namaLengkap"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["jenisKelamin"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["kelompokUsia"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["golonganDarah"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["alamatDomisili"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["namaKelurahan"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["jenisDisabilitas"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["namaDisabilitas"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["alatBantu"] ?? ''); ?></td>
                                     <td>
                                         <form method="post" action="rekam-medis/detail">
                                             <input type="hidden" name="idPasien" value="<?= $data["idPasien"]; ?>">

@@ -51,7 +51,6 @@ class cUpdate
 				$result = $stmt->execute($params);
 			} catch (PDOException $e) {
 				die("Query Error (PDO Execute): " . $e->getMessage());
-				$result = false;
 			}
 		} else {
 			die("Unknown database connection type.");

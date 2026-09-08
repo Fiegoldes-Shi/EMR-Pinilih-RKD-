@@ -76,7 +76,6 @@ if (!isset($_SESSION["idUser"])) {
                             ORDER BY jp.tanggalKegiatan DESC LIMIT 10";
                 $view = new cView();
                 $arrayjadwal = $view->vViewData($sqljadwal);
-                $idUser = $_SESSION["idUser"];
                 ?>
 
                 <?php
@@ -105,8 +104,8 @@ if (!isset($_SESSION["idUser"])) {
 
                 // Hitung jumlah peserta untuk program edukasi
                 foreach ($mapEdukasi as $idJadwal => $idEdukasi) {
-                    $queryPesertaEdukasi = "SELECT COUNT(*) as totalPeserta FROM peserta_edukasi WHERE idEdukasi = '$idEdukasi'";
-                    $arrayPesertaEdukasi = $view->vViewData($queryPesertaEdukasi);
+                    $queryPesertaEdukasi = "SELECT COUNT(*) as totalPeserta FROM peserta_edukasi WHERE idEdukasi = ?";
+                    $arrayPesertaEdukasi = $view->vViewDataPrepared($queryPesertaEdukasi, [$idEdukasi], "i");
 
                     if (!empty($arrayPesertaEdukasi)) {
                         $jumlahPeserta[$idJadwal] = $arrayPesertaEdukasi[0]["totalPeserta"];

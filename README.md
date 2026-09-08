@@ -35,7 +35,7 @@ Sistem rekam medis elektronik berbasis web (PHP Native) untuk **Rumah Kebugaran 
 ## Cara Menjalankan (Quick Start)
 
 1. Clone repository ini dan masuk ke direktori proyek.
-2. Buat database baru di MySQL, lalu import struktur awal dari `emr_pinilih.sql`.
+2. Buat database baru di MySQL bernama `emr_pinilih`. Repositori ini tidak menyertakan file dump/skema `.sql` — struktur tabel perlu dibuat manual atau diminta terpisah dari pengelola sistem, lalu diimport ke database yang baru dibuat.
 3. Install dependensi PHP:
    ```bash
    composer install
@@ -53,9 +53,11 @@ Sistem rekam medis elektronik berbasis web (PHP Native) untuk **Rumah Kebugaran 
 
 ### Menjalankan via Docker
 
-Proyek ini juga menyediakan `Dockerfile` dan `compose.yaml` untuk containerization:
+Proyek ini juga menyediakan `Dockerfile` dan `compose.yaml` untuk containerization. `compose.yaml` membaca kredensial database dari file `.env` (tidak ikut ter-commit ke Git) — salin dulu dari template sebelum menjalankan:
 
 ```bash
+cp .env.example .env
+# lalu sesuaikan DB_PASS dan variabel lain di .env sesuai environment Anda
 docker compose up -d
 ```
 
@@ -70,8 +72,7 @@ docker compose up -d
 ├── _tcpdf/        # Library TCPDF untuk cetak PDF
 ├── vendor/        # Dependensi Composer
 ├── config.php     # Konfigurasi koneksi database (PDO)
-├── index.php      # Halaman login
-└── emr_pinilih.sql # Dump struktur database awal
+└── index.php      # Halaman login
 ```
 
 ## Peran & Hak Akses

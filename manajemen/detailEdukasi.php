@@ -15,24 +15,26 @@ include_once("../_function_i/cUpdate.php");
 include_once("../_function_i/cDelete.php");
 include_once("../_function_i/inc_f_object.php");
 
-// Ambil URL path dari permintaan
-$request = $_SERVER['REQUEST_URI'];
-$request = parse_url($request, PHP_URL_PATH);
-$request = trim($request, '/');
-$segments = explode('/', $request);
+if (!isset($idJadwal)) {
+    // Ambil URL path dari permintaan
+    $request = $_SERVER['REQUEST_URI'];
+    $request = parse_url($request, PHP_URL_PATH);
+    $request = trim($request, '/');
+    $segments = explode('/', $request);
 
-// FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
-$idJadwal = 0;
-$posMenu = array_search('detail', $segments);
-if ($posMenu !== false && isset($segments[$posMenu + 1])) {
-    $idJadwal = (int) $segments[$posMenu + 1];
-} else {
-    // Fallback ekstrim jika tidak ditemukan menu ID di URL
-    $lastSegment = end($segments);
-    if (is_numeric($lastSegment)) {
-        $idJadwal = (int) $lastSegment;
+    // FIX: Use dynamic search for '351' (Menu ID) to handle different URL depths
+    $idJadwal = 0;
+    $posMenu = array_search('detail', $segments);
+    if ($posMenu !== false && isset($segments[$posMenu + 1])) {
+        $idJadwal = (int) $segments[$posMenu + 1];
     } else {
-        $idJadwal = isset($segments[3]) ? (int)$segments[3] : 0;
+        // Fallback ekstrim jika tidak ditemukan menu ID di URL
+        $lastSegment = end($segments);
+        if (is_numeric($lastSegment)) {
+            $idJadwal = (int) $lastSegment;
+        } else {
+            $idJadwal = isset($segments[3]) ? (int)$segments[3] : 0;
+        }
     }
 }
 
@@ -179,32 +181,6 @@ if (!empty($datahasil)) {
         <br>
     </div>
 </div>
-
-<?php
-// Query ENUM 'kelompokUsia'
-$usia = "SHOW COLUMNS FROM peserta LIKE 'usia'";
-$view = new cView();
-$arrayUsia = $view->vViewData($usia);
-$enumUsia = [];
-if (!empty($arrayUsia)) {
-    $row = $arrayUsia[0];
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumUsia = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-
-// Query ENUM 'jenisKelamin'
-$jk = "SHOW COLUMNS FROM peserta LIKE 'jenisKelamin'";
-$view = new cView();
-$arrayJK = $view->vViewData($jk);
-$enumJK = [];
-if (!empty($arrayJK)) {
-    $row = $arrayJK[0];
-    if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-        $enumJK = explode(",", str_replace("'", "", $matches[1]));
-    }
-}
-?>
 
 <p></p>
 <div class="row mx-2">

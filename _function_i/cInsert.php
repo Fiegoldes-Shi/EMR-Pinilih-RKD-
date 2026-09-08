@@ -48,7 +48,6 @@ class cInsert
 				$last_id = $GLOBALS["conn"]->lastInsertId();
 			} catch (PDOException $e) {
 				die("Query Error (PDO Execute): " . $e->getMessage());
-				$result = false;
 			}
 		} else {
 			die("Unknown database connection type.");

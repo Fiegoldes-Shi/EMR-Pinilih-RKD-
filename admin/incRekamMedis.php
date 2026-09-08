@@ -211,7 +211,7 @@ include_once("../_function_i/inc_f_object.php");
                         <select name="jenisDisabilitas" class="form-control">
                             <option value="">- pilihan -</option>
                             <?php foreach ($enumDisabilitas as $row) {
-                                echo '<option value="' . trim($row["jenisDisabilitas"]) . '">' . trim($row["jenisDisabilitas"]) . '</option>';
+                                echo '<option value="' . htmlspecialchars(trim($row["jenisDisabilitas"])) . '">' . htmlspecialchars(trim($row["jenisDisabilitas"])) . '</option>';
                             } ?>
                         </select>
                     </div>
@@ -220,7 +220,7 @@ include_once("../_function_i/inc_f_object.php");
                         <select name="idKelurahan" class="form-control">
                             <option value="">- pilihan -</option>
                             <?php foreach ($kelurahanList as $row) {
-                                echo '<option value="' . $row["idKelurahan"] . '">' . $row["namaKelurahan"] . '</option>';
+                                echo '<option value="' . $row["idKelurahan"] . '">' . htmlspecialchars($row["namaKelurahan"]) . '</option>';
                             } ?>
                         </select>
                     </div>
@@ -262,15 +262,15 @@ include_once("../_function_i/inc_f_object.php");
                                 ?>
                                 <tr>
                                     <td class="text-right"><?= $cnourut; ?></td>
-                                    <td><?= $data["namaLengkap"]; ?></td>
-                                    <td><?= $data["jenisKelamin"]; ?></td>
-                                    <td><?= $data["kelompokUsia"]; ?></td>
-                                    <td><?= $data["golonganDarah"]; ?></td>
-                                    <td><?= $data["alamatDomisili"]; ?></td>
-                                    <td><?= $data["namaKelurahan"]; ?></td>
-                                    <td><?= $data["jenisDisabilitas"]; ?></td>
-                                    <td><?= $data["namaDisabilitas"]; ?></td>
-                                    <td><?= $data["alatBantu"]; ?></td>
+                                    <td><?= htmlspecialchars($data["namaLengkap"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["jenisKelamin"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["kelompokUsia"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["golonganDarah"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["alamatDomisili"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["namaKelurahan"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["jenisDisabilitas"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["namaDisabilitas"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($data["alatBantu"] ?? ''); ?></td>
                                     <td>
                                         <form method="post" action="rekam-medis/detail">
                                             <input type="hidden" name="idPasien" value="<?= $data["idPasien"]; ?>">
@@ -287,19 +287,19 @@ include_once("../_function_i/inc_f_object.php");
 
                 <div class="button-container">
                     <form method="post" action="export_pdf.php" target="_blank">
-                        <input type="hidden" name="kelompokUsia" value="<?= $_POST["kelompokUsia"] ?? ''; ?>">
-                        <input type="hidden" name="jenisKelamin" value="<?= $_POST["jenisKelamin"] ?? ''; ?>">
-                        <input type="hidden" name="golonganDarah" value="<?= $_POST["golonganDarah"] ?? ''; ?>">
-                        <input type="hidden" name="jenisDisabilitas" value="<?= $_POST["jenisDisabilitas"] ?? ''; ?>">
-                        <input type="hidden" name="idKelurahan" value="<?= $_POST["idKelurahan"] ?? ''; ?>">
+                        <input type="hidden" name="kelompokUsia" value="<?= htmlspecialchars($_POST["kelompokUsia"] ?? ''); ?>">
+                        <input type="hidden" name="jenisKelamin" value="<?= htmlspecialchars($_POST["jenisKelamin"] ?? ''); ?>">
+                        <input type="hidden" name="golonganDarah" value="<?= htmlspecialchars($_POST["golonganDarah"] ?? ''); ?>">
+                        <input type="hidden" name="jenisDisabilitas" value="<?= htmlspecialchars($_POST["jenisDisabilitas"] ?? ''); ?>">
+                        <input type="hidden" name="idKelurahan" value="<?= htmlspecialchars($_POST["idKelurahan"] ?? ''); ?>">
                         <button type="submit" name="export_pdf" class="btn btn-danger">CETAK PDF</button>
                     </form>
                     <form method="post" action="export_excel.php">
-                        <input type="hidden" name="kelompokUsia" value="<?= $_POST["kelompokUsia"] ?? ''; ?>">
-                        <input type="hidden" name="jenisKelamin" value="<?= $_POST["jenisKelamin"] ?? ''; ?>">
-                        <input type="hidden" name="golonganDarah" value="<?= $_POST["golonganDarah"] ?? ''; ?>">
-                        <input type="hidden" name="jenisDisabilitas" value="<?= $_POST["jenisDisabilitas"] ?? ''; ?>">
-                        <input type="hidden" name="idKelurahan" value="<?= $_POST["idKelurahan"] ?? ''; ?>">
+                        <input type="hidden" name="kelompokUsia" value="<?= htmlspecialchars($_POST["kelompokUsia"] ?? ''); ?>">
+                        <input type="hidden" name="jenisKelamin" value="<?= htmlspecialchars($_POST["jenisKelamin"] ?? ''); ?>">
+                        <input type="hidden" name="golonganDarah" value="<?= htmlspecialchars($_POST["golonganDarah"] ?? ''); ?>">
+                        <input type="hidden" name="jenisDisabilitas" value="<?= htmlspecialchars($_POST["jenisDisabilitas"] ?? ''); ?>">
+                        <input type="hidden" name="idKelurahan" value="<?= htmlspecialchars($_POST["idKelurahan"] ?? ''); ?>">
                         <button type="submit" name="export_excel" class="btn btn-success">CETAK EXCEL</button>
                     </form>
                 </div>

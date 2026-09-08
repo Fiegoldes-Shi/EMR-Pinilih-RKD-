@@ -37,7 +37,7 @@ $sqlDisabilitas->execute([':idJenisDisabilitas' => $idJenis]);
     
 $html = "<option value=''>- pilihan -</option>";
 while ($data = $sqlDisabilitas->fetch()) {
-    $html .= "<option value='" . $data['idSubDisabilitas'] . "'>" . $data['namaDisabilitas'] . "</option>";
+    $html .= "<option value='" . $data['idSubDisabilitas'] . "'>" . htmlspecialchars($data['namaDisabilitas']) . "</option>";
 }
 
 

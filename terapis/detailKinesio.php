@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -767,8 +767,6 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                     <?php
                                                     $idHasilLayanan = $datahasil["idHasilLayanan"];
                                                     // Query untuk mendapatkan riwayat penyakit pasien tertentu
-                                                    $idHasilLayanan = $datahasil["idHasilLayanan"];
-                                                    // Query untuk mendapatkan riwayat penyakit pasien tertentu
                                                     $sqlSifatSakit = "SELECT sifatSakit FROM hasil_layanan WHERE idHasilLayanan = ?";
                                                     $view = new cView();
                                                     $arraySifatSakit = $view->vViewDataPrepared($sqlSifatSakit, [$idHasilLayanan], "i");
@@ -849,8 +847,6 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                     </div>
 
                                                     <?php
-                                                    $idHasilLayanan = $datahasil["idHasilLayanan"];
-                                                    // Query untuk mendapatkan riwayat penyakit pasien tertentu
                                                     $idHasilLayanan = $datahasil["idHasilLayanan"];
                                                     // Query untuk mendapatkan riwayat penyakit pasien tertentu
                                                     $sqlPositive = "SELECT positive FROM hasil_layanan WHERE idHasilLayanan = ?";
@@ -978,8 +974,6 @@ if (!empty($arrayWaktuMunculKeluhan)) {
                                                     </div>
 
                                                     <?php
-                                                    $idHasilLayanan = $datahasil["idHasilLayanan"];
-                                                    // Query untuk mendapatkan riwayat penyakit pasien tertentu
                                                     $idHasilLayanan = $datahasil["idHasilLayanan"];
                                                     // Query untuk mendapatkan riwayat penyakit pasien tertentu
                                                     $sqlManagement = "SELECT management FROM hasil_layanan WHERE idHasilLayanan = ?";

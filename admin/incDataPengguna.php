@@ -86,10 +86,8 @@ if (!empty($_POST["editbtn"])) {
         $oldUrlbase = $data["urlbase"];
     }
 
-    // Cek apakah password diubah atau tidak
-    if ($_POST["password"] == $passwd) {
-        $passwd = $_POST["password"];
-    } else {
+    // Password dikosongkan di form berarti tidak ingin diubah -> pertahankan hash lama
+    if ($_POST["password"] !== "") {
         $passwd = md5($_POST["password"]);
     }
 

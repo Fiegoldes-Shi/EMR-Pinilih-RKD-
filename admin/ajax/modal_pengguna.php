@@ -192,8 +192,8 @@ if ($action == 'view') {
                                 <input class="form-control" type="text" name="username" value="<?= htmlspecialchars($datapengguna["username"]); ?>" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label>Password <span class="required">*</span></label>
-                                <input class="form-control" type="password" name="password" value="<?= htmlspecialchars($datapengguna["password"]); ?>" required>
+                                <label>Password</label>
+                                <input class="form-control" type="password" name="password" value="" placeholder="Kosongkan jika tidak ingin mengubah password" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="mb-3">

@@ -20,60 +20,6 @@ if (!isset($_SESSION["idUser"])) {
             </figure>
         </div>
 
-        <div class="col-12 col-md-2 col-lg-1 mb-3">
-            <?php
-            // Query ENUM 'jenisKelamin'
-            $jk = "SHOW COLUMNS FROM user LIKE 'jenisKelamin'";
-            $view = new cView();
-            $arrayJK = $view->vViewData($jk);
-            $enumJK = [];
-            if (!empty($arrayJK)) {
-                $row = $arrayJK[0]; // Ambil hasil pertama
-                if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-                    $enumJK = explode(",", str_replace("'", "", $matches[1]));
-                }
-            }
-
-            // Query ENUM 'statusPengguna'
-            $sp = "SHOW COLUMNS FROM user LIKE 'role'";
-            $view = new cView();
-            $arraySP = $view->vViewData($sp);
-            $enumSP = [];
-            if (!empty($arraySP)) {
-                $row = $arraySP[0]; // Ambil hasil pertama
-                if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-                    $enumSP = explode(",", str_replace("'", "", $matches[1]));
-                }
-            }
-
-            // Mapping ENUM ke Label Tampilan
-            $enumSPMapping = [
-                "1" => "1 - Admin/Operator",
-                "2" => "2 - Manajemen RKD",
-                "3" => "3 - Terapis"
-            ];
-            // Buat array dalam format yang sesuai untuk $afield
-            $enumSPForm = [];
-            foreach ($enumSP as $value) {
-                $trimmedValue = trim($value);
-                if (isset($enumSPMapping[$trimmedValue])) {
-                    $enumSPForm[$trimmedValue] = $enumSPMapping[$trimmedValue];
-                }
-            }
-
-            // Query ENUM 'status_pekerja'
-            $statusPekerja = "SHOW COLUMNS FROM user LIKE 'statusPekerja'";
-            $view = new cView();
-            $arraystatusPekerja = $view->vViewData($statusPekerja);
-            $enumStatusPekerja = [];
-            if (!empty($arraystatusPekerja)) {
-                $row = $arraystatusPekerja[0]; // Ambil hasil pertama
-                if (preg_match("/^enum\((.*)\)$/", $row['Type'], $matches)) {
-                    $enumStatusPekerja = explode(",", str_replace("'", "", $matches[1]));
-                }
-            }
-            ?>
-        </div>
     </div>
     <p></p>
 

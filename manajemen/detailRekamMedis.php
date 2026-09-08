@@ -31,14 +31,6 @@ $conn->goConnect();
 
 $view = new cView();
 
-// Ambil ID User dari sesi atau database
-$idUser = $_SESSION['idUser'] ?? null;
-if (!$idUser) {
-    $sqlUser = "SELECT idUser FROM user LIMIT 1";
-    $dataUser = $view->vViewData($sqlUser);
-    $idUser = $dataUser[0]["idUser"] ?? null;
-}
-
 // Query data
 $sqlPasien = "SELECT p.*, sd.*, jd.* FROM pasien p
             JOIN sub_disabilitas sd ON sd.idSubDisabilitas = p.idSubDisabilitas
@@ -261,6 +253,7 @@ $datahasil = $datahasil[0]; // Ambil hasil pertama
                                         break;
 
                                     case '5': // Detail Edukasi
+                                        $idJadwal = (int) $datahasil["idJadwal"];
                                         include("detailEdukasi.php");
                                         break;
 

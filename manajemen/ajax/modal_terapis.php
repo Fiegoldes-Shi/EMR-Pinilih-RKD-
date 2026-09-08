@@ -26,7 +26,6 @@ $enumJTMapping = [
 $labelJenisTerapis = $enumJTMapping[$dataterapis["jenisTerapis"]] ?? $dataterapis["jenisTerapis"];
 
 // Dokumen disimpan secara fisik di folder admin/uploads/
-$dokumenPath = "../admin/uploads/sertifikasi/" . basename((string) $dataterapis["dokumenSertifikasi"]);
 $pathForCheck = __DIR__ . "/../../admin/uploads/sertifikasi/" . basename((string) $dataterapis["dokumenSertifikasi"]);
 if (!empty($dataterapis["dokumenSertifikasi"]) && file_exists($pathForCheck)) {
     $dokumenSertifikasi = '<a href="' . htmlspecialchars($baseurl . '/admin/uploads/sertifikasi/' . basename((string) $dataterapis["dokumenSertifikasi"])) . '" target="_blank">Lihat Dokumen</a>';

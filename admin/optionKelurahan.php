@@ -37,7 +37,7 @@ $sql->execute([':idKecamatan' => $id_kecamatan]);
 // Buat data untuk dropdown kecamatan
 $html = "<option value=''>- pilihan -</option>";
 while ($data = $sql->fetch()) {
-    $html .= "<option value='".$data['idKelurahan']."'>".$data['namaKelurahan']. "</option>";
+    $html .= "<option value='".$data['idKelurahan']."'>".htmlspecialchars($data['namaKelurahan'])."</option>";
 }
 
 // Pastikan tidak ada output lain sebelum JSON

@@ -10,7 +10,6 @@ if (!isset($_SESSION["idUser"])) {
 <?php
 // Ambil data pengguna berdasarkan sesi login
 $idUser = $_SESSION['idUser'];
-$idUser = $_SESSION['idUser'];
 $view = new cView();
 // Gunakan vViewDataPrepared
 $sql = "SELECT * FROM user WHERE idUser = ?";

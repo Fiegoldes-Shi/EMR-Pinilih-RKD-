@@ -36,7 +36,7 @@ try {
 
   $html = "<option value=''>- pilihan -</option>";
   while($data = $sqlDisabilitas->fetch()){ // Ambil semua data dari hasil eksekusi $sql
-    $html .= "<option value='".$data['idSubDisabilitas']."'>".$data['namaDisabilitas']."</option>"; // Tambahkan tag option ke variabel $html
+    $html .= "<option value='".$data['idSubDisabilitas']."'>".htmlspecialchars($data['namaDisabilitas'])."</option>"; // Tambahkan tag option ke variabel $html
   }
 
   $callback = array('data_disabilitas'=>$html); // Masukan variabel html tadi ke dalam array $callback dengan index array : data_subDisabilitas

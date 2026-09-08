@@ -105,8 +105,8 @@ if (!isset($_SESSION["idUser"])) {
 
                 // Hitung jumlah peserta untuk program edukasi
                 foreach ($mapEdukasi as $idJadwal => $idEdukasi) {
-                    $queryPesertaEdukasi = "SELECT COUNT(*) as totalPeserta FROM peserta_edukasi WHERE idEdukasi = '$idEdukasi'";
-                    $arrayPesertaEdukasi = $view->vViewData($queryPesertaEdukasi);
+                    $queryPesertaEdukasi = "SELECT COUNT(*) as totalPeserta FROM peserta_edukasi WHERE idEdukasi = ?";
+                    $arrayPesertaEdukasi = $view->vViewDataPrepared($queryPesertaEdukasi, [$idEdukasi], "i");
                     
                     if (!empty($arrayPesertaEdukasi)) {
                         $jumlahPeserta[$idJadwal] = $arrayPesertaEdukasi[0]["totalPeserta"];

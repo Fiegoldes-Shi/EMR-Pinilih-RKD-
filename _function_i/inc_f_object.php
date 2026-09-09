@@ -97,14 +97,14 @@ function _CreateWindowModalDetil($number, $type, $name, $button, $width, $height
 				<div class="modal-header">
 					<figure class="text-left">
 						<blockquote class="blockquote">
-							<p><?= $titledetil[0]; ?></p>
+							<p><?= htmlspecialchars($titledetil[0]); ?></p>
 						</blockquote>
 						<?php
 						if (!empty($titledetil[1])) {
 							for ($k = 1; $k < $countcolum; $k++) {
 						?>
 								<figcaption class="blockquote-footer">
-									<?= $titledetil[$k]; ?>
+									<?= htmlspecialchars($titledetil[$k]); ?>
 								</figcaption>
 						<?php
 							}
@@ -154,14 +154,14 @@ function _CreateWindowModalDelete($number, $type, $name, $button, $width, $heigh
 				<div class="modal-header text-start">
 					<figure>
 						<blockquote class="blockquote">
-							<p><?= $titledetil[0]; ?></p>
+							<p><?= htmlspecialchars($titledetil[0]); ?></p>
 						</blockquote>
 						<?php
 						if (!empty($titledetil[1])) {
 							for ($k = 1; $k < $countcolum; $k++) {
 						?>
 								<figcaption class="blockquote-footer">
-									<?= $titledetil[$k]; ?>
+									<?= htmlspecialchars($titledetil[$k]); ?>
 								</figcaption>
 						<?php
 							}

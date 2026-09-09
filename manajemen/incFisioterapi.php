@@ -48,9 +48,9 @@ if (!isset($_SESSION["idUser"])) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datajadwal["tanggalKegiatan"]; ?></td>
-                            <td><?= $datajadwal["waktuMulai"]; ?></td>
-                            <td><?= $datajadwal["waktuSelesai"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["tanggalKegiatan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datajadwal["waktuMulai"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datajadwal["waktuSelesai"] ?? ''); ?></td>
                             <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                             <td>
                                 <a href="<?= $baseurl ?>/manajemen/fisioterapi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"

@@ -367,7 +367,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                     $lampiran = '<span>Tidak ada dokumen</span>';
                                 }
 
-                                $linkurl = $idJadwal;
                                 $datadetail = array(
                                     array("ID PASIEN", "idPasien", htmlspecialchars($datahasil["namaLengkap"] ?? ''), 1),
                                     array("ID TERAPIS", "idTerapis", htmlspecialchars($datahasil["namaTerapis"] ?? ''), 1),
@@ -378,7 +377,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["btnhapus"])) {
                                     array("CATATAN RENCANA TINDAKAN", "catatanTindakan", htmlspecialchars($datahasil["catatanTindakan"] ?? ''), 1),
                                     array("DOKUMEN LAMPIRAN", "lampiran", $lampiran, 1, "")
                                 );
-                                _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL FISIOTERAPI " . $datahasil['idHasilLayanan'], "", $datadetail, "", $linkurl, "");
+                                _CreateWindowModalDetil($datahasil["idHasilLayanan"], "view", "viewsasaran-form", "viewsasaran-button", "", 600, "DETAIL#HASIL FISIOTERAPI " . $datahasil['idHasilLayanan'], "", $datadetail, "", "", "");
                                 ?>
                             </td>
                             <td>

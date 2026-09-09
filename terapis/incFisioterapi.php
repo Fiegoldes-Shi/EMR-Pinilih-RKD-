@@ -160,9 +160,9 @@ if (!empty($_POST["btnhapus"])) {
                         ?>
                         <tr class=''>
                             <td class="text-right"><?= $cnourut; ?></td>
-                            <td><?= $datajadwal["tanggalKegiatan"]; ?></td>
-                            <td><?= $datajadwal["waktuMulai"]; ?></td>
-                            <td><?= $datajadwal["waktuSelesai"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["tanggalKegiatan"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datajadwal["waktuMulai"] ?? ''); ?></td>
+                            <td><?= htmlspecialchars($datajadwal["waktuSelesai"] ?? ''); ?></td>
                             <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                             <td>
                                 <a href="fisioterapi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
@@ -186,7 +186,7 @@ if (!empty($_POST["btnhapus"])) {
                                                     <figcaption class="blockquote-footer"><?= $datajadwal["idJadwal"]; ?>
                                                     </figcaption>
                                                     <figcaption class="blockquote-footer">
-                                                        <?= $datajadwal["tanggalKegiatan"]; ?>
+                                                        <?= htmlspecialchars($datajadwal["tanggalKegiatan"] ?? ''); ?>
                                                         (<?= htmlspecialchars($datajadwal["lokasi"] ?? ''); ?>)
                                                     </figcaption>
                                                 </figure>
@@ -205,7 +205,7 @@ if (!empty($_POST["btnhapus"])) {
                                                                 class="required">*</span></label>
                                                         <input class="form-control" type="date" name="tanggalKegiatan"
                                                             id="tanggalKegiatan"
-                                                            value="<?= $datajadwal["tanggalKegiatan"]; ?>"
+                                                            value="<?= htmlspecialchars($datajadwal["tanggalKegiatan"] ?? ''); ?>"
                                                             placeholder="Tanggal Kegiatan" maxlength="255" size="" required>
                                                     </div>
                                                     <div class="row">
@@ -213,7 +213,7 @@ if (!empty($_POST["btnhapus"])) {
                                                             <label for="waktuMulai">Waktu Mulai <span
                                                                     class="required">*</span></label>
                                                             <input class="form-control" type="time" name="waktuMulai"
-                                                                id="waktuMulai" value="<?= $datajadwal["waktuMulai"]; ?>"
+                                                                id="waktuMulai" value="<?= htmlspecialchars($datajadwal["waktuMulai"] ?? ''); ?>"
                                                                 placeholder="Waktu Mulai (hh:mm:ss)" maxlength="255" size=""
                                                                 required>
                                                         </div>
@@ -222,7 +222,7 @@ if (!empty($_POST["btnhapus"])) {
                                                                     class="required">*</span></label>
                                                             <input class="form-control" type="time" name="waktuSelesai"
                                                                 id="waktuSelesai"
-                                                                value="<?= $datajadwal["waktuSelesai"]; ?>"
+                                                                value="<?= htmlspecialchars($datajadwal["waktuSelesai"] ?? ''); ?>"
                                                                 placeholder="Waktu Selesai (hh:mm:ss)" maxlength="255"
                                                                 size="" required>
                                                         </div>

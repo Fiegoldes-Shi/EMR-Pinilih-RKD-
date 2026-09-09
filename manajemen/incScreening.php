@@ -51,7 +51,7 @@ if (!isset($_SESSION["idUser"])) {
                             <td><?= $datajadwal["tanggalKegiatan"]; ?></td>
                             <td><?= $datajadwal["waktuMulai"]; ?></td>
                             <td><?= $datajadwal["waktuSelesai"]; ?></td>
-                            <td><?= $datajadwal["instansi"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                             <td>
                                 <a href="<?= $baseurl ?>/manajemen/screening/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
                                     style="border-radius: 8px;">

@@ -76,7 +76,6 @@ if (!isset($_SESSION["idUser"])) {
                             ORDER BY jp.tanggalKegiatan DESC LIMIT 10";
                 $view = new cView();
                 $arrayjadwal = $view->vViewData($sqljadwal);
-                $idUser = $_SESSION["idUser"];
                 ?>
 
                 <?php  

@@ -193,7 +193,7 @@ if (!empty($_POST["btnhapus"])) {
                             <td><?= $datajadwal["tanggalKegiatan"]; ?></td>
                             <td><?= $datajadwal["waktuMulai"]; ?></td>
                             <td><?= $datajadwal["waktuSelesai"]; ?></td>
-                            <td><?= $datajadwal["instansi"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                             <td><?= $datajadwal["topik"]; ?></td>
                             <td>
                                 <a href="edukasi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
@@ -218,7 +218,7 @@ if (!empty($_POST["btnhapus"])) {
                                                     </figcaption>
                                                     <figcaption class="blockquote-footer">
                                                         <?= $datajadwal["tanggalKegiatan"]; ?>
-                                                        (<?= $datajadwal["lokasi"]; ?>)
+                                                        (<?= htmlspecialchars($datajadwal["lokasi"] ?? ''); ?>)
                                                     </figcaption>
                                                 </figure>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -262,14 +262,14 @@ if (!empty($_POST["btnhapus"])) {
                                                         <label for="lokasi">Lokasi Kegiatan <span
                                                                 class="required">*</span></label>
                                                         <input class="form-control" type="text" name="lokasi" id="lokasi"
-                                                            value="<?= $datajadwal["lokasi"]; ?>"
+                                                            value="<?= htmlspecialchars($datajadwal["lokasi"] ?? ''); ?>"
                                                             placeholder="Lokasi Kegiatan" maxlength="255" size="" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="instansi">Instansi <span
                                                                 class="required">*</span></label>
                                                         <input class="form-control" type="text" name="instansi"
-                                                            id="instansi" value="<?= $datajadwal["instansi"]; ?>"
+                                                            id="instansi" value="<?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?>"
                                                             placeholder="Instansi Penanggung Jawab" maxlength="255" size=""
                                                             required>
                                                     </div>
@@ -290,7 +290,7 @@ if (!empty($_POST["btnhapus"])) {
                                                         <label for="catatan">Catatan Kegiatan</label>
                                                         <textarea class="form-control" id="catatan" name="catatan"
                                                             placeholder="Catatan Kegiatan" rows="3" cols=""
-                                                            id="floatingTextarea"><?= $datajadwal["catatan"]; ?></textarea>
+                                                            id="floatingTextarea"><?= htmlspecialchars($datajadwal["catatan"] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

@@ -109,7 +109,6 @@ $datajadwal = $datajadwal[0]; // Ambil hasil pertama
 // insert
 if (!empty($_POST["savebtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     //Upload File
     $allowedLampiranExt = ["jpg", "jpeg", "png", "pdf"];
@@ -142,7 +141,6 @@ if (!empty($_POST["savebtn"])) {
 // update
 if (!empty($_POST["editbtn"])) {
     $idUser = $_SESSION["idUser"];
-    $linkurl = $idJadwal;
 
     $sql = "SELECT lampiran FROM hasil_layanan WHERE idHasilLayanan = ?";
     $view = new cView();

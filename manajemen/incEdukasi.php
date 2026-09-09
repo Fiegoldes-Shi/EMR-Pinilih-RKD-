@@ -53,7 +53,7 @@ if (!isset($_SESSION["idUser"])) {
                             <td><?= $datajadwal["tanggalKegiatan"]; ?></td>
                             <td><?= $datajadwal["waktuMulai"]; ?></td>
                             <td><?= $datajadwal["waktuSelesai"]; ?></td>
-                            <td><?= $datajadwal["instansi"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                             <td><?= $datajadwal["topik"]; ?></td>
                             <td>
                                 <a href="<?= $baseurl ?>/manajemen/edukasi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"

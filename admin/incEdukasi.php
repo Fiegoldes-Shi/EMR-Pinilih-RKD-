@@ -194,7 +194,7 @@ if (!empty($_POST["btnhapus"])) {
                             <td><?= htmlspecialchars($datajadwal["waktuMulai"] ?? ''); ?></td>
                             <td><?= htmlspecialchars($datajadwal["waktuSelesai"] ?? ''); ?></td>
                             <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
-                            <td><?= $datajadwal["topik"]; ?></td>
+                            <td><?= htmlspecialchars($datajadwal["topik"] ?? ''); ?></td>
                             <td>
                                 <a href="edukasi/detail/<?php echo $datajadwal["idJadwal"]; ?>" class="btn btn-info"
                                     style="border-radius: 8px;">
@@ -277,13 +277,13 @@ if (!empty($_POST["btnhapus"])) {
                                                         <label for="namaKegiatan">Nama Kegiatan <span
                                                                 class="required">*</span></label>
                                                         <input class="form-control" type="text" name="namaKegiatan"
-                                                            id="namaKegiatan" value="<?= $datajadwal["namaKegiatan"]; ?>"
+                                                            id="namaKegiatan" value="<?= htmlspecialchars($datajadwal["namaKegiatan"] ?? ''); ?>"
                                                             placeholder="Nama kegiatan" maxlength="255" size="" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="topik">Topik <span class="required">*</span></label>
                                                         <input class="form-control" type="text" name="topik" id="topik"
-                                                            value="<?= $datajadwal["topik"]; ?>"
+                                                            value="<?= htmlspecialchars($datajadwal["topik"] ?? ''); ?>"
                                                             placeholder="Topik Kegiatan" maxlength="255" size="" required>
                                                     </div>
                                                     <div class="mb-3">

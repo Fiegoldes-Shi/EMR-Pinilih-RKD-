@@ -33,7 +33,7 @@ if (isset($_POST['nama'])) {
         <div class="col-12 col-md-5 mb-3">
             <div class="card shadow-sm p-4 h-100 d-flex flex-column align-items-center justify-content-center">
                 <ion-icon name="person-circle-outline" class="display-1"></ion-icon>
-                <h4 class="mt-3"><?= $dataprofil['username']; ?></h4>
+                <h4 class="mt-3"><?= htmlspecialchars($dataprofil['username'] ?? ''); ?></h4>
                 <button class="btn btn-primary mt-3 w-100" data-bs-toggle="modal" data-bs-target="#ubahPasswordModal">
                     Ubah Password
                 </button>
@@ -48,25 +48,25 @@ if (isset($_POST['nama'])) {
 
                     <div class="mb-3">
                         <label class="fw-bold">Username <span class="required">*</span></label>
-                        <input type="text" class="form-control" name="username" value="<?= $dataprofil['username']; ?>"
+                        <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($dataprofil['username'] ?? ''); ?>"
                             readonly>
                     </div>
 
                     <div class="mb-3">
                         <label class="fw-bold">Nama Lengkap <span class="required">*</span></label>
-                        <input type="text" class="form-control" name="nama" value="<?= $dataprofil['nama']; ?>"
+                        <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($dataprofil['nama'] ?? ''); ?>"
                             required>
                     </div>
 
                     <div class="mb-3">
                         <label class="fw-bold">Email <span class="required">*</span></label>
-                        <input type="email" class="form-control" name="email" value="<?= $dataprofil['email']; ?>"
+                        <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($dataprofil['email'] ?? ''); ?>"
                             required>
                     </div>
 
                     <div class="mb-3">
                         <label class="fw-bold">Nomor Telepon <span class="required">*</span></label>
-                        <input type="text" class="form-control" name="noTelp" value="<?= $dataprofil['noTelp']; ?>"
+                        <input type="text" class="form-control" name="noTelp" value="<?= htmlspecialchars($dataprofil['noTelp'] ?? ''); ?>"
                             required>
                     </div>
 

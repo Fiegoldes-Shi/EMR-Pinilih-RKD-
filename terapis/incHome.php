@@ -158,11 +158,11 @@ if (!isset($_SESSION["idUser"])) {
                             ?>
                                 <tr class=''>
                                     <td class="text-center"><?= $cnourut; ?></td>
-                                    <td class="text-center"><?= $datajadwal["tanggalKegiatan"]; ?></td>
-                                    <td class="text-center"><?= $datajadwal["waktuMulai"]; ?></td>
-                                    <td class="text-center"><?= $datajadwal["waktuSelesai"]; ?></td>
-                                    <td><?= $datajadwal["namaProgram"]; ?></td>
-                                    <td><?= $datajadwal["instansi"]; ?></td>
+                                    <td class="text-center"><?= htmlspecialchars($datajadwal["tanggalKegiatan"] ?? ''); ?></td>
+                                    <td class="text-center"><?= htmlspecialchars($datajadwal["waktuMulai"] ?? ''); ?></td>
+                                    <td class="text-center"><?= htmlspecialchars($datajadwal["waktuSelesai"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($datajadwal["namaProgram"] ?? ''); ?></td>
+                                    <td><?= htmlspecialchars($datajadwal["instansi"] ?? ''); ?></td>
                                     <td class="text-center"><?= $totalPeserta ?></td>
                                     <td>
                                         <a href="<?php echo $baseurl . '/terapis/' . $urlProgram .'/'. $datajadwal["idJadwal"]; ?>" class="btn btn-info" style="border-radius: 8px;">

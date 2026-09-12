@@ -175,7 +175,7 @@ if (!empty($_POST["btnhapus"])) {
                                                 $dataJD = $view->vViewData($sql);
                                                 
                                                 foreach($dataJD as $data){ 
-                                                    echo "<option value='".$data['idJenisDisabilitas']."'>".$data['jenisDisabilitas']."</option>";
+                                                    echo "<option value='".$data['idJenisDisabilitas']."'>".htmlspecialchars($data['jenisDisabilitas'] ?? '')."</option>";
                                                 }
                                                 ?>
                                             </select>

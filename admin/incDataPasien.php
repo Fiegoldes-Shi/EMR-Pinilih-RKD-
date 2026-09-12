@@ -505,7 +505,7 @@ if (!empty($arrayStatusNikah)) {
                                                 $sql->execute(); // Eksekusi querynya
                                                 
                                                 while ($data = $sql->fetch()) { // Ambil semua data dari hasil eksekusi $sql
-                                                    echo "<option value='" . $data['idJenisDisabilitas'] . "'>" . $data['jenisDisabilitas'] . "</option>";
+                                                    echo "<option value='" . $data['idJenisDisabilitas'] . "'>" . htmlspecialchars($data['jenisDisabilitas'] ?? '') . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -716,7 +716,7 @@ if (!empty($arrayStatusNikah)) {
                                                         $sql->execute();
 
                                                         while ($data = $sql->fetch()) {
-                                                            echo "<option value='" . $data['idProvinsi'] . "'>" . $data['namaProvinsi'] . "</option>";
+                                                            echo "<option value='" . $data['idProvinsi'] . "'>" . htmlspecialchars($data['namaProvinsi'] ?? '') . "</option>";
                                                         }
                                                         ?>
                                                     </select>
